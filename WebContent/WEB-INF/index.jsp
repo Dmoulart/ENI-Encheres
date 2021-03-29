@@ -8,6 +8,6 @@
 </head>
 <body>
 <h1>Test Accueil</h1>
-<p>Commit de Nicolas</p>
+<h1>Commit Fran�ois</h1>
 </body>
 </html>
