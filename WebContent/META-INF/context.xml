@@ -6,7 +6,7 @@
 		driverClassName="com.mysql.jdbc.Driver"
 		type="javax.sql.DataSource"
 		
-		url="jdbc:mysql://localhost:3306/BDD_TROC?serverTimezone=UTC"
+		url="jdbc:mysql://localhost:3306/ENI_ENCHERES?serverTimezone=UTC"
 		
 		username="root"
 		password=""
