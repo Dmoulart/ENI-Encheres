@@ -8,6 +8,9 @@
 </head>
 <body>
 <h1>Test Accueil</h1>
+<<<<<<< HEAD
 <h1>Commit Franïois</h1>
+=======
+>>>>>>> origin/main
 </body>
 </html>
