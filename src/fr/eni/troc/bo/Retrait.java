@@ -10,11 +10,9 @@ public class Retrait {
 	
 //CONSTRUCTEUR RETRAITS
 	public Retrait () {
-		super();
 	}
 	
 	public Retrait(Article article, String rue, String codePostal, String ville) {
-		super();
 		this.article = article;
 		this.rue = rue;
 		this.codePostal = codePostal;

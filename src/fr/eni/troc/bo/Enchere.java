@@ -3,6 +3,7 @@ package fr.eni.troc.bo;
 import java.time.LocalDate;
 
 public class Enchere {
+	private int id;
 	private LocalDate date;
 	private int montant;
 	private Utilisateur emetteur;
@@ -13,23 +14,30 @@ public class Enchere {
 	//CONSTRUCTEURS ENCHERES
 	
 	public Enchere() {
-		super();
 	}
 	
-	public Enchere(LocalDate date, int montant, Utilisateur emetteur, Article article) {
-		super();
+	public Enchere(int id, LocalDate date, int montant, Utilisateur emetteur, Article article) {
+		this.id = id;
 		this.date = date;
 		this.montant = montant;
 		this.emetteur = emetteur;
 		this.article = article;
 	}
-	
+
 	
 	//GETTERS AND SETTERS ENCHERES
 	
 	
 	public LocalDate getDate() {
 		return date;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public void setDate(LocalDate date) {
@@ -66,8 +74,8 @@ public class Enchere {
 	
 	@Override
 	public String toString() {
-		return "Enchere [date=" + date + ", montant=" + montant + ", emetteur=" + emetteur + ", article=" + article
-				+ "]";
+		return "Enchere [id=" + id + ", date=" + date + ", montant=" + montant + ", emetteur=" + emetteur + ", article="
+				+ article + "]";
 	}
 	
 	
@@ -81,6 +89,7 @@ public class Enchere {
 		result = prime * result + ((article == null) ? 0 : article.hashCode());
 		result = prime * result + ((date == null) ? 0 : date.hashCode());
 		result = prime * result + ((emetteur == null) ? 0 : emetteur.hashCode());
+		result = prime * result + id;
 		result = prime * result + montant;
 		return result;
 	}
@@ -108,6 +117,8 @@ public class Enchere {
 			if (other.emetteur != null)
 				return false;
 		} else if (!emetteur.equals(other.emetteur))
+			return false;
+		if (id != other.id)
 			return false;
 		if (montant != other.montant)
 			return false;

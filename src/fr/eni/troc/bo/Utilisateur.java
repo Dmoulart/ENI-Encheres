@@ -23,13 +23,11 @@ public class Utilisateur {
 	///CONSTRUCTEURS UTILISATEURS
 	
 	public Utilisateur() {
-		super();
 	}
 	
 	public Utilisateur(int id, List<Article> articlesEnVentes, List<Article> articlesAcquis, String pseudo, String nom,
 			String prenom, String email, String telephone, String rue, String codePostal, String ville,
 			String motDePasse, int credit, boolean administrateur, List<Enchere> encheres) {
-		super();
 		this.id = id;
 		this.articlesEnVentes = articlesEnVentes;
 		this.articlesAcquis = articlesAcquis;
