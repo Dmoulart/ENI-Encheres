@@ -2,15 +2,18 @@ label{
     margin-block: 2vh;
 }
 input{
-    min-height: 2rem;
-    text-align: center;
+    min-height: 2.1rem;
+}
+.Page{
+    display:flex;
+    flex-flow: column;
 }
 .ConnexionPage{
-    height: calc(100vh - var(--navbar-height));
     display:flex;
     flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
+    height: calc(100vh - var(--navbar-height));
 }
 .ConnexionFormContainer{
     display:flex;
@@ -28,12 +31,9 @@ input{
 .ConnexionFields{
     display: flex;
     flex-flow: column nowrap;
-    justify-content: space-evenly;
 }
 .ConnexionValidation{
     display:flex;
-    flex-flow: row nowrap;
-    align-items: center;
     margin-block-start: 2vh;
 }
 .ConnexionOptions{
@@ -47,9 +47,8 @@ input{
     flex-flow: row nowrap;
 }
 .ConnexionButtonContainer{
+	display:flex;
     width: 50%;
-    height: 100%;
-    display:flex;
 }
 .ConnexionButton{
     width: 100%;
@@ -57,7 +56,6 @@ input{
 .Subscribe{
     margin-block-start: 7vh;
     height:33%;
-    width: 100%;
 }
 .ConnexionOptions option{
     margin-inline-start: 2vw;
@@ -66,7 +64,6 @@ input{
     .ConnexionFormContainer{
         width: 80%;
     }
-
 }
 @media (max-width: 400px){
     .ConnexionOptions{

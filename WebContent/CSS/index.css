@@ -1,11 +1,11 @@
-*{
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    transition:0.1s;/*A virer mais funnnn pour le responsive*/
-}
 html{
+	--searchBloc-width:60vw;
+    --searchBloc-height: 15vh;
     --main-inline-margin: calc(var(--searchBloc-width)*0.08);
+}
+.Page{
+    display:flex;
+    flex-flow: column;
 }
 .Page-TitleContainer{
     display:flex;
@@ -21,7 +21,6 @@ html{
     flex-flow: row nowrap;
     min-height: var(--searchBloc-height);
     min-width: var(--searchBloc-width);
-
 }
 .Search_filter{
     margin-block-end: 0.5vh;
@@ -30,7 +29,6 @@ html{
     display:flex;
     flex-flow: column nowrap;
     justify-content: flex-end;
-    width: auto;
     min-height: 15vh;
     margin-inline: var(--main-inline-margin);
 }
@@ -38,7 +36,6 @@ html{
     display: flex;
     flex-flow: column;
     justify-content: space-between;
-    /*min-width: calc(var(--searchBloc-width)/2);*/
     height: 10vh;
 }
 .Search_bar{
@@ -53,6 +50,7 @@ html{
 }
 .Search_select-category{
     min-height: 1.5rem;
+    max-width : calc(var(--searchBloc-width)*0.83);
     text-align: center;
 }
 .Search_buttonContainer{
@@ -65,7 +63,7 @@ html{
     min-width: calc(var(--searchBloc-width)/2);
     height: 10vh;
 }
-/*----Article section---------------------------*/
+/*----ARTICLE SECTION---------------------------*/
 .Articles-Section{
     display:flex;
     flex-flow: row wrap;
@@ -92,9 +90,6 @@ html{
     align-items: flex-start;
     margin-inline: 1rem;
 }
-
-/*********************************************************/
-
 .Search_categoryContainer select{
     min-width:12.5vw;
     height: 30%;
@@ -107,11 +102,7 @@ html{
         flex-flow: column nowrap;
     }
     .Search_categoryContainer{
-        display: flex;
         order:-1;
-    }
-    .Search_select-category {
-        max-width : calc(var(--searchBloc-width)*0.83);
     }
     .Search_categoryContainer label{
         justify-self: flex-start;

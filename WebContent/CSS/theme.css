@@ -1,3 +1,20 @@
+/*
+ _____ _                         
+|_   _| |                        
+  | | | |__   ___ _ __ ___   ___ 
+  | | | '_ \ / _ \ '_ ` _ \ / _ \
+  | | | | | |  __/ | | | | |  __/
+  \_/ |_| |_|\___|_| |_| |_|\___|
+  
+- Feuille de style déterminant le thème du site.
+
+- Commande aux couleurs et à la police.
+ 
+- Stocke ces données sous forme de variables à utiliser 
+dans les autres feuilles de style, notamment la feuille "général".
+
+/!\ Ce fichier doit être présent dans toutes les pages du projet /!\          
+*/
 html{
     --background-color: #2b2b2b;
     --font-color: #f9f9fa;
