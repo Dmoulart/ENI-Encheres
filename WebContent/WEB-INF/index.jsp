@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -17,7 +20,7 @@
 
     <div class="NavbarContainer">
         <nav class="Navbar">
-            <div class="Logo"><a class="link" href="./IndexServlet">ENI-Enchères</a></div>
+            <div class="Logo"><a class="link" href="./IndexServlet">ENI-EnchÃ¨res</a></div>
             <ul class="Menu">
                 <li class="Menu_item"><a href="#" class="link">S'inscrire</a></li>
                 <li class="Menu_item"><a href="./ConnectionServlet" class="link">Se connecter</a></li>
@@ -25,7 +28,7 @@
         </nav>
     </div>
 
-    <div class="Page-TitleContainer"><h1>Liste des enchères</h1></div>
+    <div class="Page-TitleContainer"><h1>Liste des enchÃ¨res</h1></div>
 
     <form class="SearchContainer">
         <div class ="Search_paramsContainer">
@@ -33,11 +36,11 @@
             <div class="Search_barContainer">
                 <input type="text" class="Search_bar">
                 <div class="Search_categoryContainer">
-                    <label>Catégorie</label>
+                    <label>CatÃ©gorie</label>
                     <select class="Search_select-category">
                         <option id="informatique">Informatique</option>
                         <option id="ameublement">Ameublement</option>
-                        <option id="vetements">Vêtements</option>
+                        <option id="vetements">VÃªtements</option>
                         <option id="sport&loisirs">Sports&Loisirs</option>
                     </select>
                 </div>
@@ -55,8 +58,8 @@
             <div class="Article_informationsContainer">
                 <div class="Article_name">PC Gamer pour travailler</div>
                 <div class="Article_properties prix">Prix : 210</div>
-                <div class="Article_properties finEnchere">Fin de l'enchère : 10/08/2018</div>
-                <div class="Article_properties retrait">Retrait : 10 allée des Alouettes 44800 Saint Herblain</div>
+                <div class="Article_properties finEnchere">Fin de l'enchÃ¨re : 10/08/2018</div>
+                <div class="Article_properties retrait">Retrait : 10 allÃ©e des Alouettes 44800 Saint Herblain</div>
                 <div class="Article_properties vendeur">Vendeur: jojo44</div>
             </div>
         </div>
@@ -65,8 +68,8 @@
             <div class="Article_informationsContainer">
                 <div class="Article_name">PC Gamer pour travailler</div>
                 <div class="Article_properties prix">Prix : 210</div>
-                <div class="Article_properties finEnchere">Fin de l'enchère : 10/08/2018</div>
-                <div class="Article_properties retrait">Retrait : 10 allée des Alouettes 44800 Saint Herblain</div>
+                <div class="Article_properties finEnchere">Fin de l'enchÃ¨re : 10/08/2018</div>
+                <div class="Article_properties retrait">Retrait : 10 allÃ©e des Alouettes 44800 Saint Herblain</div>
                 <div class="Article_properties vendeur">Vendeur: jojo44</div>
             </div>
         </div>
@@ -75,8 +78,8 @@
             <div class="Article_informationsContainer">
                 <div class="Article_name">PC Gamer pour travailler</div>
                 <div class="Article_properties prix">Prix : 210</div>
-                <div class="Article_properties finEnchere">Fin de l'enchère : 10/08/2018</div>
-                <div class="Article_properties retrait">Retrait : 10 allée des Alouettes 44800 Saint Herblain</div>
+                <div class="Article_properties finEnchere">Fin de l'enchÃ¨re : 10/08/2018</div>
+                <div class="Article_properties retrait">Retrait : 10 allÃ©e des Alouettes 44800 Saint Herblain</div>
                 <div class="Article_properties vendeur">Vendeur: jojo44</div>
             </div>
         </div>
