@@ -1,0 +1,75 @@
+label{
+    margin-block: 2vh;
+}
+input{
+    min-height: 2rem;
+    text-align: center;
+}
+.ConnexionPage{
+    height: calc(100vh - var(--navbar-height));
+    display:flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+}
+.ConnexionFormContainer{
+    display:flex;
+    flex-flow: column nowrap;
+    justify-content: space-evenly;
+    height: 70%;
+    width: 50%;
+}
+.ConnexionForm{
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-evenly;
+    height: 67%;
+}
+.ConnexionFields{
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-evenly;
+}
+.ConnexionValidation{
+    display:flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    margin-block-start: 2vh;
+}
+.ConnexionOptions{
+    display:flex;
+    flex-flow: column nowrap;
+    width: 50%;
+    align-items: center;
+}
+.CheckRememberConnexion{
+    display:flex;
+    flex-flow: row nowrap;
+}
+.ConnexionButtonContainer{
+    width: 50%;
+    height: 100%;
+    display:flex;
+}
+.ConnexionButton{
+    width: 100%;
+}
+.Subscribe{
+    margin-block-start: 7vh;
+    height:33%;
+    width: 100%;
+}
+.ConnexionOptions option{
+    margin-inline-start: 2vw;
+}
+@media (max-width: 670px){
+    .ConnexionFormContainer{
+        width: 80%;
+    }
+
+}
+@media (max-width: 400px){
+    .ConnexionOptions{
+        font-size: 0.8rem;
+    }
+}
