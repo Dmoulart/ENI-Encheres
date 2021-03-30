@@ -4,17 +4,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import fr.eni.demo.bo.User;
-import fr.eni.demo.exception.BusinessException;
 import fr.eni.troc.bo.Utilisateur;
+import fr.eni.troc.exception.BusinessException;
 
 public class UtilisateurDAOJdbcImpl implements UtilisateurDal{
 	
 	public static final String CONNECTION = "select pseudo, prenom, nom from utilisateurs where pseudo=? and mot_de_passe=?";
 	
 	@Override
-	 public Utilisateur find(String pseudo, String motDePasse) throws DALException {
+	 public Utilisateur find(String pseudo, String motDePasse) throws BusinessException {
 		
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 			PreparedStatement pstmt = cnx.prepareStatement(CONNECTION);
@@ -30,6 +28,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDal{
 				u.setPrenom(rs.getString("prenom"));
 			
 				return u;
+				
 			}else {
 				//Utilisateur non trouvé
 				BusinessException be = new BusinessException();
