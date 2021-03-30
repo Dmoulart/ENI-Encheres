@@ -8,6 +8,6 @@
 </head>
 <body>
 <h1>Test Accueil</h1>
-<h1>Commit Franï¿½ois</h1>
+<h1>Commit Franïois</h1>
 </body>
 </html>
