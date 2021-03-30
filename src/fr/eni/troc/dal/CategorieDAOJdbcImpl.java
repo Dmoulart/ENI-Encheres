@@ -1,5 +1,5 @@
 package fr.eni.troc.dal;
 
-public class CategorieDAOJdbcImpl {
+public class CategorieDAOJdbcImpl implements CategorieDal{
 
 }

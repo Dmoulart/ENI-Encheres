@@ -1,5 +1,5 @@
 package fr.eni.troc.dal;
 
-public class CategorieDal {
+public interface CategorieDal {
 
 }

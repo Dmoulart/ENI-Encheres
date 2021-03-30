@@ -1,5 +1,5 @@
 package fr.eni.troc.dal;
 
-public class ArticleDAOJdbcImpl {
+public class ArticleDAOJdbcImpl implements ArticleDal{
 
 }

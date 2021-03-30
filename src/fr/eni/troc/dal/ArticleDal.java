@@ -1,5 +1,5 @@
 package fr.eni.troc.dal;
 
-public class ArticleDal {
+public interface ArticleDal {
 
 }
