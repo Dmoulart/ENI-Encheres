@@ -9,11 +9,11 @@ import fr.eni.troc.exception.BusinessException;
 
 public class UtilisateurDAOJdbcImpl implements UtilisateurDal{
 	
-	public static final String CONNECTION = "SELECT pseudo, prenom, nom FROM utilisateurs WHERE pseudo=? AND mot_de_passe=?";
-	public static final String CREATION_UTILISATEUR = "INSERT INTO utilisateurs (id, pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe,credit,administrateur)\r\n" + 
+	public static final String FIND = "SELECT pseudo, prenom, nom FROM utilisateurs WHERE pseudo=? AND mot_de_passe=?";
+	public static final String INSERT = "INSERT INTO utilisateurs (id, pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe,credit,administrateur)\r\n" + 
 			"VALUES (null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?); ";
-	public static final String SUPPRESSION_UTILISATEUR = "DELETE FROM utilisateurs WHERE id= ?"; 
-	public static final String MODIFICATION_UTILISATEUR = "UPDATE utilisateurs SET pseudo=?, nom=?, prenom=?, email=?, telephone=?, rue=?, code_postal=?, ville=? WHERE id=?"; 
+	public static final String DELETE = "DELETE FROM utilisateurs WHERE id= ?"; 
+	public static final String UPDATE = "UPDATE utilisateurs SET pseudo=?, nom=?, prenom=?, email=?, telephone=?, rue=?, code_postal=?, ville=? WHERE id=?"; 
 	
 	/**
 	 * Methode pour trouver un utilisateur dans la BDD
@@ -24,7 +24,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDal{
 	 public Utilisateur find(String pseudo, String motDePasse) throws BusinessException {
 		
 		try (Connection cnx = ConnectionProvider.getConnection()) {
-			PreparedStatement pstmt = cnx.prepareStatement(CONNECTION);
+			PreparedStatement pstmt = cnx.prepareStatement(FIND);
 			pstmt.setString(1,pseudo);
 			pstmt.setString(2,motDePasse);
 			
@@ -60,10 +60,10 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDal{
 	 * @author nicolas
 	 *
 	 */
-	public void creerUtilisateur(Utilisateur utilisateur) throws BusinessException{
+	public void insert (Utilisateur utilisateur) throws BusinessException{
 	
 		try (Connection cnx = ConnectionProvider.getConnection()) {
-		PreparedStatement insert = cnx.prepareStatement(CREATION_UTILISATEUR);
+		PreparedStatement insert = cnx.prepareStatement(INSERT);
 		
 		insert.setString(1, utilisateur.getPseudo());
 		insert.setString(2, utilisateur.getNom());
@@ -95,10 +95,10 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDal{
 	 *@author nicolas
 	 */
 	@Override
-	public void deleteUtilisateur(int id) throws BusinessException {
+	public void delete (int id) throws BusinessException {
 		
 		try (Connection cnx = ConnectionProvider.getConnection()) {
-			PreparedStatement delete = cnx.prepareStatement(SUPPRESSION_UTILISATEUR);
+			PreparedStatement delete = cnx.prepareStatement(DELETE);
 			
 			delete.setInt(1, id);
 		
@@ -116,10 +116,10 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDal{
 
 
 	@Override
-	public void updateUtilisateur(Utilisateur utilisateur) throws BusinessException {
+	public void update (Utilisateur utilisateur) throws BusinessException {
 		
 		try (Connection cnx = ConnectionProvider.getConnection()) {
-			PreparedStatement update = cnx.prepareStatement(MODIFICATION_UTILISATEUR);
+			PreparedStatement update = cnx.prepareStatement(UPDATE);
 			
 			
 			update.setString(1, utilisateur.getPseudo());

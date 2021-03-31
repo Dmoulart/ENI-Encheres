@@ -2,7 +2,6 @@ package fr.eni.troc.dal;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import fr.eni.troc.bo.Article;
 import fr.eni.troc.bo.Retrait;
 import fr.eni.troc.exception.BusinessException;
 
@@ -12,13 +11,13 @@ public class RetraitDAOJdbcImpl implements RetraitDal {
 	private static final String UPDATE = "UPDATE Retraits SET rue=?, code_postal=?, ville=?, WHERE id_article=?";
 
 	@Override
-	public void insert(Retrait item) throws BusinessException {
+	public void insert(Retrait retrait) throws BusinessException {
 		try(Connection cnx = ConnectionProvider.getConnection()) {
 			PreparedStatement pstmt = cnx.prepareStatement(INSERT, PreparedStatement.RETURN_GENERATED_KEYS);
-			pstmt.setInt(1,item.getArticle().getId());
-			pstmt.setString(2, item.getRue());
-			pstmt.setString(3, item.getCodePostal());
-			pstmt.setString(4, item.getVille());
+			pstmt.setInt(1,retrait.getArticle().getId());
+			pstmt.setString(2, retrait.getRue());
+			pstmt.setString(3, retrait.getCodePostal());
+			pstmt.setString(4, retrait.getVille());
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();

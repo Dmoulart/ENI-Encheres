@@ -11,13 +11,13 @@ public class EnchereDAOJdbcImpl implements EnchereDal{
 	private static final String UPDATE = "UPDATE Encheres SET date=?,montant=?,id_article=?,id_utilisateur=? WHERE id=?";
 
 	@Override
-	public void insert(Enchere item) throws BusinessException {
+	public void insert(Enchere enchere) throws BusinessException {
 		try(Connection cnx = ConnectionProvider.getConnection()) {
 			PreparedStatement pstmt = cnx.prepareStatement(INSERT);
-			pstmt.setDate(1, Date.valueOf(item.getDate()));
-			pstmt.setInt(2, item.getMontant());
-			pstmt.setInt(3, item.getArticle().getId());
-			pstmt.setInt(4, item.getEmetteur().getId());
+			pstmt.setDate(1, Date.valueOf(enchere.getDate()));
+			pstmt.setInt(2, enchere.getMontant());
+			pstmt.setInt(3, enchere.getArticle().getId());
+			pstmt.setInt(4, enchere.getEmetteur().getId());
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();

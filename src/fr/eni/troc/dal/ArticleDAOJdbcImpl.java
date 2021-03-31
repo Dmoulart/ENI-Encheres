@@ -13,17 +13,17 @@ public class ArticleDAOJdbcImpl implements ArticleDal {
 
 	// INSERT ARTICLES
 	@Override
-	public void insert(final Article item) throws BusinessException {
+	public void insert(final Article article) throws BusinessException {
 		try(Connection cnx = ConnectionProvider.getConnection()) {
 			PreparedStatement pstmt = cnx.prepareStatement(INSERT, PreparedStatement.RETURN_GENERATED_KEYS);
-			pstmt.setString(1, item.getNom());
-			pstmt.setString(2,item.getDescription());
-			pstmt.setDate(3, Date.valueOf(item.getDebutEncheres()));
-			pstmt.setDate(4, Date.valueOf(item.getFinEncheres()));
-			pstmt.setInt(5, item.getPrixInitial());
+			pstmt.setString(1, article.getNom());
+			pstmt.setString(2,article.getDescription());
+			pstmt.setDate(3, Date.valueOf(article.getDebutEncheres()));
+			pstmt.setDate(4, Date.valueOf(article.getFinEncheres()));
+			pstmt.setInt(5, article.getPrixInitial());
 			pstmt.setNull(6, java.sql.Types.INTEGER);
-			pstmt.setInt(7, item.getVendeur().getId());
-			pstmt.setInt(8, item.getCategorie().getId());
+			pstmt.setInt(7, article.getVendeur().getId());
+			pstmt.setInt(8, article.getCategorie().getId());
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();

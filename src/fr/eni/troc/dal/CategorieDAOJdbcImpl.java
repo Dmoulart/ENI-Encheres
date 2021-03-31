@@ -10,10 +10,10 @@ public class CategorieDAOJdbcImpl implements CategorieDal{
 	private static final String UPDATE = "UPDATE Categories SET libelle=? WHERE id=?";
 	
 	@Override
-	public void insert(Categorie item) throws BusinessException {
+	public void insert(Categorie categorie) throws BusinessException {
 		try(Connection cnx = ConnectionProvider.getConnection()) {
 			PreparedStatement pstmt = cnx.prepareStatement(INSERT, PreparedStatement.RETURN_GENERATED_KEYS);
-			pstmt.setString(1,item.getLibelle());
+			pstmt.setString(1,categorie.getLibelle());
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
