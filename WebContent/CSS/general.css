@@ -1,0 +1,93 @@
+/*
+ _____                           _ 
+|  __ \                         | |
+| |  \/ ___ _ __   ___ _ __ __ _| |
+| | __ / _ \ '_ \ / _ \ '__/ _` | |
+| |_\ \  __/ | | |  __/ | | (_| | |
+ \____/\___|_| |_|\___|_|  \__,_|_|
+                                   
+-	Feuille de style générale.
+-	Contient : 
+				- Formatage général : suppression des marges et padding(sélecteur : *) 
+				- Navbar
+				- Animation d'affichage des pages (fade in)             
+*/
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+html{
+    --navbar-height: 10vh;
+    font-size: 16px;
+    overflow-x: hidden;
+}
+body{
+    font-size: 1rem;
+    animation: cubic-bezier(0.645, 0.045, 0.355, 1) 0.6s fadein;
+}
+nav{
+    display:flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: center;
+    width:calc(100vw - (var(--main-inline-margin))*2);
+}
+li{
+    list-style: none;
+}
+a {
+    color: var(--hyperlink-color);
+}
+input{
+	text-align: center;
+}
+button {
+    border-radius: 10px;
+    border-style: none;
+}
+.NavbarContainer{
+    display:flex;
+    justify-content: center;
+    height: var(--navbar-height);
+}
+.Menu{
+    display:flex;
+    justify-content: space-around;
+    width:15.5rem;
+}
+.Menu_item{
+    display:flex;
+}
+a:visited {
+    color: var(--visited-hyperlink-color);
+}
+@media (max-width: 800px) {
+    html {
+        --searchBloc-width: 80vw;
+        font-size: 14px;
+    }
+    nav {
+        align-items: center;
+    }
+    .NavbarContainer, nav {
+        flex-flow: column;
+        width: 60vw;
+    }
+    .Logo {
+        margin-block-end: 1rem;
+    }
+}
+@media (max-width: 400px) {
+    html{
+        font-size: 12px;
+    }
+}
+@keyframes fadein {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
