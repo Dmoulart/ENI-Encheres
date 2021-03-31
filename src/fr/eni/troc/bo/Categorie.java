@@ -9,14 +9,12 @@ public class Categorie {
 	//CONSTRUCTEURS CATEGORIES
 	
 
-	public Categorie(int id, String libelle) {
-		super();
+	public Categorie(int id, String libelle) {	
 		this.id = id;
 		this.libelle = libelle;
 	}
 	
 	public Categorie() {
-		super();
 	}
 	
 	

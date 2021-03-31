@@ -11,7 +11,7 @@ public class Article {
 	private String description;
 	private List<Enchere> encheres;
 	private LocalDate debutEncheres;
-	private LocalDate finEcheres;
+	private LocalDate finEncheres;
 	private int prixInitial;
 	private int prixVente;
 	private boolean estVendu;
@@ -22,19 +22,17 @@ public class Article {
 	
 	
 	public Article() {
-		super();
 	}
 
 	public Article(int id, String nom, Utilisateur vendeur, String description, List<Enchere> encheres, LocalDate debutEncheres, 
-			LocalDate finEcheres, int prixInitial, int prixVente, boolean estVendu, Categorie categorie) {
-		super();
+			LocalDate finEncheres, int prixInitial, int prixVente, boolean estVendu, Categorie categorie) {
 		this.id = id;
 		this.nom = nom;
 		this.vendeur = vendeur;
 		this.description = description;
 		this.encheres = encheres;
 		this.debutEncheres = debutEncheres;
-		this.finEcheres = finEcheres;
+		this.finEncheres = finEncheres;
 		this.prixInitial = prixInitial;
 		this.prixVente = prixVente;
 		this.estVendu = estVendu;
@@ -93,12 +91,12 @@ public class Article {
 		this.debutEncheres = debutEncheres;
 	}
 
-	public LocalDate getFinEcheres() {
-		return finEcheres;
+	public LocalDate getFinEncheres() {
+		return finEncheres;
 	}
 
-	public void setFinEcheres(LocalDate finEcheres) {
-		this.finEcheres = finEcheres;
+	public void setFinEcheres(LocalDate finEncheres) {
+		this.finEncheres = finEncheres;
 	}
 
 	public int getPrixInitial() {
@@ -140,7 +138,7 @@ public class Article {
 	@Override
 	public String toString() {
 		return "Article [id=" + id + ", nom=" + nom + ", vendeur=" + vendeur + ", description=" + description
-				+ ", encheres=" + encheres + ", debutEncheres=" + debutEncheres + ", finEcheres=" + finEcheres
+				+ ", encheres=" + encheres + ", debutEncheres=" + debutEncheres + ", finEcheres=" + finEncheres
 				+ ", prixInitial=" + prixInitial + ", prixVente=" + prixVente + ", estVendu=" + estVendu
 				+ ", categorie=" + categorie + "]";
 	}
@@ -154,7 +152,7 @@ public class Article {
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((encheres == null) ? 0 : encheres.hashCode());
 		result = prime * result + (estVendu ? 1231 : 1237);
-		result = prime * result + ((finEcheres == null) ? 0 : finEcheres.hashCode());
+		result = prime * result + ((finEncheres == null) ? 0 : finEncheres.hashCode());
 		result = prime * result + id;
 		result = prime * result + ((nom == null) ? 0 : nom.hashCode());
 		result = prime * result + prixInitial;
@@ -198,10 +196,10 @@ public class Article {
 			return false;
 		if (estVendu != other.estVendu)
 			return false;
-		if (finEcheres == null) {
-			if (other.finEcheres != null)
+		if (finEncheres == null) {
+			if (other.finEncheres != null)
 				return false;
-		} else if (!finEcheres.equals(other.finEcheres))
+		} else if (!finEncheres.equals(other.finEncheres))
 			return false;
 		if (id != other.id)
 			return false;
