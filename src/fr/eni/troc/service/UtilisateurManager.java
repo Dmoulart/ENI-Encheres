@@ -63,7 +63,7 @@ public class UtilisateurManager {
 		 * @param utilisateur
 		 * @throws BusinessException
 		 */
-		public void creerUtilisateur(Utilisateur utilisateur) throws BusinessException{
+		public void creer(Utilisateur utilisateur) throws BusinessException{
 			
 			// Validation des données par rapport au métier
 			BusinessException be = new BusinessException();
@@ -72,7 +72,7 @@ public class UtilisateurManager {
 			if (isValidPseudo && isValidPassword) {
 				
 				//Appelle de la couche DAL
-				DALFactory.getUtilisateurDal().creerUtilisateur(utilisateur);
+				DALFactory.getUtilisateurDal().insert(utilisateur);
 			}
 			else {
 				throw be;
@@ -85,18 +85,18 @@ public class UtilisateurManager {
 		 * @param id
 		 * @throws BusinessException
 		 */
-		public void deleteUtilisateur(int id) throws BusinessException{
+		public void delete(int id) throws BusinessException{
 			
 			//Appelle de la couche DAL - pas de vérifications particulieres
-			DALFactory.getUtilisateurDal().deleteUtilisateur(id);
+			DALFactory.getUtilisateurDal().delete(id);
 			
 		}
 		
-		public void updateUtilisateur(Utilisateur utilisateur) throws BusinessException{
+		public void update(Utilisateur utilisateur) throws BusinessException{
 			
 			
 			//Appelle de la couche DAL - pas de vérifications particulieres
-			DALFactory.getUtilisateurDal().updateUtilisateur(utilisateur);
+			DALFactory.getUtilisateurDal().update(utilisateur);
 		}
 		
 		/**
@@ -107,6 +107,8 @@ public class UtilisateurManager {
 		 * @param be
 		 * @return
 		 */
+		
+		
 		private boolean validateNomPrenom(String nom, String prenom, BusinessException be) {
 			if (nom == null || prenom == null) {
 				be.addError("Le nom et le prenom sont obligatoire");

@@ -6,9 +6,9 @@ public interface UtilisateurDal {
 
 	public Utilisateur find (String pseudo, String motDePasse) throws BusinessException; 
 	
-	public void creerUtilisateur(Utilisateur utilisateur) throws BusinessException; 
+	public void insert (Utilisateur utilisateur) throws BusinessException; 
 	
-	public void deleteUtilisateur(int id) throws BusinessException; 
+	public void delete (int id) throws BusinessException; 
 	
-	public void updateUtilisateur(Utilisateur utilisateur) throws BusinessException;
+	public void update (Utilisateur utilisateur) throws BusinessException;
 }
