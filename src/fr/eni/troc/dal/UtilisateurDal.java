@@ -9,5 +9,8 @@ public interface UtilisateurDal {
 	
 	public void creerUtilisateur(Utilisateur utilisateur) throws BusinessException; 
 	
+	public void deleteUtilisateur(int id) throws BusinessException; 
 	
+	public void updateUtilisateur(Utilisateur utilisateur) throws BusinessException;
+
 }

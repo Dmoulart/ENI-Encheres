@@ -72,11 +72,48 @@ public class UtilisateurManager {
 			if (isValidPseudo && isValidPassword) {
 				
 				//Appelle de la couche DAL
-				utilisateurDal.creerUtilisateur(utilisateur);
+				DALFactory.getUtilisateurDal().creerUtilisateur(utilisateur);
 			}
 			else {
 				throw be;
 			}
+		}
+		
+		
+		/**
+		 * Permet de supprimer un utilisateur existant
+		 * @param id
+		 * @throws BusinessException
+		 */
+		public void deleteUtilisateur(int id) throws BusinessException{
+			
+			//Appelle de la couche DAL - pas de vérifications particulieres
+			DALFactory.getUtilisateurDal().deleteUtilisateur(id);
+			
+		}
+		
+		public void updateUtilisateur(Utilisateur utilisateur) throws BusinessException{
+			
+			
+			//Appelle de la couche DAL - pas de vérifications particulieres
+			DALFactory.getUtilisateurDal().updateUtilisateur(utilisateur);
+		}
+		
+		/**
+		 * Vérifier que le Nom, Prenom n'est pas null, pas vide 
+		 *
+		 * @param nom
+		 * @param prenom
+		 * @param be
+		 * @return
+		 */
+		private boolean validateNomPrenom(String nom, String prenom, BusinessException be) {
+			if (nom == null || prenom == null) {
+				be.addError("Le nom et le prenom sont obligatoire");
+				return false;
+			}
+
+			return true;
 		}
 
 		/**
@@ -96,7 +133,7 @@ public class UtilisateurManager {
 		}
 
 		/**
-		 * Vérifier que le password n'est pas null, pas vide et qu'il correspond au bon mot de passe existant
+		 * Vérifier que le password n'est pas null, pas vide
 		 * 
 		 * @param pwd
 		 * @param be

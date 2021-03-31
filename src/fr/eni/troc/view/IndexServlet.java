@@ -26,11 +26,12 @@ public class IndexServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
 		
-	/*try {
+	try {
 		Utilisateur utilisateurTest = new Utilisateur(); 
+		
 		utilisateurTest.setPseudo("NicoDu35");
-		utilisateurTest.setNom("Dupont");
-		utilisateurTest.setPrenom("Pierre");
+		utilisateurTest.setNom("Nicolas");
+		utilisateurTest.setPrenom("TEST");
 		utilisateurTest.setEmail("pierre.dupont@wanadoo.fr");
 		utilisateurTest.setTelephone("0652698974");
 		utilisateurTest.setRue("15, Avenue du test");
@@ -42,12 +43,19 @@ public class IndexServlet extends HttpServlet {
 		
 		UtilisateurManager.getUtilisateurManager().creerUtilisateur(utilisateurTest);
 		
+		utilisateurTest.setId(7);
+		utilisateurTest.setNom("TEST_UPDATE");
+		utilisateurTest.setPrenom("TEST_PRENOM_UPDATE");
+		utilisateurTest.setVille("Limoges");
+		UtilisateurManager.getUtilisateurManager().updateUtilisateur(utilisateurTest);
+		
+		UtilisateurManager.getUtilisateurManager().deleteUtilisateur(8);
+		
+		
 	}catch (BusinessException be) {
 		
 		be.printStackTrace(); 
-	}*/
-		
-	
+	}
 	
 	
 		
