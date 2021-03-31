@@ -1,8 +1,6 @@
 package fr.eni.troc.dal;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-
 import fr.eni.troc.bo.Categorie;
 import fr.eni.troc.exception.BusinessException;
 

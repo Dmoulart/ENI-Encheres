@@ -1,5 +1,6 @@
 package fr.eni.troc.bo;
 
+
 import java.time.LocalDate;
 
 public class Enchere {

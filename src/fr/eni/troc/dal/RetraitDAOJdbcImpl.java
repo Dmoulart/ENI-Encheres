@@ -2,7 +2,6 @@ package fr.eni.troc.dal;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-
 import fr.eni.troc.bo.Article;
 import fr.eni.troc.bo.Retrait;
 import fr.eni.troc.exception.BusinessException;
@@ -58,5 +57,4 @@ public class RetraitDAOJdbcImpl implements RetraitDal {
 			throw be;
 		}
 	}
-
 }

@@ -3,22 +3,25 @@ package fr.eni.troc.bo;
 import java.util.List;
 
 public class Utilisateur {
-	private int id;
-	private List<Article> articlesEnVentes;
-	private List<Article> articlesAcquis;
-	private String pseudo;
-	private String nom;
-	private String prenom;
-	private String email;
-	private String telephone;
-	private String rue;
-	private String codePostal;
-	private String ville;
-	private String motDePasse;
-	private int credit;
-	private boolean administrateur;
-	private List<Enchere> encheres;
+
+
+	int id;
+	String pseudo;
+	String nom;
+	String prenom;
+	String email;
+	String telephone; 
+	String rue;
+	String codePostal;
+	String ville;
+	String motDePasse;
+	int credit;
+	boolean administrateur;
+	List <Enchere> encheres; 
+	List<Article> articlesEnVentes; 
+	List <Article> articlesAcquis; 
 	
+
 	
 	///CONSTRUCTEURS UTILISATEURS
 	
@@ -283,6 +286,9 @@ public class Utilisateur {
 				return false;
 		} else if (!ville.equals(other.ville))
 			return false;
-		return true;
-	}	
+		return true;}
+	
 }
+	
+
+

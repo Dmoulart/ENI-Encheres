@@ -1,5 +1,6 @@
 package fr.eni.troc.bo;
 
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -218,4 +219,5 @@ public class Article {
 			return false;
 		return true;
 	}
+
 }

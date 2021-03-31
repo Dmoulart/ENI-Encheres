@@ -15,7 +15,6 @@ private static final long serialVersionUID = 1L;
 		}
 		errors.add(error);
 	}
-
 	public List<String> getErrors() {
 		return errors;
 	}

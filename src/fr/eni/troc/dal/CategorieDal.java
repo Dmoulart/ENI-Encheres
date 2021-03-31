@@ -1,5 +1,4 @@
 package fr.eni.troc.dal;
-
 import fr.eni.troc.bo.Categorie;
 import fr.eni.troc.exception.BusinessException;
 

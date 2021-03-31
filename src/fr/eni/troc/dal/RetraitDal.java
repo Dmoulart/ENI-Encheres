@@ -1,6 +1,4 @@
 package fr.eni.troc.dal;
-
-
 import fr.eni.troc.bo.Retrait;
 import fr.eni.troc.exception.BusinessException;
 

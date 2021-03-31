@@ -1,9 +1,7 @@
 package fr.eni.troc.dal;
-
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
-
 import fr.eni.troc.bo.Enchere;
 import fr.eni.troc.exception.BusinessException;
 
@@ -60,5 +58,4 @@ public class EnchereDAOJdbcImpl implements EnchereDal{
 			throw be;
 		}
 	}
-
 }
