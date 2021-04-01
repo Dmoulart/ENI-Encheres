@@ -9,11 +9,13 @@ import fr.eni.troc.exception.BusinessException;
 
 public class UtilisateurDAOJdbcImpl implements UtilisateurDal{
 	
-	public static final String FIND = "SELECT pseudo, prenom, nom FROM utilisateurs WHERE pseudo=? AND mot_de_passe=?";
+	public static final String FIND = "SELECT pseudo, prenom, nom FROM utilisateurs WHERE pseudo=? AND mot_de_passe=? ";
+	public static final String SELECT_BY_EMAIL = "SELECT pseudo, prenom, nom FROM utilisateurs WHERE email=? AND mot_de_passe=?";
 	public static final String INSERT = "INSERT INTO utilisateurs (id, pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe,credit,administrateur)\r\n" + 
 			"VALUES (null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?); ";
 	public static final String DELETE = "DELETE FROM utilisateurs WHERE id= ?"; 
 	public static final String UPDATE = "UPDATE utilisateurs SET pseudo=?, nom=?, prenom=?, email=?, telephone=?, rue=?, code_postal=?, ville=? WHERE id=?"; 
+	//public static final String UPDATE_MDP = "UPDATE utilisateur SET mot_de_passe=? WHERE id=?";
 	
 	/**
 	 * Methode pour trouver un utilisateur dans la BDD
@@ -27,6 +29,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDal{
 			PreparedStatement pstmt = cnx.prepareStatement(FIND);
 			pstmt.setString(1,pseudo);
 			pstmt.setString(2,motDePasse);
+			
 			
 			ResultSet rs = pstmt.executeQuery();
 			
@@ -52,8 +55,51 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDal{
 			throw be;
 			}
 		
+		
+		
 	}
 
+	
+	/**
+	 * 
+	 *Methode qui permet de retrouver un utilisateur par son email
+	 *@param email
+	 *@param motDePasse
+	 *@author nicolas
+	 */
+	@Override
+	public Utilisateur selectByEmail(String email, String motDePasse) throws BusinessException{
+		
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+			PreparedStatement pstmt = cnx.prepareStatement(SELECT_BY_EMAIL);
+			pstmt.setString(1,email);
+			pstmt.setString(2,motDePasse);
+			
+			
+			ResultSet rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				Utilisateur u = new Utilisateur();
+				u.setPseudo(rs.getString("pseudo"));
+				u.setNom(rs.getString("nom"));
+				u.setPrenom(rs.getString("prenom"));
+			
+				return u;
+				
+			}else {
+				//Utilisateur non trouvé
+				BusinessException be = new BusinessException();
+				be.addError("Email ou Mot de passe inconnu");
+				throw be;
+			}			
+			
+			}catch (SQLException e) {
+				e.printStackTrace();
+			BusinessException be = new BusinessException();
+			be.addError("ERROR DB - " + e.getMessage());
+			throw be;
+			}
+	}
 	
 	/**
 	 * Methode pour creer un nouvel utilisateur en BDD
@@ -143,7 +189,31 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDal{
 			}
 	
 		
+		}
+	
+	/*@Override
+	public void updateMDP (Utilisateur utilisateur) throws BusinessException {
+		
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+			PreparedStatement update = cnx.prepareStatement(UPDATE_MDP);
+			
+			update.setString(1, utilisateur.getMotDePasse());
+			
+			update.executeUpdate(); 
+			
+
+			
+	} catch (SQLException e) {
+		e.printStackTrace();
+		BusinessException be = new BusinessException();
+		be.addError("ERROR DB - " + e.getMessage());
+		throw be;
 	}
+
+
+
+	
+}*/
 	
 }
 	
