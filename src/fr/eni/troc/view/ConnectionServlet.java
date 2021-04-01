@@ -22,10 +22,12 @@ import fr.eni.troc.service.UtilisateurManager;
 @WebServlet("/ConnectionServlet")
 public class ConnectionServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	request.getRequestDispatcher("/WEB-INF/connection.jsp").forward(request, response);
 	
@@ -33,13 +35,13 @@ public class ConnectionServlet extends HttpServlet {
 	}
 	
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		
-		
-		//Récupération de la saisie
+
+		//RÃ©cupÃ©ration de la saisie
 			request.setCharacterEncoding("UTF-8");
 			String identifiant = request.getParameter("identifiantUtilisateur");
 			String motDePasse = request.getParameter("motDePasse");
@@ -50,7 +52,7 @@ public class ConnectionServlet extends HttpServlet {
 				try {
 					Utilisateur u = UtilisateurManager.getUtilisateurManager().validateConnectionWithEmail(identifiant, motDePasse); 
 					
-					//Transmettre les informations pour la page index avec utilisateur connecté
+					//Transmettre les informations pour la page index avec utilisateur connectÃ©
 					//Injecter l'utilisateur en session
 					HttpSession session = request.getSession();
 					session.setAttribute("utilisateurEnSession", u);
@@ -68,7 +70,7 @@ public class ConnectionServlet extends HttpServlet {
 				try {
 					Utilisateur u = UtilisateurManager.getUtilisateurManager().validateConnection(identifiant, motDePasse); 
 					
-					//Transmettre les informations pour la page index avec utilisateur connecté
+					//Transmettre les informations pour la page index avec utilisateur connectÃ©
 					//Injecter l'utilisateur en session
 					HttpSession session = request.getSession();
 					session.setAttribute("utilisateurEnSession", u);
@@ -84,7 +86,7 @@ public class ConnectionServlet extends HttpServlet {
 	
 	
 	/**
-	 * Méthode pour valider la configuration de la base de données
+	 * MÃ©thode pour valider la configuration de la base de donnÃ©es
 	 */
 	private void testPoolConnection() {
 		try {
