@@ -21,10 +21,7 @@ public class IndexServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
 		
-	
-	
-		
-		/*pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe,credit*/
+
 	}
 
 	/**

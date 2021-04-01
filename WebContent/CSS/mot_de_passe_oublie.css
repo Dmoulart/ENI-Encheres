@@ -6,69 +6,78 @@ input{
 }
 .Page{
     display:flex;
-    flex-flow: column;
+    flex-flow: column;}
+    
+    
+.Page-TitleContainer{
+    display:flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    width:95vw;
+    height:10vh;
 }
+    
 
-
-.ConnexionPage{
+.mdpOubliePage{
     display:flex;
     flex-flow: column nowrap;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     height: calc(100vh - var(--navbar-height));
 }
-.ConnexionFormContainer{
+.mdpOublieFormContainer{
     display:flex;
     flex-flow: column nowrap;
-    justify-content: space-evenly;
-    height: 70%;
+    justify-content: flex-start;
+    height: 35%;
     width: 50%;
 }
-.ConnexionForm{
+.mdpOublieForm{
     display: flex;
     flex-flow: column nowrap;
     justify-content: space-evenly;
     height: 67%;
 }
-.ConnexionFields{
+.mdpOublieFields{
     display: flex;
     flex-flow: column nowrap;
 }
-.ConnexionValidation{
+.mdpOublieValidation{
     display:flex;
     margin-block-start: 2vh;
+    height: 2em; 
 }
-.ConnexionOptions{
+.mdpOublieOptions{
     display:flex;
     flex-flow: column nowrap;
     width: 50%;
     align-items: center;
 }
-.CheckRememberConnexion{
-    display:flex;
-    flex-flow: row nowrap;
-}
-.ConnexionButtonContainer{
+
+
+.mdpOublieButtonContainer{
 	display:flex;
-    width: 50%;
+    width: 8em;
 }
-.ConnexionButton{
+.mdpOublieButton{
     width: 100%;
+    height: 100%; 
 }
 .Subscribe{
     margin-block-start: 7vh;
     height:33%;
 }
-.ConnexionOptions option{
+.mdpOublieOptions option{
     margin-inline-start: 2vw;
 }
 @media (max-width: 670px){
-    .ConnexionFormContainer{
+    .mdpOublieFormContainer{
         width: 80%;
     }
 }
 @media (max-width: 400px){
-    .ConnexionOptions{
+    .mdpOublieOptions{
         font-size: 0.8rem;
     }
 }
