@@ -8,6 +8,11 @@ html{
     flex-flow: column;
 }
 
+.Menu{
+	
+	width: 25rem; 
+}
+
 .Page-TitleContainer{
     display:flex;
     flex-flow: row nowrap;

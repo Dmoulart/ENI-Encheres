@@ -48,14 +48,60 @@ public class UtilisateurManager {
 			BusinessException be = new BusinessException();
 			boolean isValidPseudo = validatePseudo(pseudo, be);
 			boolean isValidPassword = validatePassword(motDePasse, be);
+			
+			
 			if (isValidPseudo && isValidPassword) {
 				
 				//Appelle de la couche DAL
 				return utilisateurDal.find(pseudo, motDePasse);
+				
 			} else {
 				throw be;
 			}
 		}
+		
+		public Utilisateur validateConnectionWithEmail(String email, String motDePasse) throws BusinessException {
+			// Validation des données par rapport au métier
+			
+			BusinessException be = new BusinessException();
+			boolean isValidEmail = validateEmail(email, be);
+			boolean isValidPassword = validatePassword(motDePasse, be);
+						
+						
+			if (isValidEmail && isValidPassword) {
+							
+				//Appelle de la couche DAL
+				return utilisateurDal.selectByEmail(email, motDePasse);
+							
+			} else if (isValidEmail && isValidPassword){ 
+							
+				//Appelle de la couche DAL
+			return utilisateurDal.selectByEmail(email, motDePasse);
+			}
+			{
+			throw be;
+						}
+			
+		}
+		
+		/**
+		 * Permet de creer un nouveau mot de passe utilisateur
+		 * @return 
+		 * 
+		 * @throws BusinessException
+		 */
+		/*public void creerNvxMdp(Utilisateur utilisateur) throws BusinessException {
+			
+		// Validation des données par rapport au métier	
+		BusinessException be = new BusinessException();
+		boolean isValidPassword = validatePassword(utilisateur.getMotDePasse(), be);
+			
+			if(isValidPassword) {
+				
+				//Appelle de la couche DAL
+				DALFactory.getUtilisateurDal().updateMDP(utilisateur);
+			}
+		}*/
 		
 		/**
 		 * Permet de creer un nouvel utilisateur si le pseudo et mot de passe valident les conditions requises 
@@ -69,7 +115,10 @@ public class UtilisateurManager {
 			BusinessException be = new BusinessException();
 			boolean isValidPseudo = validatePseudo(utilisateur.getPseudo(), be);
 			boolean isValidPassword = validatePassword(utilisateur.getMotDePasse(), be);
-			if (isValidPseudo && isValidPassword) {
+			boolean isValidEmail = validateEmail(utilisateur.getEmail(), be); 
+			
+			
+			if (isValidPseudo && isValidPassword && isValidEmail) {
 				
 				//Appelle de la couche DAL
 				DALFactory.getUtilisateurDal().insert(utilisateur);
@@ -91,6 +140,8 @@ public class UtilisateurManager {
 			DALFactory.getUtilisateurDal().delete(id);
 			
 		}
+		
+		
 		
 		public void update(Utilisateur utilisateur) throws BusinessException{
 			
@@ -116,6 +167,17 @@ public class UtilisateurManager {
 			}
 
 			return true;
+		}
+		
+		private boolean validateEmail(String email, BusinessException be) {
+			
+			if (email == null) {
+				be.addError("L'email est obligatoire");
+				return false;
+			}
+
+			return true;
+			
 		}
 
 		/**
