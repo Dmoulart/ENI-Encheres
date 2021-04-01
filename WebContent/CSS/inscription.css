@@ -1,0 +1,68 @@
+label{
+    margin-block: 2vh;
+}
+input{
+    min-height: 2.1rem;
+}
+.Page{
+    display:flex;
+    flex-flow: column;
+}
+.InscriptionPage{
+    display:flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - var(--navbar-height));
+}
+.InscriptionFormContainer{
+    display:flex;
+    flex-wrap: wrap-reverse;
+    justify-content: space-evenly;
+    height: 70%;
+    width: 50%;
+}
+.InscriptionForm{
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-evenly;
+    height: 67%;
+}
+.InscriptionFields{
+    display: flex;
+    flex-flow: column nowrap;
+}
+.InscriptionValidation{
+    display:flex;
+    margin-block-start: 2vh;
+}
+.InscriptionOptions{
+    display:flex;
+    flex-flow: column nowrap;
+    width: 50%;
+    align-items: center;
+}
+.InscriptionButtonContainer{
+	display:flex;
+    width: 50%;
+}
+.InscriptionButton{
+    width: 100%;
+}
+.Subscribe{
+    margin-block-start: 7vh;
+    height:33%;
+}
+.InscriptionOptions option{
+    margin-inline-start: 2vw;
+}
+@media (max-width: 670px){
+    .InscriptionFormContainer{
+        width: 80%;
+    }
+}
+@media (max-width: 400px){
+    .InscriptionOptions{
+        font-size: 0.8rem;
+    }
+}

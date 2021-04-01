@@ -1,0 +1,68 @@
+label{
+    margin-block: 2vh;
+}
+input{
+    min-height: 2.1rem;
+}
+.Page{
+    display:flex;
+    flex-flow: column;
+}
+.VentePage{
+    display:flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - var(--navbar-height));
+}
+.VenteFormContainer{
+    display:flex;
+    flex-wrap: wrap-reverse;
+    justify-content: space-evenly;
+    height: 70%;
+    width: 50%;
+}
+.VentenForm{
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-evenly;
+    height: 67%;
+}
+.VenteFields{
+    display: flex;
+    flex-flow: column nowrap;
+}
+.VenteValidation{
+    display:flex;
+    margin-block-start: 2vh;
+}
+.VenteOptions{
+    display:flex;
+    flex-flow: column nowrap;
+    width: 50%;
+    align-items: center;
+}
+.VenteButtonContainer{
+	display:flex;
+    width: 50%;
+}
+.VenteButton{
+    width: 100%;
+}
+.Subscribe{
+    margin-block-start: 7vh;
+    height:33%;
+}
+.VenteOptions option{
+    margin-inline-start: 2vw;
+}
+@media (max-width: 670px){
+    .VenteFormContainer{
+        width: 80%;
+    }
+}
+@media (max-width: 400px){
+    .VenteOptions{
+        font-size: 0.8rem;
+    }
+}

@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>ENI-ENCHERES Connection</title>
 </head>
 <body>
 <head>
@@ -20,7 +20,7 @@
 <body class ="Page">
     <div class="NavbarContainer">
         <nav class="Navbar">
-            <div class="Logo"><a class="link" href="./IndexServlet">ENI-Enchères</a></div>
+            <div class="Logo"><a class="link" href="./IndexServlet">ENI-EnchÃ¨res</a></div>
         </nav>
     </div>
     <div class="ConnexionPage">
@@ -41,13 +41,13 @@
                             <input type="checkbox" class="option" id="rememberPassword">
                             <label for="rememberPassword">Se souvenir de moi</label>
                         </div>
-                        <a class="option" href="./MotDePasseOublieServlet">Mot de passe oublié</a>
+                        <a class="option" href="./MotDePasseOublieServlet">Mot de passe oubliÃ©</a>
                     </div>
                 </div>
             </form>
-            <button class="Subscribe" id="creerCompte">Créer un compte</button>
+            <button class="Subscribe" id="creerCompte" href="./InscriptionServlet">CrÃ©er un compte</button>
         </div>
     </div>
-
+</body>
 </body>
 </html>
