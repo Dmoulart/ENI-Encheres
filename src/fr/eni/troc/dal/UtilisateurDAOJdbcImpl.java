@@ -9,16 +9,20 @@ import fr.eni.troc.exception.BusinessException;
 
 public class UtilisateurDAOJdbcImpl implements UtilisateurDal{
 	
+
 	public static final String SELECT_BY_ID = "SELECT * FROM utilisateurs WHERE id=?";
 	
-	public static final String FIND = "SELECT pseudo, prenom, nom FROM utilisateurs WHERE pseudo=? AND mot_de_passe=?";
+	public static final String FIND = "SELECT pseudo, prenom, nom FROM utilisateurs WHERE pseudo=? AND mot_de_passe=? ";
 	
+  public static final String SELECT_BY_EMAIL = "SELECT pseudo, prenom, nom FROM utilisateurs WHERE email=? AND mot_de_passe=?";
+
 	public static final String INSERT = "INSERT INTO utilisateurs (id, pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe,credit,administrateur)\r\n" + 
 			"VALUES (null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?); ";
 	
 	public static final String DELETE = "DELETE FROM utilisateurs WHERE id= ?";
 	
 	public static final String UPDATE = "UPDATE utilisateurs SET pseudo=?, nom=?, prenom=?, email=?, telephone=?, rue=?, code_postal=?, ville=? WHERE id=?"; 
+	//public static final String UPDATE_MDP = "UPDATE utilisateur SET mot_de_passe=? WHERE id=?";
 	
 	/**
 	 * Methode pour trouver un utilisateur dans la BDD
@@ -33,6 +37,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDal{
 			pstmt.setString(1,pseudo);
 			pstmt.setString(2,motDePasse);
 			
+			
 			ResultSet rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
@@ -44,7 +49,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDal{
 				return u;
 				
 			}else {
-				//Utilisateur non trouvÈ
+				//Utilisateur non trouv√©
 				BusinessException be = new BusinessException();
 				be.addError("Pseudo ou Mot de passe inconnu");
 				throw be;
@@ -58,6 +63,47 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDal{
 			}
 	}
 
+	
+	/**
+	 * 
+	 *Methode qui permet de retrouver un utilisateur par son email
+	 *@param email
+	 *@param motDePasse
+	 *@author nicolas
+	 */
+	@Override
+	public Utilisateur selectByEmail(String email, String motDePasse) throws BusinessException{
+		
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+			PreparedStatement pstmt = cnx.prepareStatement(SELECT_BY_EMAIL);
+			pstmt.setString(1,email);
+			pstmt.setString(2,motDePasse);
+			
+			
+			ResultSet rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				Utilisateur u = new Utilisateur();
+				u.setPseudo(rs.getString("pseudo"));
+				u.setNom(rs.getString("nom"));
+				u.setPrenom(rs.getString("prenom"));
+			
+				return u;
+				
+			}else {
+				//Utilisateur non trouv√©
+				BusinessException be = new BusinessException();
+				be.addError("Email ou Mot de passe inconnu");
+				throw be;
+			}			
+			
+			}catch (SQLException e) {
+				e.printStackTrace();
+			BusinessException be = new BusinessException();
+			be.addError("ERROR DB - " + e.getMessage());
+			throw be;
+			}
+	}
 	
 	/**
 	 * Methode pour creer un nouvel utilisateur en BDD
@@ -140,14 +186,16 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDal{
 				be.addError("ERROR DB - " + e.getMessage());
 				throw be;
 			}
+
 	}
+  
 	/**
-	 * Sert ‡ retourner un utilisateur en tant que vendeur et vendeur seulement
-	 * MÈthode apellÈe lorsqu'on veut assigner un vendeur ‡ un article sans avoir
+	 * Sert √† retourner un utilisateur en tant que vendeur et vendeur seulement
+	 * M√©thode apell√©e lorsqu'on veut assigner un vendeur √† un article sans avoir
 	 * besoin d'en savoir plus sur cet utilisateur.
-	 * Signifie que les enchËres Èmises par cet utilisateur ne seront pas connues/!\
-	 * UtilisÈ par le SelectAll de ArticleDAO 
-	 * Sert ‡ Èviter les boucles infinies
+	 * Signifie que les ench√®res √©mises par cet utilisateur ne seront pas connues/!\
+	 * Utilis√© par le SelectAll de ArticleDAO 
+	 * Sert √† √©viter les boucles infinies
 	 */
 	@Override
 	public Utilisateur selectByIdAsVendeur(int id) throws BusinessException {
@@ -159,7 +207,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDal{
 			if(rs.next()) {
 				u = itemBuilderAsVendeur(rs);
 			}else {
-				//Utilisateur non trouvÈ
+				//Utilisateur non trouv√©
 				BusinessException be = new BusinessException();
 				be.addError("Utilisateur introuvable");
 				throw be;
@@ -173,12 +221,12 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDal{
 		return u;
 	}
 	/**
-	 * Sert ‡ retourner un utilisateur en tant qu'Èmetteur et Èmetteur seulement.
-	 * MÈthode apellÈe lorsqu'on veut assigner un Èmetteur ‡ une enchËre sans avoir
+	 * Sert √† retourner un utilisateur en tant qu'√©metteur et √©metteur seulement.
+	 * M√©thode apell√©e lorsqu'on veut assigner un √©metteur √† une ench√®re sans avoir
 	 * besoin d'en savoir plus sur cet utilisateur.
-	 * Signifie que les enchËres Èmises par cet utilisateur ne seront pas connues/!\
-	 * UtilisÈ par le SelectByArticle de EnchereDAO. 
-	 * Sert ‡ Èviter les boucles infinies
+	 * Signifie que les ench√®res √©mises par cet utilisateur ne seront pas connues/!\
+	 * Utilis√© par le SelectByArticle de EnchereDAO. 
+	 * Sert √† √©viter les boucles infinies
 	 */
 	@Override
 	public Utilisateur selectByIdAsEmetteur(int id) throws BusinessException {
@@ -195,7 +243,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDal{
 			if(rs.next()) {
 				u = itemBuilder(rs);
 			}else {
-				//Utilisateur non trouvÈ
+				//Utilisateur non trouv√©
 				BusinessException be = new BusinessException();
 				be.addError("Utilisateur introuvable");
 				throw be;
@@ -208,7 +256,31 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDal{
 				throw be;
 			}
 		return u;
+		}
+	
+	/*@Override
+	public void updateMDP (Utilisateur utilisateur) throws BusinessException {
+		
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+			PreparedStatement update = cnx.prepareStatement(UPDATE_MDP);
+			
+			update.setString(1, utilisateur.getMotDePasse());
+			
+			update.executeUpdate(); 
+			
+
+			
+	} catch (SQLException e) {
+		e.printStackTrace();
+		BusinessException be = new BusinessException();
+		be.addError("ERROR DB - " + e.getMessage());
+		throw be;
 	}
+
+
+
+	
+}*/
 	
 	/*--ITEM BUILDERS------------------------------------------------------------*/
 	/**
@@ -240,8 +312,8 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDal{
 		return u;
 	}
 	/***
-	 * MÈthode apellÈe par SelectByIdAsVendeur : 
-	 * permet de retourner un utilisateur sans ses enchËres mais seulement avec ses articles ‡ vendre.
+	 * M√©thode apell√©e par SelectByIdAsVendeur : 
+	 * permet de retourner un utilisateur sans ses ench√®res mais seulement avec ses articles √† vendre.
 	 * @param rs
 	 * @return
 	 * @throws SQLException

@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>ENI-ENCHERES Connection</title>
 </head>
 <body>
 <head>
@@ -20,17 +20,17 @@
 <body class ="Page">
     <div class="NavbarContainer">
         <nav class="Navbar">
-            <div class="Logo"><a class="link" href="./IndexServlet">ENI-Enchères</a></div>
+            <div class="Logo"><a class="link" href="./IndexServlet">ENI-EnchÃ¨res</a></div>
         </nav>
     </div>
     <div class="ConnexionPage">
         <div class="ConnexionFormContainer">
-            <form class="ConnexionForm">
+            <form class="ConnexionForm" action="./ConnectionServlet" method="post">
                 <div class="ConnexionFields">
                     <label for="nomUtilisateur">Identifiant</label>
-                    <input type="text" placeholder="Votre login ou adresse mail.." id="nomUtilisateur" required>
+                    <input type="text" placeholder="Votre login ou adresse mail.." id="identifiantUtilisateur" required name="identifiantUtilisateur">
                     <label for="motDePasse">Mot de passe</label>
-                    <input type="text" placeholder="Votre mot de passe..." id="motDePasse" required>
+                    <input type="text" placeholder="Votre mot de passe..." id="motDePasse" required name= "motDePasse">
                 </div>
                 <div class="ConnexionValidation">
                     <div class="ConnexionButtonContainer">
@@ -41,13 +41,13 @@
                             <input type="checkbox" class="option" id="rememberPassword">
                             <label for="rememberPassword">Se souvenir de moi</label>
                         </div>
-                        <a class="option" href="#">Mot de passe oublié</a>
+                        <a class="option" href="./MotDePasseOublieServlet">Mot de passe oubliÃ©</a>
                     </div>
                 </div>
             </form>
-            <button class="Subscribe" id="creerCompte">Créer un compte</button>
+            <button class="Subscribe" id="creerCompte" href="./InscriptionServlet">CrÃ©er un compte</button>
         </div>
     </div>
-
+</body>
 </body>
 </html>

@@ -42,7 +42,7 @@ public class IndexServlet extends HttpServlet {
 		
 		String motsRecherches = request.getParameter("searchContent");
 		System.out.println("categorie selectionne : " + categorieSelectionnee);
-		System.out.println("mot recherchés : " + motsRecherches);
+		System.out.println("mot recherchï¿½s : " + motsRecherches);
 		
 		//Charge les categories
 		try {

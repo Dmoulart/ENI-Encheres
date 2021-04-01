@@ -8,67 +8,61 @@ input{
     display:flex;
     flex-flow: column;
 }
-
-
-.ConnexionPage{
+.InscriptionPage{
     display:flex;
     flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
     height: calc(100vh - var(--navbar-height));
 }
-.ConnexionFormContainer{
+.InscriptionFormContainer{
     display:flex;
-    flex-flow: column nowrap;
+    flex-wrap: wrap-reverse;
     justify-content: space-evenly;
     height: 70%;
     width: 50%;
 }
-.ConnexionForm{
+.InscriptionForm{
     display: flex;
     flex-flow: column nowrap;
     justify-content: space-evenly;
     height: 67%;
 }
-.ConnexionFields{
+.InscriptionFields{
     display: flex;
     flex-flow: column nowrap;
 }
-.ConnexionValidation{
+.InscriptionValidation{
     display:flex;
     margin-block-start: 2vh;
 }
-.ConnexionOptions{
+.InscriptionOptions{
     display:flex;
     flex-flow: column nowrap;
     width: 50%;
     align-items: center;
 }
-.CheckRememberConnexion{
-    display:flex;
-    flex-flow: row nowrap;
-}
-.ConnexionButtonContainer{
+.InscriptionButtonContainer{
 	display:flex;
     width: 50%;
 }
-.ConnexionButton{
+.InscriptionButton{
     width: 100%;
 }
 .Subscribe{
     margin-block-start: 7vh;
     height:33%;
 }
-.ConnexionOptions option{
+.InscriptionOptions option{
     margin-inline-start: 2vw;
 }
 @media (max-width: 670px){
-    .ConnexionFormContainer{
+    .InscriptionFormContainer{
         width: 80%;
     }
 }
 @media (max-width: 400px){
-    .ConnexionOptions{
+    .InscriptionOptions{
         font-size: 0.8rem;
     }
 }

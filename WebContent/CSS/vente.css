@@ -8,67 +8,61 @@ input{
     display:flex;
     flex-flow: column;
 }
-
-
-.ConnexionPage{
+.VentePage{
     display:flex;
     flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
     height: calc(100vh - var(--navbar-height));
 }
-.ConnexionFormContainer{
+.VenteFormContainer{
     display:flex;
-    flex-flow: column nowrap;
+    flex-wrap: wrap-reverse;
     justify-content: space-evenly;
     height: 70%;
     width: 50%;
 }
-.ConnexionForm{
+.VentenForm{
     display: flex;
     flex-flow: column nowrap;
     justify-content: space-evenly;
     height: 67%;
 }
-.ConnexionFields{
+.VenteFields{
     display: flex;
     flex-flow: column nowrap;
 }
-.ConnexionValidation{
+.VenteValidation{
     display:flex;
     margin-block-start: 2vh;
 }
-.ConnexionOptions{
+.VenteOptions{
     display:flex;
     flex-flow: column nowrap;
     width: 50%;
     align-items: center;
 }
-.CheckRememberConnexion{
-    display:flex;
-    flex-flow: row nowrap;
-}
-.ConnexionButtonContainer{
+.VenteButtonContainer{
 	display:flex;
     width: 50%;
 }
-.ConnexionButton{
+.VenteButton{
     width: 100%;
 }
 .Subscribe{
     margin-block-start: 7vh;
     height:33%;
 }
-.ConnexionOptions option{
+.VenteOptions option{
     margin-inline-start: 2vw;
 }
 @media (max-width: 670px){
-    .ConnexionFormContainer{
+    .VenteFormContainer{
         width: 80%;
     }
 }
 @media (max-width: 400px){
-    .ConnexionOptions{
+    .VenteOptions{
         font-size: 0.8rem;
     }
 }

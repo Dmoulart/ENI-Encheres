@@ -6,7 +6,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>ENI-ENCHERES Page d'Accueil</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Quicksand:wght@300;400;500;600;700&display=swap"
@@ -22,7 +22,11 @@
         <nav class="Navbar">
             <div class="Logo"><a class="link" href="./IndexServlet">ENI-Enchères</a></div>
             <ul class="Menu">
-                <li class="Menu_item"><a href="#" class="link">S'inscrire</a></li>
+            	<li class="Menu_item"><a class="link" href="./VenteServlet">Vente</a></li>
+            	<li class="Menu_item"><a class="link" href="./EnchereServlet">Enchères</a></li>
+            </ul>
+            <ul class="Menu">
+                <li class="Menu_item"><a href="./InscriptionServlet" class="link">S'inscrire</a></li>
                 <li class="Menu_item"><a href="./ConnectionServlet" class="link">Se connecter</a></li>
             </ul>
         </nav>
