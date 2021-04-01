@@ -1,13 +1,7 @@
 package fr.eni.troc.service;
 
-import java.time.LocalDate;
-
-import fr.eni.troc.bo.Article;
-import fr.eni.troc.bo.Enchere;
-import fr.eni.troc.bo.Utilisateur;
 import fr.eni.troc.dal.DALFactory;
 import fr.eni.troc.dal.EnchereDal;
-import fr.eni.troc.exception.BusinessException;
 
 public class EnchereManager {
 	

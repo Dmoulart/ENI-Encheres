@@ -1,14 +1,8 @@
 package fr.eni.troc.service;
 
-
-import java.util.ArrayList;
 import java.util.List;
-
-import fr.eni.troc.bo.Article;
 import fr.eni.troc.bo.Categorie;
-import fr.eni.troc.bo.Utilisateur;
 import fr.eni.troc.dal.DALFactory;
-import fr.eni.troc.dal.ArticleDal;
 import fr.eni.troc.dal.CategorieDal;
 import fr.eni.troc.exception.BusinessException;
 

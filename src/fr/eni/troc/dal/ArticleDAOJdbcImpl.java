@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.eni.troc.bo.Article;
-import fr.eni.troc.bo.Categorie;
-import fr.eni.troc.bo.Enchere;
 import fr.eni.troc.bo.Utilisateur;
 import fr.eni.troc.exception.BusinessException;
 

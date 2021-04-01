@@ -70,7 +70,7 @@
 	                <div class="Article_properties prix">Prix : ${article.prixInitial}</div>
 	                <div class="Article_properties finEnchere">Fin de l'enchère : ${article.finEncheres.toString()}</div>
 	                <div class="Article_properties retrait">Retrait : ${article.vendeur.rue}</div>
-	                <div class="Article_properties vendeur">Vendeur:  ${article.nom}</div>
+	                <div class="Article_properties vendeur">Vendeur:  ${article.vendeur.nom}</div>
 	            </div>
 	        </div>
 		</c:forEach>

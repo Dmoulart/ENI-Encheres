@@ -1,14 +1,12 @@
 package fr.eni.troc.view;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import fr.eni.troc.bo.Utilisateur;
 
 
@@ -45,7 +43,7 @@ public class DeconnectionServlet extends HttpServlet {
 		HttpSession sessionAfter = request.getSession();
 		
 		//Redirection vers la page Accueil
-		request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
+		request.getRequestDispatcher("./IndexServlet").forward(request, response);
 		
 		//Vérifier qu'il n'est plus présent après invalidation
 		System.out.println("AFTER");
