@@ -4,16 +4,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import fr.eni.troc.bo.Article;
 import fr.eni.troc.bo.Categorie;
-import fr.eni.troc.dal.DALFactory;
 import fr.eni.troc.exception.BusinessException;
 import fr.eni.troc.service.ArticleManager;
 import fr.eni.troc.service.CategorieManager;

@@ -2,15 +2,12 @@ package fr.eni.troc.view;
 
 import java.io.IOException;
 import java.time.LocalDate;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import fr.eni.troc.bo.Article;
-import fr.eni.troc.exception.BusinessException;
 
 /**
  * Servlet implementation class VenteServlet

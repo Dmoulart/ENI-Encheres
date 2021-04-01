@@ -326,7 +326,7 @@ public class UtilisateurManager {
 		 */
 		private boolean validateCredit(int credit, BusinessException be) {
 			if (credit > 101) {
-				be.addError("Trop de crÃ©dit");
+				be.addError("Trop de crédit");
 				return false;
 			}
 
@@ -342,7 +342,7 @@ public class UtilisateurManager {
 		 */
 		private boolean validateAdmin(boolean administrateur, BusinessException be) {
 			if (administrateur == false) {
-				be.addError("Vous n'Ãªtes pas autorisÃ© Ã  Ãªtre administrateur");
+				be.addError("Vous n'êtes pas autorisé à  être administrateur");
 				return false;
 			}
 

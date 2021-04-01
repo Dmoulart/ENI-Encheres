@@ -6,7 +6,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import fr.eni.troc.bo.Utilisateur;
 import fr.eni.troc.exception.BusinessException;
 import fr.eni.troc.service.UtilisateurManager;
@@ -63,7 +62,7 @@ public class InscriptionServlet extends HttpServlet {
 					utilisateur.setVille(ville);
 					utilisateur.setMotDePasse(motDePasse);
 				UtilisateurManager.getUtilisateurManager().creer(utilisateur);
-				response.sendRedirect(request.getContextPath() + "/WEB-INF/index.jsp");
+				response.sendRedirect(request.getContextPath() + "/IndexServlet");
 				System.out.println("Ajout d'un nouvel Utilisateur de la Base de donnée !");
 			} catch (BusinessException e) {
 				e.printStackTrace();
