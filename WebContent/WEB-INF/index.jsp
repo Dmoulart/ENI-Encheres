@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -30,19 +30,25 @@
 
     <div class="Page-TitleContainer"><h1>Liste des enchères</h1></div>
 
-    <form class="SearchContainer">
+    <form class="SearchContainer" method="POST" action="./IndexServlet">
         <div class ="Search_paramsContainer">
-            <div class="Search_filter">Filtres : </div>
+            <div class="Search_filter" id="filters">Filtres : </div>
             <div class="Search_barContainer">
-                <input type="text" class="Search_bar">
+                <input type="text" class="Search_bar"name="searchContent" value="${motsRecherches}">
                 <div class="Search_categoryContainer">
                     <label>Catégorie</label>
-                    <select class="Search_select-category">
-                        <option id="informatique">Informatique</option>
-                        <option id="ameublement">Ameublement</option>
-                        <option id="vetements">Vêtements</option>
-                        <option id="sport&loisirs">Sports&Loisirs</option>
-                    </select>
+	                    <select class="Search_select-category" name="selectCategorie">
+	                    	<option id="Toutes" <c:if test="${empty categorieSelectionnee}">selected</c:if>>Toutes</option>
+	                    		<c:forEach var="categorie" items="${categories}">
+										<option 
+											id="${categorie.libelle}" 
+											<c:if test="${categorieSelectionnee eq categorie.libelle}">
+											selected</c:if>>
+											 ${categorie.libelle}
+										 </option>
+								</c:forEach>
+	                    </select>
+                    </div>
                 </div>
             </div>
         </div>
@@ -52,39 +58,18 @@
     </form>
 
     <section class="Articles-Section">
-
-        <div class="ArticleContainer">
-            <img src="article-img-test.jpg" class="Article_image">
-            <div class="Article_informationsContainer">
-                <div class="Article_name">PC Gamer pour travailler</div>
-                <div class="Article_properties prix">Prix : 210</div>
-                <div class="Article_properties finEnchere">Fin de l'enchère : 10/08/2018</div>
-                <div class="Article_properties retrait">Retrait : 10 allée des Alouettes 44800 Saint Herblain</div>
-                <div class="Article_properties vendeur">Vendeur: jojo44</div>
-            </div>
-        </div>
-        <div class="ArticleContainer">
-            <img src="article-img-test.jpg" class="Article_image">
-            <div class="Article_informationsContainer">
-                <div class="Article_name">PC Gamer pour travailler</div>
-                <div class="Article_properties prix">Prix : 210</div>
-                <div class="Article_properties finEnchere">Fin de l'enchère : 10/08/2018</div>
-                <div class="Article_properties retrait">Retrait : 10 allée des Alouettes 44800 Saint Herblain</div>
-                <div class="Article_properties vendeur">Vendeur: jojo44</div>
-            </div>
-        </div>
-        <div class="ArticleContainer">
-            <img src="article-img-test.jpg" class="Article_image">
-            <div class="Article_informationsContainer">
-                <div class="Article_name">PC Gamer pour travailler</div>
-                <div class="Article_properties prix">Prix : 210</div>
-                <div class="Article_properties finEnchere">Fin de l'enchère : 10/08/2018</div>
-                <div class="Article_properties retrait">Retrait : 10 allée des Alouettes 44800 Saint Herblain</div>
-                <div class="Article_properties vendeur">Vendeur: jojo44</div>
-            </div>
-        </div>
-
-    </section>
-
+		<c:forEach var="article" items="${articles}">
+			<div class="ArticleContainer">
+	            <img src="" class="Article_image">
+	            <div class="Article_informationsContainer">
+	                <div class="Article_name">${article.nom}</div>
+	                <div class="Article_properties prix">Prix : ${article.prixInitial}</div>
+	                <div class="Article_properties finEnchere">Fin de l'enchère : ${article.finEncheres.toString()}</div>
+	                <div class="Article_properties retrait">Retrait : ${article.vendeur.rue}</div>
+	                <div class="Article_properties vendeur">Vendeur:  ${article.nom}</div>
+	            </div>
+	        </div>
+		</c:forEach>
+	</section>
 </body>
 </html>

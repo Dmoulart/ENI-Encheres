@@ -9,10 +9,15 @@ import fr.eni.troc.exception.BusinessException;
 
 public class UtilisateurDAOJdbcImpl implements UtilisateurDal{
 	
+	public static final String SELECT_BY_ID = "SELECT * FROM utilisateurs WHERE id=?";
+	
 	public static final String FIND = "SELECT pseudo, prenom, nom FROM utilisateurs WHERE pseudo=? AND mot_de_passe=?";
+	
 	public static final String INSERT = "INSERT INTO utilisateurs (id, pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe,credit,administrateur)\r\n" + 
 			"VALUES (null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?); ";
-	public static final String DELETE = "DELETE FROM utilisateurs WHERE id= ?"; 
+	
+	public static final String DELETE = "DELETE FROM utilisateurs WHERE id= ?";
+	
 	public static final String UPDATE = "UPDATE utilisateurs SET pseudo=?, nom=?, prenom=?, email=?, telephone=?, rue=?, code_postal=?, ville=? WHERE id=?"; 
 	
 	/**
@@ -51,7 +56,6 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDal{
 			be.addError("ERROR DB - " + e.getMessage());
 			throw be;
 			}
-		
 	}
 
 	
@@ -79,7 +83,6 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDal{
 		
 		insert.executeUpdate();
 		
-		
 		} catch (SQLException e){
 			e.printStackTrace();
 			BusinessException be = new BusinessException();
@@ -104,14 +107,12 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDal{
 		
 			delete.executeUpdate();
 			
-			
 			} catch (SQLException e){
 				e.printStackTrace();
 				BusinessException be = new BusinessException();
 				be.addError("ERROR DB - " + e.getMessage());
 				throw be;
 			}
-		
 	}
 
 
@@ -120,7 +121,6 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDal{
 		
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 			PreparedStatement update = cnx.prepareStatement(UPDATE);
-			
 			
 			update.setString(1, utilisateur.getPseudo());
 			update.setString(2, utilisateur.getNom());
@@ -131,9 +131,8 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDal{
 			update.setString(7, utilisateur.getCodePostal());
 			update.setString(8, utilisateur.getVille());
 			update.setInt(9, utilisateur.getId());
-			
+		
 			update.executeUpdate();
-			
 			
 			} catch (SQLException e){
 				e.printStackTrace();
@@ -141,10 +140,119 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDal{
 				be.addError("ERROR DB - " + e.getMessage());
 				throw be;
 			}
-	
-		
+	}
+	/**
+	 * Sert à retourner un utilisateur en tant que vendeur et vendeur seulement
+	 * Méthode apellée lorsqu'on veut assigner un vendeur à un article sans avoir
+	 * besoin d'en savoir plus sur cet utilisateur.
+	 * Signifie que les enchères émises par cet utilisateur ne seront pas connues/!\
+	 * Utilisé par le SelectAll de ArticleDAO 
+	 * Sert à éviter les boucles infinies
+	 */
+	@Override
+	public Utilisateur selectByIdAsVendeur(int id) throws BusinessException {
+		Utilisateur u;
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+			PreparedStatement pstmt = cnx.prepareStatement(SELECT_BY_ID);
+			pstmt.setInt(1,id);
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next()) {
+				u = itemBuilderAsVendeur(rs);
+			}else {
+				//Utilisateur non trouvé
+				BusinessException be = new BusinessException();
+				be.addError("Utilisateur introuvable");
+				throw be;
+			}			
+			}catch (SQLException e) {
+				e.printStackTrace();
+				BusinessException be = new BusinessException();
+				be.addError("ERROR DB - " + e.getMessage());
+				throw be;
+			}
+		return u;
+	}
+	/**
+	 * Sert à retourner un utilisateur en tant qu'émetteur et émetteur seulement.
+	 * Méthode apellée lorsqu'on veut assigner un émetteur à une enchère sans avoir
+	 * besoin d'en savoir plus sur cet utilisateur.
+	 * Signifie que les enchères émises par cet utilisateur ne seront pas connues/!\
+	 * Utilisé par le SelectByArticle de EnchereDAO. 
+	 * Sert à éviter les boucles infinies
+	 */
+	@Override
+	public Utilisateur selectByIdAsEmetteur(int id) throws BusinessException {
+		return this.selectByIdAsVendeur(id);
+	}
+	@Override
+	public Utilisateur selectById(int id) throws BusinessException {
+		Utilisateur u;
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+			PreparedStatement pstmt = cnx.prepareStatement(SELECT_BY_ID);
+			pstmt.setInt(1,id);
+			ResultSet rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				u = itemBuilder(rs);
+			}else {
+				//Utilisateur non trouvé
+				BusinessException be = new BusinessException();
+				be.addError("Utilisateur introuvable");
+				throw be;
+			}			
+			
+			}catch (SQLException e) {
+				e.printStackTrace();
+				BusinessException be = new BusinessException();
+				be.addError("ERROR DB - " + e.getMessage());
+				throw be;
+			}
+		return u;
 	}
 	
+	/*--ITEM BUILDERS------------------------------------------------------------*/
+	/**
+	 *Base pour les itemBuilders. 
+	 * @param rs
+	 * @return
+	 * @throws SQLException
+	 * @throws BusinessException
+	 */
+	private Utilisateur baseBuilder(ResultSet rs) throws SQLException, BusinessException {
+		Utilisateur u = new Utilisateur();
+		u.setId(rs.getInt("id"));
+		u.setPseudo(rs.getString("pseudo"));
+		u.setNom(rs.getString("nom"));
+		u.setPrenom(rs.getString("Prenom"));
+		u.setEmail(rs.getString("email"));
+		u.setTelephone(rs.getString("telephone"));
+		u.setRue(rs.getString("rue"));
+		u.setCodePostal(rs.getString("code_postal"));
+		u.setVille(rs.getString("ville"));
+		u.setCredit(rs.getInt("credit"));
+		u.setAdministrateur((rs.getByte("administrateur") == 1)? true : false);
+		return u;
+	}
+	private Utilisateur itemBuilder(ResultSet rs) throws SQLException, BusinessException {
+		Utilisateur u = this.baseBuilder(rs);
+		u.setArticlesEnVentes(DALFactory.getArticleDal().selectByVendeur(u));
+		u.setEncheres(DALFactory.getEnchereDal().selectByUtilisateur(u));
+		return u;
+	}
+	/***
+	 * Méthode apellée par SelectByIdAsVendeur : 
+	 * permet de retourner un utilisateur sans ses enchères mais seulement avec ses articles à vendre.
+	 * @param rs
+	 * @return
+	 * @throws SQLException
+	 * @throws BusinessException
+	 */
+	private Utilisateur itemBuilderAsVendeur(ResultSet rs) throws SQLException, BusinessException {
+		Utilisateur u = this.baseBuilder(rs);
+		u.setArticlesEnVentes(DALFactory.getArticleDal().selectByVendeur(u));
+		u.setEncheres(null);
+		return u;
+	}
 }
 	
 	

@@ -16,12 +16,12 @@ public class Enchere {
 	
 	public Enchere() {
 	}
-	
+
 	public Enchere(int id, LocalDate date, int montant, Utilisateur emetteur, Article article) {
 		this.id = id;
 		this.date = date;
 		this.montant = montant;
-		this.emetteur = emetteur;
+		this.emetteur = emetteur;//Enregistrement des ids plutot que des objets BO pour éviter les boucles infinies dûes aux associations bidirectionnelles
 		this.article = article;
 	}
 
@@ -62,7 +62,7 @@ public class Enchere {
 	}
 
 	public Article getArticle() {
-		return article;
+		return this.article;
 	}
 
 	public void setArticle(Article article) {
@@ -71,17 +71,22 @@ public class Enchere {
 	
 	
 	// TO STRING
-
-	
 	@Override
 	public String toString() {
-		return "Enchere [id=" + id + ", date=" + date + ", montant=" + montant + ", emetteur=" + emetteur + ", article="
-				+ article + "]";
+		StringBuilder builder = new StringBuilder();
+		builder.append("Enchere [id=");
+		builder.append(id);
+		builder.append(", date=");
+		builder.append(date);
+		builder.append(", montant=");
+		builder.append(montant);
+		if(emetteur != null) {
+			builder.append(", emetteur=");
+			builder.append(emetteur);
+		}
+		return builder.toString();
 	}
-	
-	
 	//HASH CODE AND EQUALS ENCHERES
-
 	
 	@Override
 	public int hashCode() {
@@ -125,5 +130,10 @@ public class Enchere {
 			return false;
 		return true;
 	}
+
+
+
+	
+
 	
 }

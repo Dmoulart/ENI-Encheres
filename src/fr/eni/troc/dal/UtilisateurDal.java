@@ -11,4 +11,10 @@ public interface UtilisateurDal {
 	public void delete (int id) throws BusinessException; 
 	
 	public void update (Utilisateur utilisateur) throws BusinessException;
+
+	public Utilisateur selectById(int id) throws BusinessException;
+	
+	public Utilisateur selectByIdAsVendeur(int id) throws BusinessException;
+
+	public Utilisateur selectByIdAsEmetteur(int id) throws BusinessException;
 }

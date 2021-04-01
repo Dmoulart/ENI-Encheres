@@ -170,6 +170,7 @@ public class Utilisateur {
 
 	public void setEncheres(List<Enchere> encheres) {
 		this.encheres = encheres;
+		
 	}
 
 	
@@ -177,12 +178,15 @@ public class Utilisateur {
 
 	
 	@Override
-	public String toString() {
-		return "Utilisateur [id=" + id + ", articlesEnVentes=" + articlesEnVentes + ", articlesAcquis=" + articlesAcquis
+	public String toString() { 			
+		return "Utilisateur [id=" + id  /*+", articlesEnVentes=" + articlesEnVentes + ", articlesAcquis=" + articlesAcquis*/
 				+ ", pseudo=" + pseudo + ", nom=" + nom + ", prenom=" + prenom + ", email=" + email + ", telephone="
 				+ telephone + ", rue=" + rue + ", codePostal=" + codePostal + ", ville=" + ville + ", motDePasse="
 				+ motDePasse + ", credit=" + credit + ", administrateur=" + administrateur + ", encheres=" + encheres
 				+ "]";
+		// L'affichage des articles cause une boucle infinie :) 
+		//(car ceux ci entraine l'affichage de l'utilisateur à cause de 
+		//la relation bidirectionnelle
 	}	
 	
 	

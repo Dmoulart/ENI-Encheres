@@ -133,14 +133,33 @@ public class Article {
 	
 	
 	//TO STRING ARTICLES
-	
-
 	@Override
 	public String toString() {
-		return "Article [id=" + id + ", nom=" + nom + ", vendeur=" + vendeur + ", description=" + description
-				+ ", encheres=" + encheres + ", debutEncheres=" + debutEncheres + ", finEcheres=" + finEncheres
-				+ ", prixInitial=" + prixInitial + ", prixVente=" + prixVente + ", estVendu=" + estVendu
-				+ ", categorie=" + categorie + "]";
+		StringBuilder builder = new StringBuilder();
+		builder.append("Article [id=");
+		builder.append(id);
+		builder.append(", nom=");
+		builder.append(nom);
+		builder.append(", vendeur=");
+		builder.append(vendeur);
+		builder.append(", description=");
+		builder.append(description);
+		builder.append(", encheres=");
+		builder.append(encheres);
+		builder.append(", debutEncheres=");
+		builder.append(debutEncheres);
+		builder.append(", finEncheres=");
+		builder.append(finEncheres);
+		builder.append(", prixInitial=");
+		builder.append(prixInitial);
+		builder.append(", prixVente=");
+		builder.append(prixVente);
+		builder.append(", estVendu=");
+		builder.append(estVendu);
+		builder.append(", categorie=");
+		builder.append(categorie);
+		builder.append("]");
+		return builder.toString();
 	}
 
 	@Override
@@ -163,8 +182,7 @@ public class Article {
 	
 	
 	//HASH CODE AND EQUALS ARTICLES
-	
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
