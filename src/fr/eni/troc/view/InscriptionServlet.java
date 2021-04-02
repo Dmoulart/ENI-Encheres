@@ -72,7 +72,8 @@ public class InscriptionServlet extends HttpServlet {
 		response.sendRedirect(request.getContextPath() + "/IndexServlet");
 		System.out.println("Ajout d'un nouvel Utilisateur de la Base de donnée !");
 	    } catch (BusinessException e) {
-		e.printStackTrace();
+		request.setAttribute("errors", e.getErrors());
+		request.getRequestDispatcher("/WEB-INF/inscription.jsp").forward(request, response);
 	    }
 	}
     }

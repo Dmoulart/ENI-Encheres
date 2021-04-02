@@ -43,51 +43,54 @@ public class UtilisateurManager {
      */
     public Utilisateur validateConnection(String pseudo, String motDePasse) throws BusinessException {
 
-	// Validation des données par rapport au métier
-
-	BusinessException be = new BusinessException();
-	boolean isValidPseudo = validatePseudo(pseudo, be);
-	boolean isValidPassword = validatePassword(motDePasse, be);
-
-	if (isValidPseudo && isValidPassword) {
-
-	    // Appelle de la couche DAL
+	 // Appelle de la couche DAL
 	    try {
-		return utilisateurDal.find(pseudo, motDePasse);
+		Utilisateur u = utilisateurDal.find(pseudo, motDePasse);
+		if (u != null) {
+		    return u;
+
+		} else {
+		    BusinessException be = new BusinessException();
+		    be.addError("Erreur de connexion par email");
+		    throw be;
+		}
 	    } catch (DALException de) {
+		BusinessException be = new BusinessException();
 		de.printStackTrace();
 		be = new BusinessException();
 		be.addError(de.getMessage());
+		be.getErrors().forEach(e -> System.out.println(e));
 		throw be;
 	    }
+    }
 
-	} else {
-	    throw be;
-	}
+    private boolean checkPassword(String motDePasse, BusinessException be) {
+
+	return false;
     }
 
     public Utilisateur validateConnectionWithEmail(String email, String motDePasse) throws BusinessException {
-	// Validation des données par rapport au métier
-
-	BusinessException be = new BusinessException();
-	boolean isValidEmail = validateEmail(email, be);
-	boolean isValidPassword = validatePassword(motDePasse, be);
-	Utilisateur u = null;
-
-	if (isValidEmail && isValidPassword) {
 
 	    // Appelle de la couche DAL
 	    try {
-		u = utilisateurDal.selectByEmail(email, motDePasse);
+		Utilisateur u = utilisateurDal.selectByEmail(email, motDePasse);
+		if (u != null) {
+		    return u;
+
+		} else {
+		    BusinessException be = new BusinessException();
+		    be.addError("Erreur de connexion par email");
+		    throw be;
+		}
 	    } catch (DALException de) {
+		BusinessException be = new BusinessException();
 		de.printStackTrace();
 		be = new BusinessException();
 		be.addError(de.getMessage());
+		be.getErrors().forEach(e -> System.out.println(e));
 		throw be;
 	    }
 
-	}
-	return u;
     }
 
     /**
@@ -253,10 +256,11 @@ public class UtilisateurManager {
 	if (isNull("Email", email, be))
 	    return false;
 
-	if (!email.matches("^[^@\\s]+@[^@\\s\\.]+\\.[^@\\.\\s]+$")) {
+	if (!email
+		.matches("([a-zA-Z0-9]+(?:[._+-][a-zA-Z0-9]+)*)@([a-zA-Z0-9]+(?:[.-][a-zA-Z0-9]+)*[.][a-zA-Z]{2,})")) {
 	    be.addError(Errors.UNVALID_EMAIL);
 	}
-	
+
 	try {
 	    if (utilisateurDal.hasDuplicates("email")) {
 		be.addError(Errors.EMAIL_NOT_UNIQUE);
