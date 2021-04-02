@@ -12,6 +12,8 @@ import fr.eni.troc.bo.Article;
 import fr.eni.troc.bo.Enchere;
 import fr.eni.troc.bo.Utilisateur;
 import fr.eni.troc.exception.BusinessException;
+import fr.eni.troc.exception.DALException;
+import fr.eni.troc.exception.Errors;
 
 public class EnchereDAOJdbcImpl implements EnchereDal {
 
@@ -24,7 +26,7 @@ public class EnchereDAOJdbcImpl implements EnchereDal {
     private static final String UPDATE = "UPDATE Encheres SET date=?,montant=?,id_article=?,id_utilisateur=? WHERE id=?";
 
     @Override
-    public void insert(Enchere enchere) throws BusinessException {
+    public void insert(Enchere enchere) throws DALException {
 	try (Connection cnx = ConnectionProvider.getConnection()) {
 	    PreparedStatement pstmt = cnx.prepareStatement(INSERT);
 	    pstmt.setDate(1, Date.valueOf(enchere.getDate()));
@@ -33,29 +35,25 @@ public class EnchereDAOJdbcImpl implements EnchereDal {
 	    pstmt.setInt(4, enchere.getEmetteur().getId());
 	    pstmt.executeUpdate();
 	} catch (Exception e) {
-	    e.printStackTrace();
-	    BusinessException be = new BusinessException();
-	    be.addError("ERREUR DANS INSERT ENCHERE EN DAO");
-	    throw be;
+	    DALException de = new DALException(Errors.INSERT, this.getClass().getSimpleName(), e);
+	    throw de;
 	}
     }
 
     @Override
-    public void delete(int id) throws BusinessException {
+    public void delete(int id) throws DALException {
 	try (Connection cnx = ConnectionProvider.getConnection()) {
 	    PreparedStatement pstmt = cnx.prepareStatement(DELETE);
 	    pstmt.setInt(1, id);
 	    pstmt.executeUpdate();
 	} catch (Exception e) {
-	    e.printStackTrace();
-	    BusinessException be = new BusinessException();
-	    be.addError("ERREUR DANS DELETE ENCHERE EN DAO");
-	    throw be;
+	    DALException de = new DALException(Errors.DELETE, this.getClass().getSimpleName(), e);
+	    throw de;
 	}
     }
 
     @Override
-    public void update(Enchere enchere) throws BusinessException {
+    public void update(Enchere enchere) throws DALException {
 	try (Connection cnx = ConnectionProvider.getConnection()) {
 	    PreparedStatement pstmt = cnx.prepareStatement(UPDATE);
 	    pstmt.setDate(1, Date.valueOf(enchere.getDate()));
@@ -65,15 +63,13 @@ public class EnchereDAOJdbcImpl implements EnchereDal {
 	    pstmt.setInt(5, enchere.getId());
 	    pstmt.executeUpdate();
 	} catch (Exception e) {
-	    e.printStackTrace();
-	    BusinessException be = new BusinessException();
-	    be.addError("ERREUR DANS UPDATE ENCHERE EN DAO");
-	    throw be;
+	    DALException de = new DALException(Errors.UPDATE, this.getClass().getSimpleName(), e);
+	    throw de;
 	}
     }
 
     @Override
-    public List<Enchere> selectByArticle(Article article) throws BusinessException {
+    public List<Enchere> selectByArticle(Article article) throws DALException {
 	List<Enchere> encheres = new ArrayList<>();
 
 	try (Connection cnx = ConnectionProvider.getConnection()) {
@@ -86,16 +82,14 @@ public class EnchereDAOJdbcImpl implements EnchereDal {
 		encheres.add(enchere);
 	    }
 	} catch (Exception e) {
-	    e.printStackTrace();
-	    BusinessException be = new BusinessException();
-	    be.addError("ERREUR DANS SELECT_BY_VENDEUR ARTICLE EN DAO");
-	    throw be;
+	    DALException de = new DALException(Errors.SELECT_BY_ARTICLE, this.getClass().getSimpleName(), e);
+	    throw de;
 	}
 	return encheres;
     }
 
     @Override
-    public List<Enchere> selectByUtilisateur(Utilisateur emetteur) throws BusinessException {
+    public List<Enchere> selectByUtilisateur(Utilisateur emetteur) throws DALException {
 	List<Enchere> encheres = new ArrayList<>();
 
 	try (Connection cnx = ConnectionProvider.getConnection()) {
@@ -108,10 +102,8 @@ public class EnchereDAOJdbcImpl implements EnchereDal {
 		encheres.add(enchere);
 	    }
 	} catch (Exception e) {
-	    e.printStackTrace();
-	    BusinessException be = new BusinessException();
-	    be.addError("ERREUR DANS SELECT_BY_UTILISATEUR ARTICLE EN DAO");
-	    throw be;
+	    DALException de = new DALException(Errors.SELECT_BY_UTILISATEUR, this.getClass().getSimpleName(), e);
+	    throw de;
 	}
 	return encheres;
     }
@@ -125,7 +117,7 @@ public class EnchereDAOJdbcImpl implements EnchereDal {
      * @throws SQLException
      * @throws BusinessException
      */
-    private Enchere baseBuilder(ResultSet rs) throws SQLException, BusinessException {
+    private Enchere baseBuilder(ResultSet rs) throws SQLException {
 	Enchere e = new Enchere();
 	e.setId(rs.getInt("id"));
 	e.setDate(rs.getDate("date").toLocalDate());
@@ -140,9 +132,10 @@ public class EnchereDAOJdbcImpl implements EnchereDal {
      * @param emetteur
      * @return
      * @throws SQLException
+     * @throws DALException
      * @throws BusinessException
      */
-    private Enchere itemBuilder(ResultSet rs, Utilisateur emetteur) throws SQLException, BusinessException {
+    private Enchere itemBuilder(ResultSet rs, Utilisateur emetteur) throws SQLException, DALException {
 	Enchere e = baseBuilder(rs);
 	e.setEmetteur(emetteur);
 	e.setArticle(DALFactory.getArticleDal().selectById(rs.getInt("id_article")));
@@ -158,7 +151,7 @@ public class EnchereDAOJdbcImpl implements EnchereDal {
      * @throws SQLException
      * @throws BusinessException
      */
-    private Enchere itemBuilder(ResultSet rs, Article article) throws SQLException, BusinessException {
+    private Enchere itemBuilder(ResultSet rs, Article article) throws SQLException, DALException {
 	Enchere e = baseBuilder(rs);
 	e.setEmetteur(DALFactory.getUtilisateurDal().selectByIdAsEmetteur(rs.getInt("id_utilisateur")));
 	e.setArticle(article);

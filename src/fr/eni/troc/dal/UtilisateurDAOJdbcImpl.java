@@ -5,71 +5,68 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import fr.eni.troc.bo.Utilisateur;
-import fr.eni.troc.exception.BusinessException;
+import fr.eni.troc.exception.DALException;
+import fr.eni.troc.exception.Errors;
 
+public class UtilisateurDAOJdbcImpl implements UtilisateurDal {
 
-public class UtilisateurDAOJdbcImpl implements UtilisateurDal{
-	
+    public static final String SELECT_BY_ID = "SELECT * FROM utilisateurs WHERE id=?";
 
-	public static final String SELECT_BY_ID = "SELECT * FROM utilisateurs WHERE id=?";
-	
-	public static final String FIND = "SELECT pseudo, prenom, nom, email, telephone, rue, code_postal, ville, credit FROM utilisateurs WHERE pseudo=? AND mot_de_passe=? ";
-	
-  public static final String SELECT_BY_EMAIL = "SELECT pseudo, prenom, nom FROM utilisateurs WHERE email=? AND mot_de_passe=?";
+    public static final String FIND = "SELECT pseudo, prenom, nom, email, telephone, rue, code_postal, ville, credit FROM utilisateurs WHERE pseudo=? AND mot_de_passe=? ";
 
-	public static final String INSERT = "INSERT INTO utilisateurs (id, pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe,credit,administrateur)\r\n" + 
-			"VALUES (null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?); ";
-	
-	public static final String DELETE = "DELETE FROM utilisateurs WHERE id= ?";
-	
-	public static final String UPDATE = "UPDATE utilisateurs SET pseudo=?, nom=?, prenom=?, email=?, telephone=?, rue=?, code_postal=?, ville=? WHERE id=?"; 
-	//public static final String UPDATE_MDP = "UPDATE utilisateur SET mot_de_passe=? WHERE id=?";
-	
-	/**
-	 * Methode pour trouver un utilisateur dans la BDD
-	 * @author nicolas
-	 *
-	 */
-	@Override
-	 public Utilisateur find(String pseudo, String motDePasse) throws BusinessException {
-		
-		try (Connection cnx = ConnectionProvider.getConnection()) {
-			PreparedStatement pstmt = cnx.prepareStatement(FIND);
-			pstmt.setString(1,pseudo);
-			pstmt.setString(2,motDePasse);
-			
-			
-			ResultSet rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
-				Utilisateur u = new Utilisateur();
-				u.setPseudo(rs.getString("pseudo"));
-				u.setNom(rs.getString("nom"));
-				u.setPrenom(rs.getString("prenom"));
-				u.setEmail(rs.getString("email"));
-				u.setTelephone(rs.getString("telephone"));
-				u.setRue(rs.getString("rue"));
-				u.setCodePostal(rs.getString("code_postal"));
-				u.setVille(rs.getString("ville"));
-				u.setCredit(rs.getInt("credit"));
-			
-				return u;
-				
-			}else {
-				//Utilisateur non trouvé
-				BusinessException be = new BusinessException();
-				be.addError("Pseudo ou Mot de passe inconnu");
-				throw be;
-			}			
-			
-			}catch (SQLException e) {
-				e.printStackTrace();
-			BusinessException be = new BusinessException();
-			be.addError("ERROR DB - " + e.getMessage());
-			throw be;
-			}
+    public static final String SELECT_BY_EMAIL = "SELECT pseudo, prenom, nom FROM utilisateurs WHERE email=? AND mot_de_passe=?";
+
+    public static final String INSERT = "INSERT INTO utilisateurs (id, pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe,credit,administrateur)\r\n"
+	    + "VALUES (null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?); ";
+
+    public static final String DELETE = "DELETE FROM utilisateurs WHERE id= ?";
+
+    public static final String UPDATE = "UPDATE utilisateurs SET pseudo=?, nom=?, prenom=?, email=?, telephone=?, rue=?, code_postal=?, ville=? WHERE id=?";
+
+    public static final String GET_DUPLICATES = "SELECT ?, COUNT(*) c FROM utilisateurs GROUP BY ? HAVING c > 1;";
+    // public static final String UPDATE_MDP = "UPDATE utilisateur SET
+    // mot_de_passe=? WHERE id=?";
+
+    /**
+     * Methode pour trouver un utilisateur dans la BDD
+     * 
+     * @author nicolas
+     *
+     */
+    @Override
+    public Utilisateur find(String pseudo, String motDePasse) throws DALException {
+
+	try (Connection cnx = ConnectionProvider.getConnection()) {
+	    PreparedStatement pstmt = cnx.prepareStatement(FIND);
+	    pstmt.setString(1, pseudo);
+	    pstmt.setString(2, motDePasse);
+
+	    ResultSet rs = pstmt.executeQuery();
+
+	    if (rs.next()) {
+		Utilisateur u = new Utilisateur();
+		u.setPseudo(rs.getString("pseudo"));
+		u.setNom(rs.getString("nom"));
+		u.setPrenom(rs.getString("prenom"));
+		u.setEmail(rs.getString("email"));
+		u.setTelephone(rs.getString("telephone"));
+		u.setRue(rs.getString("rue"));
+		u.setCodePostal(rs.getString("code_postal"));
+		u.setVille(rs.getString("ville"));
+		u.setCredit(rs.getInt("credit"));
+
+		return u;
+
+	    } else {
+		DALException de = new DALException(Errors.NO_DATA_FOUND, this.getClass().getSimpleName());
+		throw de;
+	    }
+
+	} catch (SQLException e) {
+	    DALException de = new DALException(Errors.INSERT, this.getClass().getSimpleName(), e);
+	    throw de;
 	}
-
+    }
 
     /**
      * 
@@ -80,7 +77,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDal{
      * @author nicolas
      */
     @Override
-    public Utilisateur selectByEmail(String email, String motDePasse) throws BusinessException {
+    public Utilisateur selectByEmail(String email, String motDePasse) throws DALException {
 
 	try (Connection cnx = ConnectionProvider.getConnection()) {
 	    PreparedStatement pstmt = cnx.prepareStatement(SELECT_BY_EMAIL);
@@ -98,17 +95,13 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDal{
 		return u;
 
 	    } else {
-		// Utilisateur non trouvé
-		BusinessException be = new BusinessException();
-		be.addError("Email ou Mot de passe inconnu");
-		throw be;
+		DALException de = new DALException(Errors.NO_DATA_FOUND, this.getClass().getSimpleName());
+		throw de;
 	    }
 
 	} catch (SQLException e) {
-	    e.printStackTrace();
-	    BusinessException be = new BusinessException();
-	    be.addError("ERROR DB - " + e.getMessage());
-	    throw be;
+	    DALException de = new DALException(Errors.SELECT_BY_EMAIL, this.getClass().getSimpleName(), e);
+	    throw de;
 	}
     }
 
@@ -118,7 +111,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDal{
      * @author nicolas
      *
      */
-    public void insert(Utilisateur utilisateur) throws BusinessException {
+    public void insert(Utilisateur utilisateur) throws DALException {
 
 	try (Connection cnx = ConnectionProvider.getConnection()) {
 	    PreparedStatement insert = cnx.prepareStatement(INSERT);
@@ -138,10 +131,8 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDal{
 	    insert.executeUpdate();
 
 	} catch (SQLException e) {
-	    e.printStackTrace();
-	    BusinessException be = new BusinessException();
-	    be.addError("ERROR DB - " + e.getMessage());
-	    throw be;
+	    DALException de = new DALException(Errors.INSERT, this.getClass().getSimpleName(), e);
+	    throw de;
 	}
     }
 
@@ -152,7 +143,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDal{
      * @author nicolas
      */
     @Override
-    public void delete(int id) throws BusinessException {
+    public void delete(int id) throws DALException {
 
 	try (Connection cnx = ConnectionProvider.getConnection()) {
 	    PreparedStatement delete = cnx.prepareStatement(DELETE);
@@ -162,15 +153,13 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDal{
 	    delete.executeUpdate();
 
 	} catch (SQLException e) {
-	    e.printStackTrace();
-	    BusinessException be = new BusinessException();
-	    be.addError("ERROR DB - " + e.getMessage());
-	    throw be;
+	    DALException de = new DALException(Errors.DELETE, this.getClass().getSimpleName());
+	    throw de;
 	}
     }
 
     @Override
-    public void update(Utilisateur utilisateur) throws BusinessException {
+    public void update(Utilisateur utilisateur) throws DALException {
 
 	try (Connection cnx = ConnectionProvider.getConnection()) {
 	    PreparedStatement update = cnx.prepareStatement(UPDATE);
@@ -188,10 +177,8 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDal{
 	    update.executeUpdate();
 
 	} catch (SQLException e) {
-	    e.printStackTrace();
-	    BusinessException be = new BusinessException();
-	    be.addError("ERROR DB - " + e.getMessage());
-	    throw be;
+	    DALException de = new DALException(Errors.UPDATE, this.getClass().getSimpleName(), e);
+	    throw de;
 	}
 
     }
@@ -204,7 +191,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDal{
      * ArticleDAO Sert à éviter les boucles infinies
      */
     @Override
-    public Utilisateur selectByIdAsVendeur(int id) throws BusinessException {
+    public Utilisateur selectByIdAsVendeur(int id) throws DALException {
 	Utilisateur u;
 	try (Connection cnx = ConnectionProvider.getConnection()) {
 	    PreparedStatement pstmt = cnx.prepareStatement(SELECT_BY_ID);
@@ -213,16 +200,12 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDal{
 	    if (rs.next()) {
 		u = itemBuilderAsVendeur(rs);
 	    } else {
-		// Utilisateur non trouvé
-		BusinessException be = new BusinessException();
-		be.addError("Utilisateur introuvable");
-		throw be;
+		DALException de = new DALException(Errors.NO_DATA_FOUND, this.getClass().getSimpleName());
+		throw de;
 	    }
 	} catch (SQLException e) {
-	    e.printStackTrace();
-	    BusinessException be = new BusinessException();
-	    be.addError("ERROR DB - " + e.getMessage());
-	    throw be;
+	    DALException de = new DALException(Errors.SELECT_BY_ID_AS_VENDEUR, this.getClass().getSimpleName(), e);
+	    throw de;
 	}
 	return u;
     }
@@ -235,12 +218,12 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDal{
      * de EnchereDAO. Sert à éviter les boucles infinies
      */
     @Override
-    public Utilisateur selectByIdAsEmetteur(int id) throws BusinessException {
+    public Utilisateur selectByIdAsEmetteur(int id) throws DALException {
 	return this.selectByIdAsVendeur(id);
     }
 
     @Override
-    public Utilisateur selectById(int id) throws BusinessException {
+    public Utilisateur selectById(int id) throws DALException {
 	Utilisateur u;
 	try (Connection cnx = ConnectionProvider.getConnection()) {
 	    PreparedStatement pstmt = cnx.prepareStatement(SELECT_BY_ID);
@@ -250,19 +233,33 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDal{
 	    if (rs.next()) {
 		u = itemBuilder(rs);
 	    } else {
-		// Utilisateur non trouvé
-		BusinessException be = new BusinessException();
-		be.addError("Utilisateur introuvable");
-		throw be;
+		DALException de = new DALException(Errors.NO_DATA_FOUND, this.getClass().getSimpleName());
+		throw de;
 	    }
 
 	} catch (SQLException e) {
-	    e.printStackTrace();
-	    BusinessException be = new BusinessException();
-	    be.addError("ERROR DB - " + e.getMessage());
-	    throw be;
+	    DALException de = new DALException(Errors.SELECT_BY_ID, this.getClass().getSimpleName(), e);
+	    throw de;
 	}
 	return u;
+    }
+
+    @Override
+    public boolean hasDuplicates(String field) throws DALException {
+
+	try (Connection cnx = ConnectionProvider.getConnection()) {
+	    PreparedStatement pstmt = cnx.prepareStatement(GET_DUPLICATES);
+	    pstmt.setString(1, field);
+	    pstmt.setString(2, field);
+
+	    ResultSet rs = pstmt.executeQuery();
+
+	    return (rs.next()) ? true : false;
+
+	} catch (SQLException e) {
+	    DALException de = new DALException(Errors.SEARCH_DUPLICATES, this.getClass().getSimpleName(), e);
+	    throw de;
+	}
     }
 
     /*
@@ -296,7 +293,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDal{
      * @throws SQLException
      * @throws BusinessException
      */
-    private Utilisateur baseBuilder(ResultSet rs) throws SQLException, BusinessException {
+    private Utilisateur baseBuilder(ResultSet rs) throws SQLException, DALException {
 	Utilisateur u = new Utilisateur();
 	u.setId(rs.getInt("id"));
 	u.setPseudo(rs.getString("pseudo"));
@@ -312,7 +309,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDal{
 	return u;
     }
 
-    private Utilisateur itemBuilder(ResultSet rs) throws SQLException, BusinessException {
+    private Utilisateur itemBuilder(ResultSet rs) throws SQLException, DALException {
 	Utilisateur u = this.baseBuilder(rs);
 	u.setArticlesEnVentes(DALFactory.getArticleDal().selectByVendeur(u));
 	u.setEncheres(DALFactory.getEnchereDal().selectByUtilisateur(u));
@@ -328,7 +325,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDal{
      * @throws SQLException
      * @throws BusinessException
      */
-    private Utilisateur itemBuilderAsVendeur(ResultSet rs) throws SQLException, BusinessException {
+    private Utilisateur itemBuilderAsVendeur(ResultSet rs) throws SQLException, DALException {
 	Utilisateur u = this.baseBuilder(rs);
 	u.setArticlesEnVentes(DALFactory.getArticleDal().selectByVendeur(u));
 	u.setEncheres(null);

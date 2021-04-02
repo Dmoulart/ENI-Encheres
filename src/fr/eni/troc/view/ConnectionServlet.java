@@ -30,7 +30,6 @@ public class ConnectionServlet extends HttpServlet {
 	    throws ServletException, IOException {
 	request.getRequestDispatcher("/WEB-INF/connection.jsp").forward(request, response);
 
-
 	// testPoolConnection();
     }
 
@@ -47,55 +46,34 @@ public class ConnectionServlet extends HttpServlet {
 	String identifiant = request.getParameter("identifiantUtilisateur");
 	String motDePasse = request.getParameter("motDePasse");
 
-	if (identifiant.matches("^[^@\\s]+@[^@\\s\\.]+\\.[^@\\.\\s]+$")) {
+	try {
+	    // Email REGEX
+	    Utilisateur u = identifiant.matches("^[^@\\s]+@[^@\\s\\.]+\\.[^@\\.\\s]+$")
+		    ? UtilisateurManager.getUtilisateurManager().validateConnectionWithEmail(identifiant, motDePasse)
+		    : UtilisateurManager.getUtilisateurManager().validateConnection(identifiant, motDePasse);
 
-	    // Appelle a la BLL
-	    try {
-		Utilisateur u = UtilisateurManager.getUtilisateurManager().validateConnectionWithEmail(identifiant,
-			motDePasse);
-
-		// Transmettre les informations pour la page index avec utilisateur connecté
-		// Injecter l'utilisateur en session
-		HttpSession session = request.getSession();
-		session.setAttribute("utilisateurEnSession", u);
-		request.setAttribute("utilisateur", u);
-		request.getRequestDispatcher("/WEB-INF/onestconnecte.jsp").forward(request, response);
-	    } catch (BusinessException e) {
-		e.printStackTrace();
-		request.setAttribute("errors", e.getErrors());
-		request.getRequestDispatcher("/WEB-INF/onestpasconnecte.jsp").forward(request, response);
-	    }
-
-	} else {
-
-	    // Appelle a la BLL
-	    try {
-		Utilisateur u = UtilisateurManager.getUtilisateurManager().validateConnection(identifiant, motDePasse);
-
-		// Transmettre les informations pour la page index avec utilisateur connecté
-		// Injecter l'utilisateur en session
-		HttpSession session = request.getSession();
-		session.setAttribute("utilisateurEnSession", u);
-		request.setAttribute("utilisateur", u);
-		request.getRequestDispatcher("/WEB-INF/onestconnecte.jsp").forward(request, response);
-	    } catch (BusinessException e) {
-		e.printStackTrace();
-		request.setAttribute("errors", e.getErrors());
-		request.getRequestDispatcher("/WEB-INF/onestpasconnecte.jsp").forward(request, response);
-	    }
-
-	
-	
-	/**
-	 * Méthode pour valider la configuration de la base de données
-	 */
-	private void testPoolConnection() {
-		try {
-			Connection cnx = ConnectionProvider.getConnection();
-			System.out.println("La connexion est " + (cnx.isClosed() ? "FERMEE" : "OUVERTE"));
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
+	    HttpSession session = request.getSession();
+	    session.setAttribute("utilisateurEnSession", u);
+	    request.setAttribute("utilisateur", u);
+	    request.getRequestDispatcher("./IndexServlet").forward(request, response);
+	} catch (BusinessException e) {
+	    e.printStackTrace();
+	    request.setAttribute("errors", e.getErrors());
+	    request.getRequestDispatcher("/WEB-INF/connection.jsp").forward(request, response);
 	}
     }
+
+    /**
+     * Méthode pour valider la configuration de la base de données
+     */
+    private void testPoolConnection() {
+	try {
+	    Connection cnx = ConnectionProvider.getConnection();
+	    System.out.println("La connexion est " + (cnx.isClosed() ? "FERMEE" : "OUVERTE"));
+	} catch (SQLException e) {
+	    e.printStackTrace();
+	}
+    }
+
+}
+

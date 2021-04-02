@@ -41,6 +41,8 @@ public class InscriptionServlet extends HttpServlet {
 	String codePostal = request.getParameter("codePostalUtilisateur");
 	String ville = request.getParameter("villeUtilisateur");
 	String motDePasse = request.getParameter("mdpUtilisateur");
+	String confiMotDePasse = request.getParameter("mdpConfUtilisateur");
+
 
 	System.out.println("Pseudo : " + pseudo);
 	System.out.println("Nom : " + nom);
@@ -65,9 +67,10 @@ public class InscriptionServlet extends HttpServlet {
 		utilisateur.setCodePostal(codePostal);
 		utilisateur.setVille(ville);
 		utilisateur.setMotDePasse(motDePasse);
-		UtilisateurManager.getUtilisateurManager().creer(utilisateur);
+        
+		UtilisateurManager.getUtilisateurManager().creer(utilisateur, confiMotDePasse);
 		response.sendRedirect(request.getContextPath() + "/IndexServlet");
-		System.out.println("Ajout d'un nouvel Utilisateur de la Base de donn�e !");
+		System.out.println("Ajout d'un nouvel Utilisateur de la Base de donnée !");
 	    } catch (BusinessException e) {
 		e.printStackTrace();
 	    }

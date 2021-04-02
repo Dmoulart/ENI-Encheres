@@ -3,7 +3,8 @@ package fr.eni.troc.dal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import fr.eni.troc.bo.Retrait;
-import fr.eni.troc.exception.BusinessException;
+import fr.eni.troc.exception.DALException;
+import fr.eni.troc.exception.Errors;
 
 public class RetraitDAOJdbcImpl implements RetraitDal {
     private static final String INSERT = "INSERT INTO Retraits VALUES(?,?,?,?)";
@@ -11,7 +12,7 @@ public class RetraitDAOJdbcImpl implements RetraitDal {
     private static final String UPDATE = "UPDATE Retraits SET rue=?, code_postal=?, ville=?, WHERE id_article=?";
 
     @Override
-    public void insert(Retrait retrait) throws BusinessException {
+    public void insert(Retrait retrait) throws DALException {
 	try (Connection cnx = ConnectionProvider.getConnection()) {
 	    PreparedStatement pstmt = cnx.prepareStatement(INSERT, PreparedStatement.RETURN_GENERATED_KEYS);
 	    pstmt.setInt(1, retrait.getArticle().getId());
@@ -20,28 +21,25 @@ public class RetraitDAOJdbcImpl implements RetraitDal {
 	    pstmt.setString(4, retrait.getVille());
 	    pstmt.executeUpdate();
 	} catch (Exception e) {
-	    e.printStackTrace();
-	    BusinessException be = new BusinessException();
-	    be.addError("ERREUR DANS INSERT RETRAIT EN DAO");
-	    throw be;
+	    DALException de = new DALException(Errors.INSERT, this.getClass().getSimpleName(), e);
+	    throw de;
 	}
     }
 
     @Override
-    public void delete(int id) throws BusinessException {
+    public void delete(int id) throws DALException {
 	try (Connection cnx = ConnectionProvider.getConnection()) {
 	    PreparedStatement pstmt = cnx.prepareStatement(DELETE);
 	    pstmt.setInt(1, id);
 	    pstmt.executeUpdate();
 	} catch (Exception e) {
-	    e.printStackTrace();
-	    BusinessException be = new BusinessException();
-	    throw be;
+	    DALException de = new DALException(Errors.DELETE, this.getClass().getSimpleName(), e);
+	    throw de;
 	}
     }
 
     @Override
-    public void update(Retrait retrait) throws BusinessException {
+    public void update(Retrait retrait) throws DALException {
 	try (Connection cnx = ConnectionProvider.getConnection()) {
 	    PreparedStatement pstmt = cnx.prepareStatement(UPDATE);
 	    pstmt.setString(1, retrait.getRue());
@@ -50,10 +48,8 @@ public class RetraitDAOJdbcImpl implements RetraitDal {
 	    pstmt.setInt(4, retrait.getArticle().getId());
 	    pstmt.executeUpdate();
 	} catch (Exception e) {
-	    e.printStackTrace();
-	    BusinessException be = new BusinessException();
-	    be.addError("ERREUR DANS UPDATE RETRAIT EN DAO");
-	    throw be;
+	    DALException de = new DALException(Errors.UPDATE, this.getClass().getSimpleName(), e);
+	    throw de;
 	}
     }
 }
