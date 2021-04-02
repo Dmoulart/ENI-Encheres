@@ -48,7 +48,7 @@ public class ConnectionServlet extends HttpServlet {
 
 	try {
 	    // Email REGEX
-	    Utilisateur u = identifiant.matches("^[^@\\s]+@[^@\\s\\.]+\\.[^@\\.\\s]+$")
+	    Utilisateur u = identifiant.matches("([a-zA-Z0-9]+(?:[._+-][a-zA-Z0-9]+)*)@([a-zA-Z0-9]+(?:[.-][a-zA-Z0-9]+)*[.][a-zA-Z]{2,})")
 		    ? UtilisateurManager.getUtilisateurManager().validateConnectionWithEmail(identifiant, motDePasse)
 		    : UtilisateurManager.getUtilisateurManager().validateConnection(identifiant, motDePasse);
 
