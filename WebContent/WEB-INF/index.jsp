@@ -21,14 +21,30 @@
     <div class="NavbarContainer">
         <nav class="Navbar">
             <div class="Logo"><a class="link" href="./IndexServlet">ENI-Enchères</a></div>
+	<c:choose>
+        <c:when test="${utilisateurEnSession!=null}">
             <ul class="Menu">
-            	<li class="Menu_item"><a class="link" href="./VenteServlet">Vente</a></li>
-            	<li class="Menu_item"><a class="link" href="./EnchereServlet">Enchères</a></li>
+                <li class="Menu_item"><a class="link" href="./VenteServlet">Vente</a></li>
+                <li class="Menu_item"><a class="link" href="./EnchereServlet">Enchères</a></li>
             </ul>
+        </c:when>
+     </c:choose>
             <ul class="Menu">
                 <li class="Menu_item"><a href="./InscriptionServlet" class="link">S'inscrire</a></li>
-                <li class="Menu_item"><a href="./ConnectionServlet" class="link">Se connecter</a></li>
             </ul>
+            <c:choose>
+                   <c:when test="${utilisateurEnSession!=null}">
+                   	<li class="Menu_item"><a class="link" href="./ProfilServlet">Mon Profil</a></li>
+                   </c:when>
+            </c:choose>
+            <c:choose>
+                   <c:when test="${utilisateurEnSession!=null}">
+                       <li class="Menu_item"><a href="./DeconnectionServlet" class="link">Se deconnecter</a></li>
+                   </c:when>
+                   <c:otherwise>
+                       <li class="Menu_item"><a href="./ConnectionServlet" class="link">Se connecter</a></li>
+                   </c:otherwise>
+           </c:choose>
         </nav>
     </div>
 
