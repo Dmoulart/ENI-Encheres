@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="CSS/index.css">
     <link rel="stylesheet" href="CSS/theme.css">
     <link rel="stylesheet" href="CSS/vente.css">
-     <link rel="stylesheet" href="CSS/inscription.css">
+    <link rel="stylesheet" href="CSS/inscription.css">
 </head>
 <body class ="Page">
     <div class="NavbarContainer">

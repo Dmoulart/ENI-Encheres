@@ -50,11 +50,11 @@
                             <input type="checkbox" class="option" id="rememberPassword">
                             <label for="rememberPassword">Se souvenir de moi</label>
                         </div>
-                        <a class="option" href="./MotDePasseOublieServlet">Mot de passe oubliÃ©</a>
+                        <a class="option" href="./MotDePasseOublieServlet">Mot de passe oublié</a>
                     </div>
                 </div>
             </form>
-            <button class="Subscribe" id="creerCompte" href="./InscriptionServlet">CrÃ©er un compte</button>
+            <button class="Subscribe" id="creerCompte" href="./InscriptionServlet">Créer un compte</button>
         </div>
     </div>
 </body>

@@ -7,61 +7,69 @@ import java.sql.SQLException;
 import fr.eni.troc.bo.Utilisateur;
 import fr.eni.troc.exception.BusinessException;
 
-public class UtilisateurDAOJdbcImpl implements UtilisateurDal {
 
-    public static final String SELECT_BY_ID = "SELECT * FROM utilisateurs WHERE id=?";
+public class UtilisateurDAOJdbcImpl implements UtilisateurDal{
+	
 
-    public static final String FIND = "SELECT pseudo, prenom, nom FROM utilisateurs WHERE pseudo=? AND mot_de_passe=? ";
+	public static final String SELECT_BY_ID = "SELECT * FROM utilisateurs WHERE id=?";
+	
+	public static final String FIND = "SELECT pseudo, prenom, nom, email, telephone, rue, code_postal, ville, credit FROM utilisateurs WHERE pseudo=? AND mot_de_passe=? ";
+	
+  public static final String SELECT_BY_EMAIL = "SELECT pseudo, prenom, nom FROM utilisateurs WHERE email=? AND mot_de_passe=?";
 
-    public static final String SELECT_BY_EMAIL = "SELECT pseudo, prenom, nom FROM utilisateurs WHERE email=? AND mot_de_passe=?";
-
-    public static final String INSERT = "INSERT INTO utilisateurs (id, pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe,credit,administrateur)\r\n"
-	    + "VALUES (null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?); ";
-
-    public static final String DELETE = "DELETE FROM utilisateurs WHERE id= ?";
-
-    public static final String UPDATE = "UPDATE utilisateurs SET pseudo=?, nom=?, prenom=?, email=?, telephone=?, rue=?, code_postal=?, ville=? WHERE id=?";
-    // public static final String UPDATE_MDP = "UPDATE utilisateur SET
-    // mot_de_passe=? WHERE id=?";
-
-    /**
-     * Methode pour trouver un utilisateur dans la BDD
-     * 
-     * @author nicolas
-     *
-     */
-    @Override
-    public Utilisateur find(String pseudo, String motDePasse) throws BusinessException {
-
-	try (Connection cnx = ConnectionProvider.getConnection()) {
-	    PreparedStatement pstmt = cnx.prepareStatement(FIND);
-	    pstmt.setString(1, pseudo);
-	    pstmt.setString(2, motDePasse);
-
-	    ResultSet rs = pstmt.executeQuery();
-
-	    if (rs.next()) {
-		Utilisateur u = new Utilisateur();
-		u.setPseudo(rs.getString("pseudo"));
-		u.setNom(rs.getString("nom"));
-		u.setPrenom(rs.getString("prenom"));
-
-		return u;
-
-	    } else {
-		// Utilisateur non trouvé
-		BusinessException be = new BusinessException();
-		be.addError("Pseudo ou Mot de passe inconnu");
-		throw be;
-	    }
-
-	} catch (SQLException e) {
-	    e.printStackTrace();
-	    BusinessException be = new BusinessException();
-	    be.addError("ERROR DB - " + e.getMessage());
-	    throw be;
+	public static final String INSERT = "INSERT INTO utilisateurs (id, pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe,credit,administrateur)\r\n" + 
+			"VALUES (null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?); ";
+	
+	public static final String DELETE = "DELETE FROM utilisateurs WHERE id= ?";
+	
+	public static final String UPDATE = "UPDATE utilisateurs SET pseudo=?, nom=?, prenom=?, email=?, telephone=?, rue=?, code_postal=?, ville=? WHERE id=?"; 
+	//public static final String UPDATE_MDP = "UPDATE utilisateur SET mot_de_passe=? WHERE id=?";
+	
+	/**
+	 * Methode pour trouver un utilisateur dans la BDD
+	 * @author nicolas
+	 *
+	 */
+	@Override
+	 public Utilisateur find(String pseudo, String motDePasse) throws BusinessException {
+		
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+			PreparedStatement pstmt = cnx.prepareStatement(FIND);
+			pstmt.setString(1,pseudo);
+			pstmt.setString(2,motDePasse);
+			
+			
+			ResultSet rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				Utilisateur u = new Utilisateur();
+				u.setPseudo(rs.getString("pseudo"));
+				u.setNom(rs.getString("nom"));
+				u.setPrenom(rs.getString("prenom"));
+				u.setEmail(rs.getString("email"));
+				u.setTelephone(rs.getString("telephone"));
+				u.setRue(rs.getString("rue"));
+				u.setCodePostal(rs.getString("code_postal"));
+				u.setVille(rs.getString("ville"));
+				u.setCredit(rs.getInt("credit"));
+			
+				return u;
+				
+			}else {
+				//Utilisateur non trouvé
+				BusinessException be = new BusinessException();
+				be.addError("Pseudo ou Mot de passe inconnu");
+				throw be;
+			}			
+			
+			}catch (SQLException e) {
+				e.printStackTrace();
+			BusinessException be = new BusinessException();
+			be.addError("ERROR DB - " + e.getMessage());
+			throw be;
+			}
 	}
-    }
+
 
     /**
      * 
