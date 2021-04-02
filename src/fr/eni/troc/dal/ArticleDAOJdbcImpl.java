@@ -11,6 +11,8 @@ import java.util.List;
 import fr.eni.troc.bo.Article;
 import fr.eni.troc.bo.Utilisateur;
 import fr.eni.troc.exception.BusinessException;
+import fr.eni.troc.exception.DALException;
+import fr.eni.troc.exception.Errors;
 
 
 public class ArticleDAOJdbcImpl implements ArticleDal {
@@ -37,7 +39,7 @@ public class ArticleDAOJdbcImpl implements ArticleDal {
 												+ "FROM ARTICLES WHERE TRIM(LOWER(nom) = ?";
 	// INSERT ARTICLES
 	@Override
-	public void insert(final Article article) throws BusinessException {
+	public void insert(final Article article) throws DALException {
 		try(Connection cnx = ConnectionProvider.getConnection()) {
 			PreparedStatement pstmt = cnx.prepareStatement(INSERT, PreparedStatement.RETURN_GENERATED_KEYS);
 			pstmt.setString(1, article.getNom());
@@ -50,31 +52,27 @@ public class ArticleDAOJdbcImpl implements ArticleDal {
 			pstmt.setInt(8, article.getCategorie().getId());
 			pstmt.executeUpdate();
 		} catch (Exception e) {
-			e.printStackTrace();
-			BusinessException be = new BusinessException();
-			be.addError("ERREUR DANS INSERT ARTICLE EN DAO");
-			throw be;
+			DALException de = new DALException(Errors.INSERT,this.getClass().getSimpleName(),e);
+			throw de;
 		}
 	}
 	
 	//DELETE ARTICLES
 	@Override
-	public void delete (int id) throws BusinessException {
+	public void delete (int id) throws DALException {
 		try(Connection cnx = ConnectionProvider.getConnection()) {
 			PreparedStatement pstmt = cnx.prepareStatement(DELETE);
 			pstmt.setInt(1, id);
 			pstmt.executeUpdate();
 		} catch (Exception e) {
-			e.printStackTrace();
-			BusinessException be = new BusinessException();
-			be.addError("ERREUR DANS DELETE ARTICLE EN DAO");
-			throw be;
+			DALException de = new DALException(Errors.DELETE,this.getClass().getSimpleName(),e);
+			throw de;
 		}
 	}
 	
 	//UPDATE ARTICLES
 	@Override
-	public void update (Article article) throws BusinessException {
+	public void update (Article article) throws DALException {
 		try(Connection cnx = ConnectionProvider.getConnection()) {
 			PreparedStatement pstmt = cnx.prepareStatement(UPDATE);
 			pstmt.setString(1,article.getNom());
@@ -86,15 +84,13 @@ public class ArticleDAOJdbcImpl implements ArticleDal {
 			pstmt.setInt(7, article.getId());
 			pstmt.executeUpdate();
 		} catch (Exception e) {
-			e.printStackTrace();
-			BusinessException be = new BusinessException();
-			be.addError("ERREUR DANS UPDATE ARTICLE EN DAO");
-			throw be;
+			DALException de = new DALException(Errors.UPDATE,this.getClass().getSimpleName(),e);
+			throw de;
 		}
 	}
 	//SELECT ALL ARTICLES
 	@Override
-	public List<Article> selectAll() throws BusinessException {
+	public List<Article> selectAll() throws DALException {
 		List<Article> articles = new ArrayList<>();
 		
 		try(Connection cnx = ConnectionProvider.getConnection()) {
@@ -106,10 +102,8 @@ public class ArticleDAOJdbcImpl implements ArticleDal {
 				articles.add(article);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
-			BusinessException be = new BusinessException();
-			be.addError("ERREUR DANS SELECTALL ARTICLE EN DAO");
-			throw be;
+			DALException de = new DALException(Errors.UPDATE,this.getClass().getSimpleName(),e);
+			throw de;
 		}
 		
 		return articles;
@@ -117,7 +111,7 @@ public class ArticleDAOJdbcImpl implements ArticleDal {
 
 	//SELECT ARTICLES BY VENDEUR
 	@Override
-	public List<Article> selectByVendeur(Utilisateur utilisateur) throws BusinessException {
+	public List<Article> selectByVendeur(Utilisateur utilisateur) throws DALException {
 		List<Article> articles = new ArrayList<>();
 		
 		try(Connection cnx = ConnectionProvider.getConnection()) {
@@ -130,10 +124,8 @@ public class ArticleDAOJdbcImpl implements ArticleDal {
 				articles.add(article);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
-			BusinessException be = new BusinessException();
-			be.addError("ERREUR DANS SELECTBYVENDEUR ARTICLE EN DAO");
-			throw be;
+			DALException de = new DALException(Errors.SELECT_BY_VENDEUR,this.getClass().getSimpleName(),e);
+			throw de;
 		}
 		return articles;
 	}
@@ -141,7 +133,7 @@ public class ArticleDAOJdbcImpl implements ArticleDal {
 
 
 	@Override
-	public Article selectById(int id) throws BusinessException {
+	public Article selectById(int id) throws DALException {
 		Article article = new Article();
 		
 		try(Connection cnx = ConnectionProvider.getConnection()) {
@@ -153,20 +145,17 @@ public class ArticleDAOJdbcImpl implements ArticleDal {
 				article = itemBuilder(rs);
 			}
 			else {
-				BusinessException be = new BusinessException();
-				be.addError("ERREUR DANS SELECT_BY_ID ARTICLE EN DAO");
-				throw be;
+				DALException de = new DALException(Errors.NO_DATA_FOUND,this.getClass().getSimpleName());
+				throw de;
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
-			BusinessException be = new BusinessException();
-			be.addError("ERREUR DANS SELECTBYVENDEUR ARTICLE EN DAO");
-			throw be;
+			DALException de = new DALException(Errors.SELECT_BY_ID,this.getClass().getSimpleName(),e);
+			throw de;
 		}
 		return article;
 	}
-	@Override
-	public List<Article> selectByName(String nom) throws BusinessException {
+	
+	/*public List<Article> selectByName(String nom) throws DALException {
 		List<Article> articles = new ArrayList<>();
 		
 		try(Connection cnx = ConnectionProvider.getConnection()) {
@@ -184,7 +173,7 @@ public class ArticleDAOJdbcImpl implements ArticleDal {
 			throw be;
 		}
 		return articles;
-	}
+	}*/
 	/*--ITEM BUILDERS------------------------------------------------------------*/
 	/**
 	 * Base pour les itemBuilders.
@@ -193,7 +182,7 @@ public class ArticleDAOJdbcImpl implements ArticleDal {
 	 * @throws SQLException
 	 * @throws BusinessException
 	 */
-	private Article baseBuilder(ResultSet rs) throws SQLException, BusinessException {
+	private Article baseBuilder(ResultSet rs) throws SQLException{
 		Article article = new Article();
 		article.setId(rs.getInt("id"));
 		article.setNom(rs.getString("nom"));
@@ -210,9 +199,10 @@ public class ArticleDAOJdbcImpl implements ArticleDal {
 	 * @param rs
 	 * @return
 	 * @throws SQLException
+	 * @throws DALException 
 	 * @throws BusinessException
 	 */
-	private Article itemBuilder(ResultSet rs) throws SQLException, BusinessException {
+	private Article itemBuilder(ResultSet rs) throws SQLException, DALException{
 		Article article = baseBuilder(rs);
 		article.setVendeur(DALFactory.getUtilisateurDal()
 				 .selectByIdAsVendeur(rs.getInt("id_utilisateur")));
@@ -227,9 +217,10 @@ public class ArticleDAOJdbcImpl implements ArticleDal {
 	 * @param rs
 	 * @return
 	 * @throws SQLException
+	 * @throws DALException 
 	 * @throws BusinessException
 	 */
-	private Article itemBuilder(ResultSet rs, Utilisateur utilisateur) throws SQLException, BusinessException {
+	private Article itemBuilder(ResultSet rs, Utilisateur utilisateur) throws SQLException, DALException{
 		Article article = baseBuilder(rs);
 		article.setVendeur(utilisateur);
 		article.setEstVendu((article.getVendeur() == null)? true : false); 
