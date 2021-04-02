@@ -194,8 +194,8 @@ public class ArticleDAOJdbcImpl implements ArticleDal {
 		return article;
 	}
 	/**
-	 * ItemBuilder : les vendeurs sont selectionnés en tant que vendeurs seulement
-	 * apellé par le SelectAll
+	 * ItemBuilder : les vendeurs sont selectionnï¿½s en tant que vendeurs seulement
+	 * apellï¿½ par le SelectAll
 	 * @param rs
 	 * @return
 	 * @throws SQLException
@@ -212,8 +212,8 @@ public class ArticleDAOJdbcImpl implements ArticleDal {
 		return article;
 	}
 	/**
-	 * ItemBuilder pour le selectByVendeur : le vendeur est déjà connus.
-	 * Apellé par SelectByVendeur
+	 * ItemBuilder pour le selectByVendeur : le vendeur est dï¿½jï¿½ connus.
+	 * Apellï¿½ par SelectByVendeur
 	 * @param rs
 	 * @return
 	 * @throws SQLException

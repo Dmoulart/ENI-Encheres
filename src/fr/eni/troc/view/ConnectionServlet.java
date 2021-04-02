@@ -59,7 +59,7 @@ public class ConnectionServlet extends HttpServlet {
 	} catch (BusinessException e) {
 	    e.printStackTrace();
 	    request.setAttribute("errors", e.getErrors());
-	    request.getRequestDispatcher("/WEB-INF/onestpasconnecte.jsp").forward(request, response);
+	    request.getRequestDispatcher("/WEB-INF/connection.jsp").forward(request, response);
 	}
     }
 
@@ -76,3 +76,4 @@ public class ConnectionServlet extends HttpServlet {
     }
 
 }
+

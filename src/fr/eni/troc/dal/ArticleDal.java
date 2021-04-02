@@ -20,3 +20,4 @@ public interface ArticleDal {
     public Article selectById(int ide) throws DALException;
     // public List<Article> selectByName(String nom) throws DALException;
 }
+

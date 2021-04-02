@@ -181,7 +181,7 @@ public class Utilisateur {
 		+ motDePasse + ", credit=" + credit + ", administrateur=" + administrateur + ", encheres=" + encheres
 		+ "]";
 	// L'affichage des articles cause une boucle infinie :)
-	// (car ceux ci entraine l'affichage de l'utilisateur à cause de
+	// (car ceux ci entraine l'affichage de l'utilisateur Ã  cause de
 	// la relation bidirectionnelle
     }
 

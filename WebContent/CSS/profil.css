@@ -8,76 +8,61 @@ input{
     display:flex;
     flex-flow: column;
 }
-
-.Alert-error {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: rgb(216, 0, 12);
-    background-color: rgb(255, 186, 186);
-    height: 2em;
-}
-
-
-.ConnexionPage{
+.ProfilPage{
     display:flex;
     flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
     height: calc(100vh - var(--navbar-height));
 }
-.ConnexionFormContainer{
+.ProfilFormContainer{
     display:flex;
-    flex-flow: column nowrap;
+    flex-wrap: wrap-reverse;
     justify-content: space-evenly;
     height: 70%;
     width: 50%;
 }
-.ConnexionForm{
+.ProfilForm{
     display: flex;
     flex-flow: column nowrap;
     justify-content: space-evenly;
     height: 67%;
 }
-.ConnexionFields{
+.ProfilFields{
     display: flex;
     flex-flow: column nowrap;
 }
-.ConnexionValidation{
+.ProfilValidation{
     display:flex;
     margin-block-start: 2vh;
 }
-.ConnexionOptions{
+.ProfilOptions{
     display:flex;
     flex-flow: column nowrap;
     width: 50%;
     align-items: center;
 }
-.CheckRememberConnexion{
-    display:flex;
-    flex-flow: row nowrap;
-}
-.ConnexionButtonContainer{
+.ProfilButtonContainer{
 	display:flex;
     width: 50%;
 }
-.ConnexionButton{
+.ProfilnButton{
     width: 100%;
 }
 .Subscribe{
     margin-block-start: 7vh;
     height:33%;
 }
-.ConnexionOptions option{
+.ProfilOptions option{
     margin-inline-start: 2vw;
 }
 @media (max-width: 670px){
-    .ConnexionFormContainer{
+    .ProfilFormContainer{
         width: 80%;
     }
 }
 @media (max-width: 400px){
-    .ConnexionOptions{
+    .ProfilOptions{
         font-size: 0.8rem;
     }
 }

@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -23,6 +27,11 @@
             <div class="Logo"><a class="link" href="./IndexServlet">ENI-Enchères</a></div>
         </nav>
     </div>
+    
+      <c:if test="${!empty errors}">
+     	<div class="Alert-error"><h6>Impossible de se connecter! Veuillez vérifier votre Email/Mot de passe.</h6></div>
+     </c:if> 
+     
     <div class="ConnexionPage">
         <div class="ConnexionFormContainer">
             <form class="ConnexionForm" action="./ConnectionServlet" method="post">
@@ -41,11 +50,11 @@
                             <input type="checkbox" class="option" id="rememberPassword">
                             <label for="rememberPassword">Se souvenir de moi</label>
                         </div>
-                        <a class="option" href="./MotDePasseOublieServlet">Mot de passe oublié</a>
+                        <a class="option" href="./MotDePasseOublieServlet">Mot de passe oubli�</a>
                     </div>
                 </div>
             </form>
-            <button class="Subscribe" id="creerCompte" href="./InscriptionServlet">Créer un compte</button>
+            <button class="Subscribe" id="creerCompte" href="./InscriptionServlet">Cr�er un compte</button>
         </div>
     </div>
 </body>

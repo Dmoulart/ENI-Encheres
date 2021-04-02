@@ -18,8 +18,7 @@ public class Enchere {
 	this.id = id;
 	this.date = date;
 	this.montant = montant;
-	this.emetteur = emetteur;// Enregistrement des ids plutot que des objets BO pour éviter les boucles
-				 // infinies dûes aux associations bidirectionnelles
+	this.emetteur = emetteur;
 	this.article = article;
     }
 
