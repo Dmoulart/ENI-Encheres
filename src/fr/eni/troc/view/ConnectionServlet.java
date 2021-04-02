@@ -55,11 +55,11 @@ public class ConnectionServlet extends HttpServlet {
 					HttpSession session = request.getSession();
 					session.setAttribute("utilisateurEnSession", u);
 					request.setAttribute("utilisateur", u);
-					request.getRequestDispatcher("/WEB-INF/onestconnecte.jsp").forward(request, response);
+					request.getRequestDispatcher("./IndexServlet").forward(request, response);
 				} catch (BusinessException e) {
 					e.printStackTrace();
 					request.setAttribute("errors", e.getErrors());
-					request.getRequestDispatcher("/WEB-INF/onestpasconnecte.jsp").forward(request, response);
+					request.getRequestDispatcher("/WEB-INF/connection.jsp").forward(request, response);
 				}
 				
 			}else {
@@ -73,11 +73,11 @@ public class ConnectionServlet extends HttpServlet {
 					HttpSession session = request.getSession();
 					session.setAttribute("utilisateurEnSession", u);
 					request.setAttribute("utilisateur", u);
-					request.getRequestDispatcher("/WEB-INF/onestconnecte.jsp").forward(request, response);
+					request.getRequestDispatcher("./IndexServlet").forward(request, response);
 				} catch (BusinessException e) {
 					e.printStackTrace();
 					request.setAttribute("errors", e.getErrors());
-					request.getRequestDispatcher("/WEB-INF/onestpasconnecte.jsp").forward(request, response);
+					request.getRequestDispatcher("/WEB-INF/connection.jsp").forward(request, response);
 				}
 			}
 	}
