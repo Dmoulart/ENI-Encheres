@@ -30,6 +30,7 @@ public class ConnectionServlet extends HttpServlet {
 	    throws ServletException, IOException {
 	request.getRequestDispatcher("/WEB-INF/connection.jsp").forward(request, response);
 
+
 	// testPoolConnection();
     }
 
@@ -82,19 +83,19 @@ public class ConnectionServlet extends HttpServlet {
 		request.setAttribute("errors", e.getErrors());
 		request.getRequestDispatcher("/WEB-INF/onestpasconnecte.jsp").forward(request, response);
 	    }
+
+	
+	
+	/**
+	 * Méthode pour valider la configuration de la base de données
+	 */
+	private void testPoolConnection() {
+		try {
+			Connection cnx = ConnectionProvider.getConnection();
+			System.out.println("La connexion est " + (cnx.isClosed() ? "FERMEE" : "OUVERTE"));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
 	}
     }
-
-    /**
-     * Méthode pour valider la configuration de la base de données
-     */
-    private void testPoolConnection() {
-	try {
-	    Connection cnx = ConnectionProvider.getConnection();
-	    System.out.println("La connexion est " + (cnx.isClosed() ? "FERMEE" : "OUVERTE"));
-	} catch (SQLException e) {
-	    e.printStackTrace();
-	}
-    }
-
-}
