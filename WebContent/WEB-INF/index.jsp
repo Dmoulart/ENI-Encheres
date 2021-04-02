@@ -21,19 +21,43 @@
     <div class="NavbarContainer">
         <nav class="Navbar">
             <div class="Logo"><a class="link" href="./IndexServlet">ENI-Enchères</a></div>
+          
+    
+     <c:choose>
+    	<c:when test="${utilisateurEnSession!=null}">  
             <ul class="Menu">
             	<li class="Menu_item"><a class="link" href="./VenteServlet">Vente</a></li>
             	<li class="Menu_item"><a class="link" href="./EnchereServlet">Enchères</a></li>
             </ul>
+        </c:when>
+     </c:choose>
+            
             <ul class="Menu">
                 <li class="Menu_item"><a href="./InscriptionServlet" class="link">S'inscrire</a></li>
-                <li class="Menu_item"><a href="./ConnectionServlet" class="link">Se connecter</a></li>
+                
+           <c:choose>
+           		<c:when test="${utilisateurEnSession!=null}">
+           			<li class="Menu_item"><a href="./DeconnectionServlet" class="link">Se deconnecter</a></li>
+           		</c:when>
+           		<c:otherwise>
+               		<li class="Menu_item"><a href="./ConnectionServlet" class="link">Se connecter</a></li>
+               	</c:otherwise>
+           </c:choose>
             </ul>
         </nav>
     </div>
 
     <div class="Page-TitleContainer"><h1>Liste des enchères</h1></div>
-
+    
+   
+      
+    
+    <c:choose>
+    	<c:when test="${utilisateurEnSession!=null}">
+   			 <div class="Page-TitleContainer"><h2>Bonjour ${utilisateurEnSession.prenom} ${utilisateurEnSession.nom}</h2></div>
+    	</c:when>
+	</c:choose>
+	
     <form class="SearchContainer" method="POST" action="./IndexServlet">
         <div class ="Search_paramsContainer">
             <div class="Search_filter" id="filters">Filtres : </div>
