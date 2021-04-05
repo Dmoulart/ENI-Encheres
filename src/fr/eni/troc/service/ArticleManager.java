@@ -15,14 +15,14 @@ import fr.eni.troc.exception.DALException;
  */
 public class ArticleManager {
 
-    // Attribut pour représenter la couche DAL
+    // Attribut pour reprï¿½senter la couche DAL
     private ArticleDal articleDal;
 
     // Pattern Singleton
     private static ArticleManager instance;
 
     private ArticleManager() {
-	// Récupération de l'instance de userDAO
+	// Rï¿½cupï¿½ration de l'instance de userDAO
 	articleDal = DALFactory.getArticleDal();
     }
 
@@ -45,5 +45,16 @@ public class ArticleManager {
 	    throw be;
 	}
     }
-
+    public Article selectById(int id) throws BusinessException {
+	Article article;
+	try {
+	    article = articleDal.selectById(id);
+	    return article;
+	} catch (DALException de) {
+	    de.printStackTrace();
+	    BusinessException be = new BusinessException();
+	    be.addError(de.getMessage());
+	    throw be;
+	}
+    }
 }

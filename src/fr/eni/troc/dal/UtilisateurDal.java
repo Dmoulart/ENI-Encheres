@@ -9,7 +9,7 @@ public interface UtilisateurDal {
 
     public Utilisateur selectByEmail(String email, String motDePasse) throws DALException;
 
-    public boolean hasDuplicates(String field) throws DALException;
+    public boolean hasDuplicates(String field, String value) throws DALException;
     
     public void insert(Utilisateur utilisateur) throws DALException;
 
@@ -22,6 +22,8 @@ public interface UtilisateurDal {
     public Utilisateur selectByIdAsVendeur(int id) throws DALException;
 
     public Utilisateur selectByIdAsEmetteur(int id) throws DALException;
+
+    
 
     // public void updateMDP(Utilisateur utilisateur) throws BusinessException;
 

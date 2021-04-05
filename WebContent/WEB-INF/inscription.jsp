@@ -37,7 +37,9 @@
 	</div>
 	
 	 <c:if test="${!empty errors}">
-     	<div class="Alert-error"><h6>Une erreur s'est produite!</h6></div>
+      	<c:forEach var="error" items="${errors}">
+      		<div class="Alert-error">${error}</div>
+      	</c:forEach>
      </c:if> 
 
 	<div class="InscriptionPage">
@@ -76,6 +78,5 @@
 			</form>
 		</div>
 	</div>
-</body>
 </body>
 </html>
