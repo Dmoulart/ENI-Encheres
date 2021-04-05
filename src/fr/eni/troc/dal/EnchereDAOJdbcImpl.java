@@ -18,6 +18,8 @@ import fr.eni.troc.exception.Errors;
 public class EnchereDAOJdbcImpl implements EnchereDal {
 
     private static final String SELECT_BY_ARTICLE = "SELECT * FROM Encheres WHERE id_article = ?";
+    
+    private static final String SELECT_BY_UTILISATEUR = "SELECT * FROM Encheres WHERE id_utilisateur = ?";
 
     private static final String INSERT = "INSERT INTO Encheres VALUES(null,?,?,?,?)";
 
@@ -93,7 +95,7 @@ public class EnchereDAOJdbcImpl implements EnchereDal {
 	List<Enchere> encheres = new ArrayList<>();
 
 	try (Connection cnx = ConnectionProvider.getConnection()) {
-	    PreparedStatement pstmt = cnx.prepareStatement(SELECT_BY_ARTICLE);
+	    PreparedStatement pstmt = cnx.prepareStatement(SELECT_BY_UTILISATEUR);
 	    pstmt.setInt(1, emetteur.getId());
 	    ResultSet rs = pstmt.executeQuery();
 

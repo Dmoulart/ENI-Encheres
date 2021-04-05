@@ -57,4 +57,14 @@ public class ArticleManager {
 	    throw be;
 	}
     }
+    public void update(Article a) throws BusinessException{
+	try {
+	    articleDal.update(a);
+	} catch (DALException de) {
+	    de.printStackTrace();
+	    BusinessException be = new BusinessException();
+	    be.addError(de.getMessage());
+	    throw be;
+	}
+    }
 }

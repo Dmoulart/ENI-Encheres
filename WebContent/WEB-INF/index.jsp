@@ -73,6 +73,60 @@
             <button type="submit" class="Search_button">Rechercher</button>
         </div>
     </form>
+    
+    <!-- OPTIONS EN MODE CONNECTE -->
+	<c:choose>
+    	<c:when test="${utilisateurEnSession!=null}">
+   			<form class="SearchOptionsContainer" method="POST" action="./IndexServlet">
+   			
+				<div class="OptionContainer" id="achatsOption">
+					<div class="SearchOptionType">
+						<input type="radio" name="achats" id="achatsRadio">
+						<label for="achats">Achats</label>
+					</div>
+						<div class="SearchOption">
+							<input type="checkbox" name="enchereOuvertes" id="enchereOuvertes">
+							<label for="achats">enchères ouvertes</label>
+						</div>
+						
+						<div class="SearchOption">
+							<input type="checkbox" name="mesEncheres" id="mesEncheres">
+							<label for="achats">mes enchères</label>							
+						</div>
+						
+						<div class="SearchOption">
+							<input type="checkbox" name="mesEncheresRemportees" id="mesEncheresRemportees">
+							<label for="achats">mes enchères remportées</label>							
+						</div>
+				</div>
+				
+				<div class="OptionContainer"  id="ventesOption">
+				
+					<div class="SearchOptionType">
+						<input type="radio" name="mesVentes" id="mesVentesRadio">
+						<label for="achats">Mes ventes</label>
+					</div>
+					
+						<div class="SearchOption">
+							<input type="checkbox" name="ventesEnCours" id="ventesEnCours">
+							<label for="achats">mes ventes en cours</label>
+						</div>
+						
+						<div class="SearchOption">
+							<input type="checkbox" name="ventesNonDebutees" id="ventesNonDebutees">
+							<label for="achats">ventes non débutées</label>
+						</div>
+						
+						<div class="SearchOption">							
+							<input type="checkbox" name="ventesTerminees" id="ventesTerminees">
+							<label for="achats">ventes terminées</label>
+						</div>
+				</div>
+			</form>
+    	</c:when>
+	</c:choose>
+
+
 
     <section class="Articles-Section">
 		<c:forEach var="article" items="${articles}">
@@ -84,20 +138,60 @@
 			            <div class="Article_informationsContainer">
 			              <c:choose> 
 				              	<c:when test="${utilisateurEnSession!=null}"> 
-				              		<a href="${url}"><div class="Article_name">${article.nom}</div></a>
+				              		<div class="Article_name"><a href="${url}">${article.nom}</a></div>
 				              	</c:when>
 				              	
 				              	<c:otherwise>
 				              		<div class="Article_name">${article.nom}</div>
 				              	</c:otherwise>
 			              	</c:choose>
-			                <div class="Article_properties prix">Prix : ${article.prixInitial}</div>
+			                <div class="Article_properties prix">Prix : ${article.prixVente}</div>
 			                <div class="Article_properties finEnchere">Fin de l'enchère : ${article.finEncheres.toString()}</div>
 			                <div class="Article_properties retrait">Retrait : ${article.vendeur.rue}</div>
-			                <div class="Article_properties vendeur">Vendeur:  ${article.vendeur.nom}</div>
+			                <c:url value="/ProfilUtilisateurServlet" var="urlUt">
+	  							<c:param name="utilisateurId" value="${article.vendeur.id}" />
+							</c:url>
+							
+							<c:choose> 
+				              	<c:when test="${utilisateurEnSession!=null}"> 
+				              		<div class="Article_properties vendeur"><a href="${urlUt}">Vendeur:  ${article.vendeur.nom}</a></div>
+				              	</c:when>
+				              	<c:otherwise>
+				              		<div class="Article_properties vendeur">Vendeur:  ${article.vendeur.nom}</div>
+				              	</c:otherwise>
+			              	</c:choose>		
+			              		              
 			            </div>
 			        </div>
 		</c:forEach>
 	</section>
+<script>
+
+/*let radioAchat = document.getElementById("achatsRadio");
+let radioMesVentes = document.getElementById("mesVentesRadio");
+
+let achatNodes = Array.from(document.getElementById("achatsOption").getElementsByTagName('INPUT'));
+let ventesNodes = Array.from(document.getElementById("ventesOption").getElementsByTagName('INPUT'));
+
+radioAchat.onclick = function(){
+    ventesNodes = Array.from(document.getElementById("ventesOption").getElementsByTagName('INPUT'));
+	radioAchat.checked = true;
+	radioMesVentes.checked = false;
+	ventesNodes.forEach(n =>  {
+		n.checked = false;
+		n.readOnly = true;
+	});
+}
+radioMesVentes.onclick = function(){
+	 achatNodes = Array.from(document.getElementById("achatsOption").getElementsByTagName('INPUT'));
+	radioMesVentes.checked = true;
+	radioAchat.checked = false;
+	achatsNodes.forEach(n =>  {
+		n.checked = false;
+		n.readOnly = true;
+	});
+}
+*/
+</script>
 </body>
 </html>

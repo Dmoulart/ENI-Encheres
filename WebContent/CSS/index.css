@@ -64,6 +64,30 @@ html{
     min-width: calc(var(--searchBloc-width)/2);
     height: 10vh;
 }
+/*---SEARCH OPTIONS(CONNECTED)-------------------*/
+.SearchOptionsContainer{
+	display:flex;
+	width: 60vw;
+	height:25vh;
+	margin-block-start: 3rem;
+	margin-inline-start: 4vw;
+}
+.OptionContainer{
+	display:flex;
+	flex-flow:column nowrap;
+	justify-content:space-between;
+	align-items: flex-start;
+}
+.SearchOption{
+	display:flex;
+	flex-flow: row nowrap;
+	margin-inline-start:8vw;
+	justify-content:space-between;
+}
+.SearchOptionType{
+	display:flex;
+	flex-flow: row nowrap;
+}
 /*----ARTICLE SECTION---------------------------*/
 .Articles-Section{
     display:flex;

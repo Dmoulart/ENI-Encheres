@@ -41,6 +41,8 @@
 				${article.categorie.libelle}</div>
 			<div class="Article_properties prix">Mise à prix :
 				${article.prixInitial}</div>
+				<div class="Article_properties prix">Prix de vente :
+				${article.prixVente}</div>
 			<div class="Article_properties finEnchere">Fin de l'enchère :
 				${article.finEncheres.toString()}</div>
 			<div class="Article_properties retrait">Retrait :
@@ -57,7 +59,7 @@
 					</c:if>
 					
 					Ma proposition : <input type="number" id="montantEnchere" name="montantEnchere"
-						value="${article.prixInitial +1 }" min="${article.prixInitial +1}"
+						value="${article.prixVente +1 }" min="${article.prixVente +1}"
 						max="${utilisateurEnSession.credit}" required> <input
 						type="hidden" name="articleId" id="articleId" value="${article.id}">
 					<button type="submit" name="encherir">Enchérir</button>

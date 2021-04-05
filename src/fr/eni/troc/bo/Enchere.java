@@ -74,10 +74,10 @@ public class Enchere {
 	builder.append(date);
 	builder.append(", montant=");
 	builder.append(montant);
-	if (emetteur != null) {
+	/*if (emetteur != null) {
 	    builder.append(", emetteur=");
 	    builder.append(emetteur);
-	}
+	}*/
 	return builder.toString();
     }
     // HASH CODE AND EQUALS ENCHERES
