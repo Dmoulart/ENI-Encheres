@@ -6,9 +6,9 @@
 | |_\ \  __/ | | |  __/ | | (_| | |
  \____/\___|_| |_|\___|_|  \__,_|_|
                                    
--	Feuille de style générale.
+-	Feuille de style gï¿½nï¿½rale.
 -	Contient : 
-				- Formatage général : suppression des marges et padding(sélecteur : *) 
+				- Formatage gï¿½nï¿½ral : suppression des marges et padding(sï¿½lecteur : *) 
 				- Navbar
 				- Animation d'affichage des pages (fade in)             
 */
@@ -76,10 +76,11 @@ dropdown-item {
 .Menu{
     display:flex;
     justify-content: space-around;
-    width:15.5rem;
+    min-width:15.5rem;
 }
 .Menu_item{
     display:flex;
+    padding:1rem;
 }
 a:visited {
     color: var(--visited-hyperlink-color);

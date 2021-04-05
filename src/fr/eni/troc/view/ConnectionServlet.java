@@ -54,7 +54,6 @@ public class ConnectionServlet extends HttpServlet {
 
 	    HttpSession session = request.getSession();
 	    session.setAttribute("utilisateurEnSession", u);
-	    request.setAttribute("utilisateur", u);
 	    request.getRequestDispatcher("./IndexServlet").forward(request, response);
 	} catch (BusinessException e) {
 	    e.printStackTrace();

@@ -6,7 +6,11 @@ public class DALException extends Exception {
     public static final String layer = "Couche DAL";
     public String exceptionStartingLocation;
     public String errorCase;
-
+    
+    public DALException() {
+	super();
+    }
+    
     public DALException(String message, String className, Throwable cause) {
 	super(message + " en Couche DAL dans la classe " + className + " " + cause.toString());
 	this.exceptionStartingLocation = className;
