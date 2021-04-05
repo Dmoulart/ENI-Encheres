@@ -46,7 +46,7 @@ public class Errors {
                                               
     
     final static public String EMPTY_FIELD(String champs) {
-	return "Le champs " + champs + "est obligatoire";
+	return "Le champs " + champs + " est obligatoire";
     }
 
     final static public String TOO_LARGE_VALUE(String champs, int limite) {
