@@ -30,28 +30,28 @@ public class UtilisateurManager {
 	}
 	return instance;
     }
-    
-    public Utilisateur selectById(int id) throws BusinessException {
-   	// Appelle de la couche DAL
-   	try {
-   	    Utilisateur u = utilisateurDal.selectById(id);
-   	    if (u != null) {
-   		return u;
 
-   	    } else {
-   		BusinessException be = new BusinessException();
-   		be.addError("Erreur de selectbyid");
-   		throw be;
-   	    }
-   	} catch (DALException de) {
-   	    BusinessException be = new BusinessException();
-   	    de.printStackTrace();
-   	    be = new BusinessException();
-   	    be.addError(de.getMessage());
-   	    be.getErrors().forEach(e -> System.out.println(e));
-   	    throw be;
-   	}
-       }
+    public Utilisateur selectById(int id) throws BusinessException {
+	// Appelle de la couche DAL
+	try {
+	    Utilisateur u = utilisateurDal.selectById(id);
+	    if (u != null) {
+		return u;
+
+	    } else {
+		BusinessException be = new BusinessException();
+		be.addError("Erreur de selectbyid");
+		throw be;
+	    }
+	} catch (DALException de) {
+	    BusinessException be = new BusinessException();
+	    de.printStackTrace();
+	    be = new BusinessException();
+	    be.addError(de.getMessage());
+	    be.getErrors().forEach(e -> System.out.println(e));
+	    throw be;
+	}
+    }
 
     public Utilisateur validateConnection(String pseudo, String motDePasse) throws BusinessException {
 	try {
@@ -145,6 +145,39 @@ public class UtilisateurManager {
 	}
     }
 
+    public void verifUpdateUtilisateur(Utilisateur utilisateurModifie, String confiMotDePasse)
+	    throws BusinessException {
+
+	// Validation des données par rapport au métier
+	BusinessException be = new BusinessException();
+	validateUpdatePseudo(utilisateurModifie.getPseudo(), be);
+	validateNom(utilisateurModifie.getNom(), be);
+	validatePrenom(utilisateurModifie.getPrenom(), be);
+	validateUpdateEmail(utilisateurModifie.getEmail(), be);
+	validateTelephone(utilisateurModifie.getTelephone(), be);
+	validateRue(utilisateurModifie.getRue(), be);
+	validateCodePostal(utilisateurModifie.getCodePostal(), be);
+	validateVille(utilisateurModifie.getVille(), be);
+	validatePassword(utilisateurModifie.getMotDePasse(), be);
+	validateConfiPassword(utilisateurModifie.getMotDePasse(), confiMotDePasse, be);
+
+	if (be.getErrors().isEmpty()) {
+	    // Appelle de la couche DAL
+	    try {
+		DALFactory.getUtilisateurDal().update(utilisateurModifie);
+	    } catch (DALException de) {
+		de.printStackTrace();
+		be = new BusinessException();
+		be.addError(de.getMessage());
+		throw be;
+	    }
+	} else {
+	    be.getErrors().forEach(e -> System.out.println(e));
+	    throw be;
+	}
+
+    }
+
     public void delete(int id) throws BusinessException {
 	// Appelle de la couche DAL - pas de vérifications particulieres
 	try {
@@ -171,7 +204,7 @@ public class UtilisateurManager {
     }
 
     private boolean validatePseudo(String pseudo, BusinessException be) {
-	if (isNull("Pseudonyme", pseudo, be))
+	if (isNullOrEmpty("Pseudonyme", pseudo, be))
 	    return false;
 
 	if (isTooLarge("Pseudonyme", pseudo, 30, be))
@@ -194,9 +227,23 @@ public class UtilisateurManager {
 
 	return true;
     }
+    
+    private boolean validateUpdatePseudo(String pseudo, BusinessException be) {
+   	if (isNullOrEmpty("Pseudonyme", pseudo, be))
+   	    return false;
+
+   	if (isTooLarge("Pseudonyme", pseudo, 30, be))
+   	    return false;
+
+   	// Vérification alphanumerique
+   	if (!pseudo.matches("^[a-zA-Z0-9]+$")) {
+   	    be.addError(Errors.LOGIN_NOT_ALPHANUMERIC);
+   	    return false;
+   	}
+   	return true; }
 
     private boolean validateNom(String nom, BusinessException be) {
-	if (isNull("Nom", nom, be))
+	if (isNullOrEmpty("Nom", nom, be))
 	    return false;
 	if (isTooLarge("Nom", nom, 30, be))
 	    return false;
@@ -204,15 +251,24 @@ public class UtilisateurManager {
     }
 
     private boolean validatePrenom(String prenom, BusinessException be) {
-	if (isNull("Prenom", prenom, be))
+	if (isNullOrEmpty("Prenom", prenom, be))
 	    return false;
 	if (isTooLarge("Prenom", prenom, 30, be))
 	    return false;
 	return true;
     }
+    
+    private boolean validateUpdateEmail(String email, BusinessException be) {
+   	if (isNullOrEmpty("Email", email, be))
+   	    return false;
+
+   	if (!email
+   		.matches("([a-zA-Z0-9]+(?:[._+-][a-zA-Z0-9]+)*)@([a-zA-Z0-9]+(?:[.-][a-zA-Z0-9]+)*[.][a-zA-Z]{2,})")) {
+   	    be.addError(Errors.UNVALID_EMAIL);
+   	}return true; }
 
     private boolean validateEmail(String email, BusinessException be) {
-	if (isNull("Email", email, be))
+	if (isNullOrEmpty("Email", email, be))
 	    return false;
 
 	if (!email
@@ -221,7 +277,7 @@ public class UtilisateurManager {
 	}
 
 	try {
-	    if (utilisateurDal.hasDuplicates("email",email)) {
+	    if (utilisateurDal.hasDuplicates("email", email)) {
 		be.addError(Errors.EMAIL_NOT_UNIQUE);
 		return false;
 	    }
@@ -233,7 +289,7 @@ public class UtilisateurManager {
     }
 
     private boolean validateTelephone(String telephone, BusinessException be) {
-	if (isNull("Telephone", telephone, be))
+	if (isNullOrEmpty("Telephone", telephone, be))
 	    return false;
 	if (!telephone.matches("(0|\\\\+33|0033)[1-9][0-9]{8}")) {
 	    be.addError(Errors.UNVALID_PHONE_NUMBER);
@@ -243,7 +299,7 @@ public class UtilisateurManager {
     }
 
     private boolean validateRue(String rue, BusinessException be) {
-	if (isNull("Rue", rue, be))
+	if (isNullOrEmpty("Rue", rue, be))
 	    return false;
 	if (isTooLarge("Rue", rue, 30, be))
 	    return false;
@@ -251,7 +307,7 @@ public class UtilisateurManager {
     }
 
     private boolean validateCodePostal(String codePostal, BusinessException be) {
-	if (isNull("Code postal", codePostal, be))
+	if (isNullOrEmpty("Code postal", codePostal, be))
 	    return false;
 	if (!codePostal.matches("^(([0-8][0-9])|(9[0-5])|(2[ab]))[0-9]{3}$")) {
 	    be.addError(Errors.UNVALID_POSTAL_CODE);
@@ -260,7 +316,7 @@ public class UtilisateurManager {
     }
 
     private boolean validateVille(String ville, BusinessException be) {
-	if (isNull("Ville", ville, be))
+	if (isNullOrEmpty("Ville", ville, be))
 	    return false;
 	if (isTooLarge("Ville", ville, 30, be))
 	    return false;
@@ -268,7 +324,7 @@ public class UtilisateurManager {
     }
 
     private boolean validatePassword(String motDePasse, BusinessException be) {
-	if (isNull("Mot de passe", motDePasse, be))
+	if (isNullOrEmpty("Mot de passe", motDePasse, be))
 	    return false;
 	if (isTooLarge("Mot de passe", motDePasse, 30, be))
 	    return false;
@@ -276,7 +332,7 @@ public class UtilisateurManager {
     }
 
     private boolean validateConfiPassword(String motDePasse, String confiMotDePasse, BusinessException be) {
-	if (isNull("Mot de passe", motDePasse, be))
+	if (isNullOrEmpty("Mot de passe", motDePasse, be))
 	    return false;
 	if (!motDePasse.equals(confiMotDePasse)) {
 	    be.addError(Errors.FAILED_PASSWORD_VALIDATION);
@@ -284,8 +340,8 @@ public class UtilisateurManager {
 	return true;
     }
 
-    private boolean isNull(String champs, String data, BusinessException be) {
-	if (data == null) {
+    private boolean isNullOrEmpty(String champs, String data, BusinessException be) {
+	if (data == null || data.isEmpty()) {
 	    be.addError(Errors.EMPTY_FIELD(champs));
 	    return true;
 	}
