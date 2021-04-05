@@ -29,7 +29,9 @@
     </div>
     
       <c:if test="${!empty errors}">
-     	<div class="Alert-error"><h6>Impossible de se connecter! Veuillez v√©rifier votre Email/Mot de passe.</h6></div>
+      	<c:forEach var="error" items="${errors}">
+      		<div class="Alert-error">${error}</div>
+      	</c:forEach>
      </c:if> 
      
     <div class="ConnexionPage">
@@ -50,13 +52,12 @@
                             <input type="checkbox" class="option" id="rememberPassword">
                             <label for="rememberPassword">Se souvenir de moi</label>
                         </div>
-                        <a class="option" href="./MotDePasseOublieServlet">Mot de passe oubliÈ</a>
+                        <a class="option" href="./MotDePasseOublieServlet">Mot de passe oubli√©</a>
                     </div>
                 </div>
             </form>
-            <button class="Subscribe" id="creerCompte" href="./InscriptionServlet">CrÈer un compte</button>
+            <button class="Subscribe" id="creerCompte" href="./InscriptionServlet">Cr√©er un compte</button>
         </div>
     </div>
-</body>
 </body>
 </html>

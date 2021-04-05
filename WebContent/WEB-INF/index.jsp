@@ -21,43 +21,26 @@
     <div class="NavbarContainer">
         <nav class="Navbar">
             <div class="Logo"><a class="link" href="./IndexServlet">ENI-Enchères</a></div>
-          
-     <c:choose>
-    	<c:when test="${utilisateurEnSession!=null}">  
-
-            <ul class="Menu">
-                <li class="Menu_item"><a class="link" href="./VenteServlet">Vente</a></li>
-                <li class="Menu_item"><a class="link" href="./EnchereServlet">Enchères</a></li>
-            </ul>
-        </c:when>
-     </c:choose>
-          
-          
-            <ul class="Menu">
-                <li class="Menu_item"><a href="./InscriptionServlet" class="link">S'inscrire</a></li>
-      
-
-            </ul>
-            <c:choose>
-                   <c:when test="${utilisateurEnSession!=null}">
-                   	<li class="Menu_item"><a class="link" href="./ProfilServlet">Mon Profil</a></li>
-                   </c:when>
-            </c:choose>
-            <c:choose>
-                   <c:when test="${utilisateurEnSession!=null}">
-                       <li class="Menu_item"><a href="./DeconnectionServlet" class="link">Se deconnecter</a></li>
-                   </c:when>
-                   <c:otherwise>
-                       <li class="Menu_item"><a href="./ConnectionServlet" class="link">Se connecter</a></li>
-                   </c:otherwise>
-           </c:choose>
+          <ul class="Menu">
+     		<c:choose>
+		    	<c:when test="${utilisateurEnSession!=null}">  
+		            	<li class="Menu_item"><a class="link" href="./EnchereServlet">Enchères</a></li>
+		                <li class="Menu_item"><a class="link" href="./VenteServlet">Vendre un article</a></li>
+		                <li class="Menu_item"><a class="link" href="./ProfilServlet">Mon Profil</a></li>
+		                <li class="Menu_item"><a href="./DeconnectionServlet" class="link">Se deconnecter</a></li>
+		        </c:when>
+		        <c:otherwise>
+		        		<li class="Menu_item"><a href="./InscriptionServlet" class="link">S'inscrire</a></li>
+		        		<li class="Menu_item"><a href="./ConnectionServlet" class="link">Se connecter</a></li>
+		        </c:otherwise>
+		        
+		     </c:choose>
+  			</ul>
         </nav>
     </div>
 
     <div class="Page-TitleContainer"><h1>Liste des enchères</h1></div>
     
-   
-      
     
     <c:choose>
     	<c:when test="${utilisateurEnSession!=null}">
@@ -86,7 +69,6 @@
                     </div>
                 </div>
             </div>
-        </div>
         <div class="Search_buttonContainer">
             <button type="submit" class="Search_button">Rechercher</button>
         </div>
@@ -94,16 +76,27 @@
 
     <section class="Articles-Section">
 		<c:forEach var="article" items="${articles}">
-			<div class="ArticleContainer">
-	            <img src="" class="Article_image">
-	            <div class="Article_informationsContainer">
-	                <div class="Article_name">${article.nom}</div>
-	                <div class="Article_properties prix">Prix : ${article.prixInitial}</div>
-	                <div class="Article_properties finEnchere">Fin de l'enchère : ${article.finEncheres.toString()}</div>
-	                <div class="Article_properties retrait">Retrait : ${article.vendeur.rue}</div>
-	                <div class="Article_properties vendeur">Vendeur:  ${article.vendeur.nom}</div>
-	            </div>
-	        </div>
+				<c:url value="/ArticleServlet" var="url">
+	  				<c:param name="articleId" value="${article.id}" />
+				</c:url>
+					<div class="ArticleContainer">
+			           <img src="" class="Article_image">
+			            <div class="Article_informationsContainer">
+			              <c:choose> 
+				              	<c:when test="${utilisateurEnSession!=null}"> 
+				              		<a href="${url}"><div class="Article_name">${article.nom}</div></a>
+				              	</c:when>
+				              	
+				              	<c:otherwise>
+				              		<div class="Article_name">${article.nom}</div>
+				              	</c:otherwise>
+			              	</c:choose>
+			                <div class="Article_properties prix">Prix : ${article.prixInitial}</div>
+			                <div class="Article_properties finEnchere">Fin de l'enchère : ${article.finEncheres.toString()}</div>
+			                <div class="Article_properties retrait">Retrait : ${article.vendeur.rue}</div>
+			                <div class="Article_properties vendeur">Vendeur:  ${article.vendeur.nom}</div>
+			            </div>
+			        </div>
 		</c:forEach>
 	</section>
 </body>
