@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.mysql.cj.x.protobuf.MysqlxCrud.Update;
 
@@ -31,6 +32,13 @@ public class ModifierProfilServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	    
+	    	HttpSession session = request.getSession();
+	    	Utilisateur u = (Utilisateur) session.getAttribute("utilisateurEnSession");
+	   
+	    	// Récupération de la saisie
+	    	request.setCharacterEncoding("UTF-8");
+	    	
 		String newpseudo = request.getParameter("pseudoUtilisateur");
 		String newnom = request.getParameter("nomUtilisateur");
 		String newprenom = request.getParameter("prenomUtilisateur");
@@ -52,27 +60,31 @@ public class ModifierProfilServlet extends HttpServlet {
 		System.out.println("Mot de Passe : " + newmotDePasse);
 		
 		try {
-		Utilisateur u = new Utilisateur();
-		if(newpseudo.equals(u.getPseudo())) {
-		    	u.setPseudo(newpseudo);
-		} else if (newnom.equals(u.getNom())) {
-			u.setNom(newnom);
-		}  else if (newprenom.equals(u.getPrenom())) {
-			u.setNom(newprenom);
-		} else if (newemail.equals(u.getEmail())) {
-			u.setNom(newemail);
-		}  else if (newtelephone.equals(u.getTelephone())) {
-			u.setNom(newtelephone);
-		} else if (newrue.equals(u.getRue())) {
-			u.setNom(newrue);
-		}  else if (newcodePostal.equals(u.getCodePostal())) {
-			u.setNom(newcodePostal);
-		} else if (newville.equals(u.getVille())) {
-			u.setNom(newville);
-		}  else if (newmotDePasse.equals(u.getMotDePasse())) {
-			u.setNom(newmotDePasse);
+		
+		
+		if (!newpseudo.equals(u.getPseudo())) {
+		    	u.setPseudo(newpseudo);}
+		if (!newnom.equals(u.getNom())) {
+			u.setNom(newnom);}
+		if (!newprenom.equals(u.getPrenom())) { 
+			u.setPrenom(newprenom);}
+		if (!newemail.equals(u.getEmail())) {
+			u.setEmail(newemail);}
+		if (!newtelephone.equals(u.getTelephone())) {
+			u.setTelephone(newtelephone);}
+		if (!newrue.equals(u.getRue())) {
+			u.setRue(newrue);}
+		if (!newcodePostal.equals(u.getCodePostal())) {
+			u.setCodePostal(newcodePostal);}
+		if (!newville.equals(u.getVille())) {
+			u.setVille(newville);}
+		if (!newmotDePasse.equals(u.getMotDePasse())) {
+			u.setMotDePasse(newmotDePasse);
 		}
+		System.out.println("Id utilisateur : " + u.getId());
 		UtilisateurManager.getUtilisateurManager().update(u);
+		session.setAttribute("utilisateurEnSession",UtilisateurManager.getUtilisateurManager().selectById(u.getId()));
+		System.out.println("UPDATED");
 		response.sendRedirect(request.getContextPath() + "/ProfilServlet");
 		} catch (BusinessException e) {
 			e.printStackTrace();

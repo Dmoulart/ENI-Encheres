@@ -49,12 +49,11 @@ public class ConnectionServlet extends HttpServlet {
 	try {
 	    // Email REGEX
 	    Utilisateur u = identifiant.matches("([a-zA-Z0-9]+(?:[._+-][a-zA-Z0-9]+)*)@([a-zA-Z0-9]+(?:[.-][a-zA-Z0-9]+)*[.][a-zA-Z]{2,})")
-		    ? UtilisateurManager.getUtilisateurManager().validateConnectionWithEmail(identifiant, motDePasse)
-		    : UtilisateurManager.getUtilisateurManager().validateConnection(identifiant, motDePasse);
+		? UtilisateurManager.getUtilisateurManager().validateConnectionWithEmail(identifiant, motDePasse)
+		: UtilisateurManager.getUtilisateurManager().validateConnection(identifiant, motDePasse);
 
 	    HttpSession session = request.getSession();
 	    session.setAttribute("utilisateurEnSession", u);
-	    request.setAttribute("utilisateur", u);
 	    request.getRequestDispatcher("./IndexServlet").forward(request, response);
 	} catch (BusinessException e) {
 	    e.printStackTrace();

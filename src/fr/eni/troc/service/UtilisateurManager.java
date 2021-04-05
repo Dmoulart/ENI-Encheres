@@ -33,6 +33,28 @@ public class UtilisateurManager {
 	return instance;
     }
 
+    public Utilisateur selectById(int id) throws BusinessException {
+	// Appelle de la couche DAL
+	try {
+	    Utilisateur u = utilisateurDal.selectById(id);
+	    if (u != null) {
+		return u;
+
+	    } else {
+		BusinessException be = new BusinessException();
+		be.addError("Erreur de selectbyid");
+		throw be;
+	    }
+	} catch (DALException de) {
+	    BusinessException be = new BusinessException();
+	    de.printStackTrace();
+	    be = new BusinessException();
+	    be.addError(de.getMessage());
+	    be.getErrors().forEach(e -> System.out.println(e));
+	    throw be;
+	}
+    }
+
     /**
      * Permet de valider le pseudo / mot de passe tranmis par l'affichage
      * 
@@ -43,25 +65,25 @@ public class UtilisateurManager {
      */
     public Utilisateur validateConnection(String pseudo, String motDePasse) throws BusinessException {
 
-	 // Appelle de la couche DAL
-	    try {
-		Utilisateur u = utilisateurDal.find(pseudo, motDePasse);
-		if (u != null) {
-		    return u;
+	// Appelle de la couche DAL
+	try {
+	    Utilisateur u = utilisateurDal.find(pseudo, motDePasse);
+	    if (u != null) {
+		return u;
 
-		} else {
-		    BusinessException be = new BusinessException();
-		    be.addError("Erreur de connexion par email");
-		    throw be;
-		}
-	    } catch (DALException de) {
+	    } else {
 		BusinessException be = new BusinessException();
-		de.printStackTrace();
-		be = new BusinessException();
-		be.addError(de.getMessage());
-		be.getErrors().forEach(e -> System.out.println(e));
+		be.addError("Erreur de connexion par email");
 		throw be;
 	    }
+	} catch (DALException de) {
+	    BusinessException be = new BusinessException();
+	    de.printStackTrace();
+	    be = new BusinessException();
+	    be.addError(de.getMessage());
+	    be.getErrors().forEach(e -> System.out.println(e));
+	    throw be;
+	}
     }
 
     private boolean checkPassword(String motDePasse, BusinessException be) {
@@ -71,25 +93,25 @@ public class UtilisateurManager {
 
     public Utilisateur validateConnectionWithEmail(String email, String motDePasse) throws BusinessException {
 
-	    // Appelle de la couche DAL
-	    try {
-		Utilisateur u = utilisateurDal.selectByEmail(email, motDePasse);
-		if (u != null) {
-		    return u;
+	// Appelle de la couche DAL
+	try {
+	    Utilisateur u = utilisateurDal.selectByEmail(email, motDePasse);
+	    if (u != null) {
+		return u;
 
-		} else {
-		    BusinessException be = new BusinessException();
-		    be.addError("Erreur de connexion par email");
-		    throw be;
-		}
-	    } catch (DALException de) {
+	    } else {
 		BusinessException be = new BusinessException();
-		de.printStackTrace();
-		be = new BusinessException();
-		be.addError(de.getMessage());
-		be.getErrors().forEach(e -> System.out.println(e));
+		be.addError("Erreur de connexion par email");
 		throw be;
 	    }
+	} catch (DALException de) {
+	    BusinessException be = new BusinessException();
+	    de.printStackTrace();
+	    be = new BusinessException();
+	    be.addError(de.getMessage());
+	    be.getErrors().forEach(e -> System.out.println(e));
+	    throw be;
+	}
 
     }
 
