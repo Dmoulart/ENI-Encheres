@@ -66,3 +66,29 @@ input{
         font-size: 0.8rem;
     }
 }
+/* POPUP DE SUPPRESSION */
+.btnPopup {
+    border-radius: 10px;
+    border-style: none;
+    cursor:pointer;	
+}
+.overlayPopup {
+	background-color : aqua;
+	position:fixed;
+	left:10px;
+	top:10px;
+	width:100%;
+	display:none;
+}
+.popup {
+	margin:20% auto;
+	width:70%;
+	background-color:white;
+	border-radius:5px;
+	box-shadow:15px 20px 0 rgba(0,0,0, 0.5);
+	padding:1em;
+}
+.btnClose {
+	float:right;
+	cursor:pointer;
+}

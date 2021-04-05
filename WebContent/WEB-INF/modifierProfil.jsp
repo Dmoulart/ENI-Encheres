@@ -66,7 +66,15 @@
                     </div>
                     <div class="ProfilButtonContainer">
                 		<p> Suppression du compte :  </p>
-                        <button type="submit" id="modificationProfilValider" class="modificationProfilValider">Supprimer le compte</button>
+                        <button id="supprimerProfilPopup" class="supprimerProfilPopup">Supprimer le compte</button>
+                        <div id="overlayPopup" class="overlayPopup">
+                        	<div id="popup" class="popup">
+                        		<h2>VOULEZ VRAIMENT SUPPRIMER VOTRE COMPTE ? <span id="btnClose" class="btnClose">&times;</span></h2>
+                        		<p>Cette action est irréversible !</p>
+                        		<button type="submit" id="supprimerProfilValider" class="supprimerProfilValider">Supprimer le compte</button>
+                        	</div>
+                        </div>
+                        <script type="text/javascript.js"></script>
                     </div>
                 </div>  
 			</form>

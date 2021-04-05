@@ -50,6 +50,10 @@
 			<button type="submit" class="Search_button">Rechercher</button>
 		</div>
 	</form>
+	
+	<div class="Page-TitleContainer">
+		<h1>ASKIP CETTE PAGE NE SERT A RIEN DONC IL FAUDRA DEMANDER MARDI POUR SAVOIR A QUOI ELLE SERT CAR POUR LE MOMENT ON PENSE QU'ELLE REDIRIGE COMME LE "VENDRE UN ARTICLE"!!!!!</h1>
+	</div>
 
 </body>
 </body>
