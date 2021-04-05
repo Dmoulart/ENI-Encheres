@@ -30,6 +30,28 @@ public class UtilisateurManager {
 	}
 	return instance;
     }
+    
+    public Utilisateur selectById(int id) throws BusinessException {
+   	// Appelle de la couche DAL
+   	try {
+   	    Utilisateur u = utilisateurDal.selectById(id);
+   	    if (u != null) {
+   		return u;
+
+   	    } else {
+   		BusinessException be = new BusinessException();
+   		be.addError("Erreur de selectbyid");
+   		throw be;
+   	    }
+   	} catch (DALException de) {
+   	    BusinessException be = new BusinessException();
+   	    de.printStackTrace();
+   	    be = new BusinessException();
+   	    be.addError(de.getMessage());
+   	    be.getErrors().forEach(e -> System.out.println(e));
+   	    throw be;
+   	}
+       }
 
     public Utilisateur validateConnection(String pseudo, String motDePasse) throws BusinessException {
 	try {
