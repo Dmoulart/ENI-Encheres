@@ -22,7 +22,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDal {
 
     public static final String DELETE = "DELETE FROM utilisateurs WHERE id= ?";
 
-    public static final String UPDATE = "UPDATE utilisateurs SET pseudo=?, nom=?, prenom=?, email=?, telephone=?, rue=?, code_postal=?, ville=? WHERE id=?";
+    public static final String UPDATE = "UPDATE utilisateurs SET pseudo=?, nom=?, prenom=?, email=?, telephone=?, rue=?, code_postal=?, ville=?, credit=? WHERE id=?";
 
     public static final String GET_DUPLICATES_PSEUDO = "SELECT pseudo, COUNT(*) c FROM utilisateurs WHERE pseudo=? GROUP BY pseudo HAVING c >= 1;";
 
@@ -184,8 +184,9 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDal {
 	    update.setString(6, utilisateur.getRue());
 	    update.setString(7, utilisateur.getCodePostal());
 	    update.setString(8, utilisateur.getVille());
-	    update.setInt(9, utilisateur.getId());
-
+	    update.setInt(9, utilisateur.getCredit());
+	    update.setInt(10, utilisateur.getId());
+	    
 	    update.executeUpdate();
 
 	} catch (SQLException e) {

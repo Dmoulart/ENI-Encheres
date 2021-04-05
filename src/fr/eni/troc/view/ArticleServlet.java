@@ -2,6 +2,9 @@ package fr.eni.troc.view;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,7 +16,6 @@ import javax.servlet.http.HttpSession;
 import fr.eni.troc.bo.Article;
 import fr.eni.troc.bo.Enchere;
 import fr.eni.troc.bo.Utilisateur;
-import fr.eni.troc.dal.ArticleDAOJdbcImpl;
 import fr.eni.troc.exception.BusinessException;
 import fr.eni.troc.service.ArticleManager;
 import fr.eni.troc.service.EnchereManager;
@@ -41,46 +43,58 @@ public class ArticleServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
-	//EN COURS
+
 	HttpSession session = request.getSession();
+
 	int montant = Integer.parseInt(request.getParameter("montantEnchere"));
 	int articleId = Integer.parseInt(request.getParameter("articleId"));
-	
+	int prixVentePrecedent = 0;
+
 	Utilisateur u = (Utilisateur) session.getAttribute("utilisateurEnSession");
 	Enchere e = new Enchere();
-	
+	Article a = null;
+
 	try {
-	    e.setArticle(ArticleManager.getArticleManager().selectById(articleId)); // On récupère l'article
+
+	    a = ArticleManager.getArticleManager().selectById(articleId); // On récupère l'article
+	    prixVentePrecedent = a.getPrixVente();
+	    a.setPrixVente(montant);
+
+	    e.setArticle(a); // On assigne l'article à l'enchère
+	    e.setEmetteur(u); // On assigne l'utilisateur en tant qu'emetteur de l'enchère
+	    e.setDate(LocalDate.now());
+	    e.setMontant(montant);
+
+	    List<Enchere> encheresUtilisateur = EnchereManager.getEnchereManager().selectByUtilisateur(u);
+
+	    List<Enchere> encheresUtilisateurSurMemeArticle = encheresUtilisateur.stream()
+		    .filter(enchere -> enchere.getArticle().getId() == articleId)
+		    .sorted(Comparator.comparingInt(Enchere::getMontant)).collect(Collectors.toList());
+
+	    if (encheresUtilisateurSurMemeArticle.size() >= 1) {
+
+		int dernierMontantSurMemeArticle = encheresUtilisateurSurMemeArticle
+			.get(encheresUtilisateurSurMemeArticle.size() - 1).getMontant();
+
+		u.setCredit((u.getCredit() - montant) + dernierMontantSurMemeArticle);
+	    } else {
+		u.setCredit(u.getCredit() - montant);
+	    }
+	    EnchereManager.getEnchereManager().insert(e, prixVentePrecedent); // On insère l'enchère
+	    UtilisateurManager.getUtilisateurManager().update(u); // On update l'utilisateurs(nombre de points)
+	    ArticleManager.getArticleManager().update(e.getArticle()); // On update le prix de vente de l'article
+
+	    request.setAttribute("article", a);
+
+	    request.getRequestDispatcher("/WEB-INF/article.jsp").forward(request, response);
+
 	} catch (BusinessException be1) {
 	    be1.printStackTrace();
 	    request.setAttribute("errors", be1.getErrors());
-	    request.getRequestDispatcher("/WEB-INF/article.jsp").forward(request, response);
-	}
-	
-	e.setEmetteur(u);
-	e.setDate(LocalDate.now());
-	e.setMontant(montant);
-	System.out.println(e.toString());
-	System.out.println(u.toString());
-	
-	try {
-	    EnchereManager.getEnchereManager().insert(e); // On insère l'enchère
-	} catch (BusinessException be2) {
-	    be2.printStackTrace();
-	    request.setAttribute("errors", be2.getErrors());
-	    request.getRequestDispatcher("/WEB-INF/article.jsp").forward(request, response);
-	}
-	u.setCredit(u.getCredit()-montant);
-	
-	try {
-	    UtilisateurManager.getUtilisateurManager().update(e.getEmetteur()); // On retire les points à l'utilisateurs
-	} catch (BusinessException be3) {
-	    be3.printStackTrace();
-	    request.setAttribute("errors", be3.getErrors());
+	    request.setAttribute("article", a);
 	    request.getRequestDispatcher("/WEB-INF/article.jsp").forward(request, response);
 	}
 
-	doGet(request, response);
     }
 
 }

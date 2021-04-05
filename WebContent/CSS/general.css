@@ -56,6 +56,14 @@ dropdown-item {
 	border-radius: 10px;
     border-style: none;
 }
+.Alert-error {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(216, 0, 12);
+    background-color: rgb(255, 186, 186);
+    height: 2em;
+}
 .dropdown {
   position: relative;
   display: inline-block;
