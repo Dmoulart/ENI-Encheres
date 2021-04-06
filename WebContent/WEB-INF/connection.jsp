@@ -56,7 +56,8 @@
                     </div>
                 </div>
             </form>
-            <button class="Subscribe" id="creerCompte" href="./InscriptionServlet">Créer un compte</button>
+            <form action="./InscriptionServlet" class="SubscribeContainer">
+            <button class="Subscribe" id="creerCompte">Créer un compte</button></form>
         </div>
     </div>
 </body>

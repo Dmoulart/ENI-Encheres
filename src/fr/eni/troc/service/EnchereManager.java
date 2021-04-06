@@ -2,6 +2,7 @@ package fr.eni.troc.service;
 
 import java.util.List;
 
+import fr.eni.troc.bo.Article;
 import fr.eni.troc.bo.Enchere;
 import fr.eni.troc.bo.Utilisateur;
 import fr.eni.troc.dal.DALFactory;
@@ -12,14 +13,14 @@ import fr.eni.troc.exception.Errors;
 
 public class EnchereManager {
 
-    // Attribut pour repr�senter la couche DAL
+    // Attribut pour représenter la couche DAL
     private static EnchereDal enchereDal;
 
     // Pattern Singleton
     private static EnchereManager instance;
 
     private EnchereManager() {
-	// R�cup�ration de l'instance de enchereDAO
+	// Récupération de l'instance de enchereDAO
 	enchereDal = DALFactory.getEnchereDal();
     }
 
@@ -30,8 +31,18 @@ public class EnchereManager {
 	return instance;
     }
 
-    public void insert(Enchere e, int prixVentePrecedent) throws BusinessException {
-	if (e.getMontant() > e.getEmetteur().getCredit() && e.getEmetteur().getCredit() <= 0) {
+    public void insert(Enchere e, Article a, int debitEncherisseur) throws BusinessException {
+	
+	int prixVentePrecedent;
+	
+	if(a.getEncheres().size() > 1) {
+	    prixVentePrecedent = a.getEncheres().get(1).getMontant();    
+	}
+	else {
+	    prixVentePrecedent = a.getPrixInitial(); // ou prixInitial
+	}
+
+	if (debitEncherisseur > e.getEmetteur().getCredit() || e.getEmetteur().getCredit() <= 0) {
 	    BusinessException be = new BusinessException(Errors.NOT_ENOUGHT_CREDIT);
 	    be.addError(Errors.NOT_ENOUGHT_CREDIT);
 	    throw be;
