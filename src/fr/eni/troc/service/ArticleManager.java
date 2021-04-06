@@ -49,6 +49,7 @@ public class ArticleManager {
 	    throw be;
 	}
     }
+
     
     public void creer(Article article) throws BusinessException {
 	BusinessException be = new BusinessException();
@@ -148,5 +149,27 @@ public class ArticleManager {
 	    return true;
 	}
 	return false;
+
+    public Article selectById(int id) throws BusinessException {
+	Article article;
+	try {
+	    article = articleDal.selectById(id);
+	    return article;
+	} catch (DALException de) {
+	    de.printStackTrace();
+	    BusinessException be = new BusinessException();
+	    be.addError(de.getMessage());
+	    throw be;
+	}
+    }
+    public void update(Article a) throws BusinessException{
+	try {
+	    articleDal.update(a);
+	} catch (DALException de) {
+	    de.printStackTrace();
+	    BusinessException be = new BusinessException();
+	    be.addError(de.getMessage());
+	    throw be;
+	}
     }
 }

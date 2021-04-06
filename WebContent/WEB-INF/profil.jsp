@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -32,6 +33,13 @@
     </div>
     
 	<div class="Page-TitleContainer"><h1>Votre profil sur ENI-Enchères</h1></div>
+	
+	 <c:if test="${!empty errors}">
+      	<c:forEach var="error" items="${errors}">
+      		<div class="Alert-error">${error}</div>
+      	</c:forEach>
+     </c:if> 
+	
 	
 	<div class="ProfilPage">
 		<div class="ProfilFormContainer">

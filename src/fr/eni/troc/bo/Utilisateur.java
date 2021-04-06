@@ -42,7 +42,7 @@ public class Utilisateur {
 	this.motDePasse = motDePasse;
 	this.credit = credit;
 	this.administrateur = administrateur;
-	this.encheres = encheres;
+	this.encheres = encheres;//A supprimer ?
     }
 
     // GETTERS AND SETTERS CONSTRUCTEURS

@@ -22,7 +22,7 @@ public class ArticleDAOJdbcImpl implements ArticleDal {
 	private static final String DELETE = "DELETE FROM Articles WHERE id=?";
 	
 	private static final String UPDATE = "UPDATE Articles SET nom=?, description=?, date_debut_encheres=?, "
-										  + "date_fin_encheres=?,prix_initial=?,id_categorie=? WHERE id=?";
+										  + "date_fin_encheres=?,prix_initial=?,id_categorie=?,prix_vente=? WHERE id=?";
 	
 	private static final String SELECT_ALL = "SELECT id,nom,description,date_debut_encheres,date_fin_encheres,"
 										   	  + "prix_initial,prix_vente,id_utilisateur,id_categorie FROM ARTICLES";
@@ -81,7 +81,8 @@ public class ArticleDAOJdbcImpl implements ArticleDal {
 			pstmt.setDate(4, Date.valueOf(article.getFinEncheres()));
 			pstmt.setInt(5, article.getPrixInitial());
 			pstmt.setInt(6, article.getCategorie().getId());	
-			pstmt.setInt(7, article.getId());
+			pstmt.setInt(7, article.getPrixVente());
+			pstmt.setInt(8, article.getId());
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			DALException de = new DALException(Errors.UPDATE,this.getClass().getSimpleName(),e);

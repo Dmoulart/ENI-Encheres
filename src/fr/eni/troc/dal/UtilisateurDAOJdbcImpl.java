@@ -12,23 +12,27 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDal {
 
     public static final String SELECT_BY_ID = "SELECT * FROM utilisateurs WHERE id=?";
 
-    public static final String FIND = "SELECT pseudo, prenom, nom, email, telephone, rue, code_postal, ville, credit FROM utilisateurs WHERE pseudo=? AND mot_de_passe=? ";
+    public static final String FIND = "SELECT id, pseudo, prenom, nom, email, telephone, rue, code_postal, ville, credit FROM utilisateurs WHERE pseudo=? AND mot_de_passe=? ";
 
     public static final String SELECT_BY_EMAIL = "SELECT pseudo, prenom, nom, email, telephone, rue, code_postal, ville, credit FROM utilisateurs WHERE email=? AND mot_de_passe=?";
+
+
+    public static final String SELECT_BY_EMAIL = "SELECT id, pseudo, prenom, nom, email, telephone, rue, code_postal, ville, credit FROM utilisateurs WHERE email=? AND mot_de_passe=?";
+
     
     public static final String INSERT = "INSERT INTO utilisateurs (id, pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe,credit,administrateur)\r\n"
 	    + "VALUES (null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?); ";
 
     public static final String DELETE = "DELETE FROM utilisateurs WHERE id= ?";
 
-    public static final String UPDATE = "UPDATE utilisateurs SET pseudo=?, nom=?, prenom=?, email=?, telephone=?, rue=?, code_postal=?, ville=? WHERE id=?";
-    
-    public static final String GET_DUPLICATES = "SELECT ?, COUNT(*) c FROM utilisateurs GROUP BY ? HAVING c > 1;";
+    public static final String UPDATE = "UPDATE utilisateurs SET pseudo=?, nom=?, prenom=?, email=?, telephone=?, rue=?, code_postal=?, ville=?, credit=? WHERE id=?";
+
+    public static final String GET_DUPLICATES_PSEUDO = "SELECT pseudo, COUNT(*) c FROM utilisateurs WHERE pseudo=? GROUP BY pseudo HAVING c >= 1;";
+
+    public static final String GET_DUPLICATES_EMAIL = "SELECT email, COUNT(*) c FROM utilisateurs WHERE email=? GROUP BY email HAVING c >= 1;";
     // public static final String UPDATE_MDP = "UPDATE utilisateur SET
     // mot_de_passe=? WHERE id=?";
 
-    
-    
     /**
      * Methode pour trouver un utilisateur dans la BDD
      * 
@@ -37,7 +41,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDal {
      */
     @Override
     public Utilisateur find(String pseudo, String motDePasse) throws DALException {
-	
+
 	try (Connection cnx = ConnectionProvider.getConnection()) {
 		PreparedStatement pstmt = cnx.prepareStatement(FIND);
 		pstmt.setString(1,pseudo);
@@ -48,6 +52,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDal {
 		
 		if(rs.next()) {
 			Utilisateur u = new Utilisateur();
+			u.setId(rs.getInt("id"));
 			u.setPseudo(rs.getString("pseudo"));
 			u.setNom(rs.getString("nom"));
 			u.setPrenom(rs.getString("prenom"));
@@ -91,6 +96,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDal {
 
 	    if (rs.next()) {
 		Utilisateur u = new Utilisateur();
+		u.setId(rs.getInt("id"));
 		u.setPseudo(rs.getString("pseudo"));
 		u.setNom(rs.getString("nom"));
 		u.setPrenom(rs.getString("prenom"));
@@ -113,6 +119,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDal {
 	    throw de;
 	}
     }
+
     /**
      * Methode pour creer un nouvel utilisateur en BDD
      * 
@@ -180,8 +187,9 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDal {
 	    update.setString(6, utilisateur.getRue());
 	    update.setString(7, utilisateur.getCodePostal());
 	    update.setString(8, utilisateur.getVille());
-	    update.setInt(9, utilisateur.getId());
-
+	    update.setInt(9, utilisateur.getCredit());
+	    update.setInt(10, utilisateur.getId());
+	    
 	    update.executeUpdate();
 
 	} catch (SQLException e) {
@@ -194,9 +202,9 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDal {
     /**
      * Sert à retourner un utilisateur en tant que vendeur et vendeur seulement
      * Méthode apellée lorsqu'on veut assigner un vendeur à un article sans avoir
-     * besoin d'en savoir plus sur cet utilisateur. Signifie que les enchères
-     * émises par cet utilisateur ne seront pas connues/!\ Utilisé par le
-     * SelectAll de ArticleDAO Sert à éviter les boucles infinies
+     * besoin d'en savoir plus sur cet utilisateur. Signifie que les enchères émises
+     * par cet utilisateur ne seront pas connues/!\ Utilisé par le SelectAll de
+     * ArticleDAO Sert à éviter les boucles infinies
      */
     @Override
     public Utilisateur selectByIdAsVendeur(int id) throws DALException {
@@ -220,10 +228,10 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDal {
 
     /**
      * Sert à retourner un utilisateur en tant qu'émetteur et émetteur seulement.
-     * Méthode apellée lorsqu'on veut assigner un émetteur à une enchère sans
-     * avoir besoin d'en savoir plus sur cet utilisateur. Signifie que les enchères
-     * émises par cet utilisateur ne seront pas connues/!\ Utilisé par le
-     * SelectByArticle de EnchereDAO. Sert à éviter les boucles infinies
+     * Méthode apellée lorsqu'on veut assigner un émetteur à une enchère sans avoir
+     * besoin d'en savoir plus sur cet utilisateur. Signifie que les enchères émises
+     * par cet utilisateur ne seront pas connues/!\ Utilisé par le SelectByArticle
+     * de EnchereDAO. Sert à éviter les boucles infinies
      */
     @Override
     public Utilisateur selectByIdAsEmetteur(int id) throws DALException {
@@ -251,23 +259,36 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDal {
 	}
 	return u;
     }
-    
+
     @Override
-    public boolean hasDuplicates(String field) throws DALException {
-
+    public boolean hasDuplicates(String field, String value) throws DALException {
+	String statement = ";";
 	try (Connection cnx = ConnectionProvider.getConnection()) {
-	    PreparedStatement pstmt = cnx.prepareStatement(GET_DUPLICATES);
-	    pstmt.setString(1, field);
-	    pstmt.setString(2, field);
+	    switch (field) {
+	    case "email":
+		statement = GET_DUPLICATES_EMAIL;
+		break;
+	    case "pseudo":
+		statement = GET_DUPLICATES_PSEUDO;
+		break;
+	    default:
+		throw new DALException("Impossible de savoir quelle duplication chercher",
+			this.getClass().getSimpleName());
 
+	    }
+	    PreparedStatement pstmt = cnx.prepareStatement(statement);
+	    pstmt.setString(1,value);
 	    ResultSet rs = pstmt.executeQuery();
 	    
-	    return (rs.next())? true : false;
-	    
+	    while (rs.next()) {
+		System.out.println(rs.getInt("c") + " " + field);
+		return (rs.getInt("c") >= 1) ? true : false;
+	    }
 	} catch (SQLException e) {
 	    DALException de = new DALException(Errors.SEARCH_DUPLICATES, this.getClass().getSimpleName(), e);
 	    throw de;
 	}
+	return false;
     }
 
     /*
@@ -325,8 +346,8 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDal {
     }
 
     /***
-     * Méthode apellée par SelectByIdAsVendeur : permet de retourner un
-     * utilisateur sans ses enchères mais seulement avec ses articles à vendre.
+     * Méthode apellée par SelectByIdAsVendeur : permet de retourner un utilisateur
+     * sans ses enchères mais seulement avec ses articles à vendre.
      * 
      * @param rs
      * @return
