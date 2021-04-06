@@ -22,7 +22,7 @@ input{
     height: 70%;
     width: 50%;
 }
-.VentenForm{
+.VenteForm{
     display: flex;
     flex-flow: column nowrap;
     justify-content: space-evenly;

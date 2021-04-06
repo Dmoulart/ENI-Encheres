@@ -8,6 +8,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import fr.eni.troc.bo.Article;
+import fr.eni.troc.exception.BusinessException;
+import fr.eni.troc.service.ArticleManager;
+
 /**
  * Servlet implementation class VenteServlet
  */
@@ -28,8 +32,7 @@ public class VenteServlet extends HttpServlet {
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
      *      response)
      */
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-	    throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	String nom = request.getParameter("nomArticle");
 	String description = request.getParameter("descriptionArticle");
 	int categorie = Integer.parseInt(request.getParameter("categorieEnchere"));
@@ -44,24 +47,33 @@ public class VenteServlet extends HttpServlet {
 	System.out.println("Nom : " + nom);
 	System.out.println("Description : " + description);
 	System.out.println("Categorie : " + categorie);
-	System.out.println("Mise ‡ prix : " + misePrix);
-	System.out.println("DÈbut de l'enchËre : " + debutEnchere);
-	System.out.println("Fin de l'enchËre : " + finEnchere);
-	System.out.println("Rue du rettrait : " + rueRetrait);
+	System.out.println("Mise √† prix : " + misePrix);
+	System.out.println("D√©but de l'ench√®re : " + debutEnchere);
+	System.out.println("Fin de l'ench√®re : " + finEnchere);
+	System.out.println("Rue du retrait : " + rueRetrait);
 	System.out.println("Code Postal du retrait : " + codePostalEnchere);
 	System.out.println("Ville du Retrait : " + villeEnchere);
-	/*
-	 * if(nom != null && description != null && categorie > 0 && photo != null &&
-	 * misePrix > 0 && debutEnchere != null && finEnchere != null && rueRetrait !=
-	 * null && codePostalEnchere != null && villeEnchere != null) { try { Article
-	 * article = new Article(); article.setNom(nom);
-	 * article.setDescription(description); article.setCategorie(categorie);
-	 * article.setPrixInitial(misePrix); article.setDebutEncheres(debutEnchere);
-	 * article.setFinEcheres(finEnchere); article.setVendeur(vendeur);
-	 * ArticleManager. response.sendRedirect(request.getContextPath() +
-	 * "/WEB-INF/index.jsp");
-	 * System.out.println("Ajout d'un nouvel Article de la Base de donnÈe !"); }
-	 * catch (BusinessException e) { e.printStackTrace(); } }
-	 */
+	
+	if(nom != null && description != null && categorie > 0 && photo != null && misePrix > 0 && debutEnchere != null && finEnchere != null && rueRetrait != null && codePostalEnchere != null && villeEnchere != null) { 
+	     try {
+		 Article article = new Article();
+		 article.setNom(nom);
+		 article.setDescription(description);
+		 article.getCategorie().setId(categorie);
+		 article.setPrixInitial(misePrix);
+		 article.setDebutEncheres(debutEnchere);
+		 article.setFinEcheres(finEnchere);
+		 article.getVendeur().setRue(rueRetrait);
+		 article.getVendeur().setCodePostal(codePostalEnchere);
+		 article.getVendeur().setVille(villeEnchere);
+		 
+		 ArticleManager.getArticleManager().creer(article);
+		 response.sendRedirect(request.getContextPath()+ "/IndexSerlvet");
+		 System.out.println("Ajout d'un nouvel Article dans la Base de donn√©e !");
+	     } catch (BusinessException e) { 
+		request.setAttribute("errors", e.getErrors());
+		request.getRequestDispatcher("/WEB-INF/vente.jsp").forward(request, response);
+	     } 
+	}
     }
 }

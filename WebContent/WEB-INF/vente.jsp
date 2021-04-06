@@ -32,26 +32,28 @@
 	<div class="InscriptionPage">
 		<div class="InscriptionFormContainer">
 			<form class="InscriptionForm" action="./VenteServlet" method="post">
+			
 				<div class="InscriptionFields">
-					<label for="nomArticle">Article</label>
+					<label for="nomArticle">Article :</label>
 						<input type="text" placeholder="Nom de l'Article..." id="nomArticle" name="nomArticle" required>					
-					<label for="descriptionArticle">Description</label>
+					<label for="descriptionArticle">Description :</label>
 						<input type="text" placeholder="Description de l'Article..." id="descriptionArticle" name="descriptionArticle" required>	
-					<form class="form-inline">
-						<label class="mr-sm-2" for="inlineFormCustomSelect">Catégorie</label>
-							<select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="categorieEnchere" name="categorieEnchere">
-								<option selected>Choix de la catégorie...</option>
-								<option value="1">Informatique</option>
-								<option value="2">Ameublement</option>
-								<option value="3">Vêtement</option>
-								<option value="3">Sport et Loisir</option>
-							</select>
-					</form>
+              
+               		<label for="categorie">Categorie :</label>
+					<select name="categorie" id="categorie" required>
+					    <option value="">--Catégorie correspondant à l'article--</option>
+					    <option value="informatique">Informatique</option>
+					    <option value="ammeublement">Ammeublement</option>
+					    <option value="vetement">Vêtement</option>
+					    <option value="sport&loisir">Sport & Loisir</option>
+					</select>
+
 					<div class="form-group">
-						<label for="exampleInputFile">Photo de l'article</label>
-						<input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
-						<small id="photoEnchere" class="form-text text-muted">Une seule photo par article s'il vous plait, merci.</small>
-						<img src="file" class="img-thumbnail">
+						<label for="exampleInputFile">Photo de l'article :</label>
+							<p><input type="file"  accept="image/*" name="image" id="file"  onchange="loadFile(event)" style="display: none;" required></p>
+							<p><label for="file" style="cursor: pointer;">Importer une image</label></p>
+							<p><img id="output" width="300" /></p>
+						<script> var loadFile = function(event) { var image = document.getElementById('output'); image.src = URL.createObjectURL(event.target.files[0]); };</script>	
 					</div>
 					
 					<label for="nomArticle">Mise à prix</label>
@@ -60,27 +62,26 @@
 								<input class="form-control" type="number" value="42" id="prixEnchere" name="prixEnchere"required>
 							</div>
 						</div>
-					<label for="nomArticle">Début de l'enchère</label>
-					<div class="form-group row">
-						<div class="col-10">
-							<input class="form-control" type="date" value="2021-04-01" id="debutEnchere" name="debutEnchere" required>
-						</div>
-						</div>
-					<label for="nomArticle">Fin de l'enchère</label>	
-					<div class="form-group row">
-						<div class="col-10">
-							<input class="form-control" type="date" value="2021-04-01" id="finEnchere" name="finEnchere" required>
-						</div>
-					</div>
+						
+					<label for="dateDebutArticle">Début de l'enchère</label>
+						<input type="date" id="debutEnchere" name="debutEnchere" value="2021-04-01" min="2021-04-01" max="2999-12-31" required>
+					<label for="dateFinArticle">Fin de l'enchère</label>	
+						<input type="date" id="finEnchere" name="finEnchere" value="2021-04-01" min="2021-04-01" max="2999-12-31" required>
+				
 				<div class="Page-TitleContainer"><h2>Adresse de retrait</h2></div>
-                
 					<label for="nomArticle">Rue</label>
-						<input type="text" placeholder="DEFAULT RUE UTILISATEUR..." id="rueRetrait" name="rueRetrait" required>					
+						<input type="text" placeholder="${utilisateurEnSession.rue}" id="rueRetrait" name="rueRetrait" required>					
 					<label for="descriptionArticle">Code Postal</label>
-						<input type="text" placeholder="DEFAULT CODE POSTAL UTILISATEUR..." id="CodePostalRetrait" name="CodePostalRetrait" required>
+						<input type="text" placeholder="${utilisateurEnSession.codePostal}" id="CodePostalRetrait" name="CodePostalRetrait" required>
 					<label for="descriptionArticle">Ville</label>
-						<input type="text" placeholder="DEFAULT VILLE UTILISATEUR..." id="villeRetrait" name="villeRetrait" required>		
-                </div>  					
+						<input type="text" placeholder="${utilisateurEnSession.ville}" id="villeRetrait" name="villeRetrait" required>		
+                </div>
+               	<div class="InscriptionValidation">
+					<div class="InscriptionButtonContainer">
+						<p>Validation des informations pour la mise en vente :</p>
+							<button type="submit" id="venteValider" class="venteValider">Valider</button>
+					</div>
+				</div>  					
 			</form>
 		</div>
 	</div>
