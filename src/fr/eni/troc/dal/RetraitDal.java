@@ -9,4 +9,6 @@ public interface RetraitDal {
     public void delete(final int id) throws DALException;
 
     public void update(final Retrait retrait) throws DALException;
+
+    public Retrait selectByIdArticle(String rue, String codePostal, String ville) throws DALException;
 }
