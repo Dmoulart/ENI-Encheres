@@ -16,10 +16,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Quicksand:wght@300;400;500;600;700&display=swap"
           rel="stylesheet">
-    <link rel="stylesheet" href="CSS/profil.css">
+    
     <link rel="stylesheet" href="CSS/general.css">
     <link rel="stylesheet" href="CSS/index.css">
     <link rel="stylesheet" href="CSS/theme.css">
+    <link rel="stylesheet" href="CSS/modifier_profil.css">
    
 </head>
 
@@ -67,36 +68,29 @@
 					<label for="mdpUtilisateur">Confirmation</label>
 						<input type="password" value="${utilisateurEnSession.motDePasse}" id="mdpConfUtilisateur" name="mdpConfUtilisateur">
 				</div>
-				<div class="ProfilValidation">
-                	<div class="ProfilButtonContainer">
-                		<p> Validation des informations pour la modification du compte :  </p>
-                        <button type="submit" id="modificationProfilValider" class="modificationProfilValider">Modifier le compte</button>
-                    </div>
-                    <div class="ProfilButtonContainer">
-                		<p> Suppression du compte :  </p>
-                        <button id="supprimerProfilPopup" class="supprimerProfilPopup">Supprimer le compte</button>
-                        <div id="overlayPopup" class="overlayPopup">
-                        	<div id="popup" class="popup">
-                        		<h2>VOULEZ VRAIMENT SUPPRIMER VOTRE COMPTE ? <span id="btnClose" class="btnClose">&times;</span></h2>
-                        		<p>Cette action est irréversible !</p>
-                        		<button type="submit" id="supprimerProfilValider" class="supprimerProfilValider">Supprimer le compte</button>
-                        	</div>
-                        </div>
-                        <script type="text/javascript.js"></script>
-                    </div>
-                </div>  
-			</form>
-		</div>
 		
-	<div class="ProfilFormContainer">
-		<form class="ProfilForm" action="./SupprimerProfilServlet" method="get">
-			<div class="ProfilButtonContainer">
-        		<p> Suppression du compte :  </p>
+		
+    
+    
+			<div class="ProfilButoonFormContainer">
+               <div class="ProfilButtonContainer">
+                   <button type="submit" id="modificationProfilValider" class="modificationProfilValider">Modifier le compte</button>
+               </div>
+            </div>
+             </form> 
+		</div>
+              
+                
+                        
+         <div class="ProfilButtonContainer">
+            <form class="ProfilButtonForm" action="./SupprimerProfilServlet" method="get">
        			<button type="submit" id="suppresionProfil" class="suppresionProfil">Supprimer le compte</button>
-      		</div>
-    	</form>
-	</div>
-</div>
+			</form>
+			
+		</div>
+	
+     </div>   		
+  
 
 </body>
 </html>

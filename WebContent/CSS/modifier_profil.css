@@ -9,6 +9,16 @@ input{
     flex-flow: column;
 }
 
+.h2{
+	font-size: 0.7em;
+}
+
+.boutonValider{
+	
+	width:100%;
+	height:50%;
+}
+
 .Alert-error {
     display: flex;
     justify-content: center;
@@ -30,30 +40,34 @@ input{
     display:flex;
     flex-wrap: wrap-reverse;
     justify-content: space-evenly;
-    height: 70%;
-    width: 50%;
-}
-.ProfilFormLargeContainer{
-	display:flex;
-    flex-wrap: wrap-reverse;
-    justify-content: space-evenly;
-    height: 120%;
-    width: 50%;
+ 
 }
 
-.ProfilFormSmallContainer{
-	display:flex;
-    flex-wrap: wrap-reverse;
-    justify-content: space-evenly;
-    height: 40%;
-    width: 50%;
-}
+
 .ProfilForm{
     display: flex;
     flex-flow: column nowrap;
     justify-content: space-evenly;
-    height: 67%;
+    
 }
+
+.ProfilButoonFormContainer {
+	
+	display:flex;
+    flex-wrap: wrap-reverse;
+    justify-content: space-evenly;
+    width: 70%;
+    min-height: 15vh;
+	
+}
+
+.ProfilButtonForm {
+	display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-evenly;
+	width: 70%;
+}
+
 .ProfilFields{
     display: flex;
     flex-flow: column nowrap;
@@ -71,9 +85,15 @@ input{
 .ProfilButtonContainer{
 	display:flex;
     width: 50%;
+    min-height: 15vh;
 }
 .ProfilnButton{
     width: 100%;
+}
+
+.ProfilLabel{
+	width:100%;
+	height:50%; 
 }
 .Subscribe{
     margin-block-start: 7vh;
@@ -84,7 +104,7 @@ input{
 }
 @media (max-width: 670px){
     .ProfilFormContainer{
-        width: 80%;
+        width: 100%;
     }
 }
 @media (max-width: 400px){
