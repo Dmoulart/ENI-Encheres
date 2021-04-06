@@ -72,30 +72,30 @@
         <div class="Search_buttonContainer">
             <button type="submit" class="Search_button">Rechercher</button>
         </div>
-    </form>
+    
     
     <!-- OPTIONS EN MODE CONNECTE -->
 	<c:choose>
     	<c:when test="${utilisateurEnSession!=null}">
-   			<form class="SearchOptionsContainer" method="POST" action="./IndexServlet">
+   			<div class="SearchOptionsContainer">
    			
 				<div class="OptionContainer" id="achatsOption">
 					<div class="SearchOptionType">
-						<input type="radio" name="achats" id="achatsRadio">
+						<input type="radio" name="achats" id="achatsRadio" <c:if test="${param.achats eq 'on'}">checked</c:if>>
 						<label for="achats">Achats</label>
 					</div>
-						<div class="SearchOption">
-							<input type="checkbox" name="enchereOuvertes" id="enchereOuvertes">
+						<div class="SearchOption" >
+							<input type="checkbox" name="enchereOuvertes" id="enchereOuvertes" <c:if test="${param.enchereOuvertes eq 'on'}">checked</c:if>>
 							<label for="achats">enchères ouvertes</label>
 						</div>
 						
 						<div class="SearchOption">
-							<input type="checkbox" name="mesEncheres" id="mesEncheres">
+							<input type="checkbox" name="mesEncheres" id="mesEncheres" <c:if test="${param.mesEncheres eq 'on'}">checked</c:if>>
 							<label for="achats">mes enchères</label>							
 						</div>
 						
 						<div class="SearchOption">
-							<input type="checkbox" name="mesEncheresRemportees" id="mesEncheresRemportees">
+							<input type="checkbox" name="mesEncheresRemportees" id="mesEncheresRemportees" <c:if test="${param.mesEncheresRemportees eq 'on'}">checked</c:if>>
 							<label for="achats">mes enchères remportées</label>							
 						</div>
 				</div>
@@ -103,29 +103,30 @@
 				<div class="OptionContainer"  id="ventesOption">
 				
 					<div class="SearchOptionType">
-						<input type="radio" name="mesVentes" id="mesVentesRadio">
+						<input type="radio" name="mesVentes" id="mesVentesRadio" <c:if test="${param.mesVentes eq 'on'}">checked</c:if>>
 						<label for="achats">Mes ventes</label>
 					</div>
 					
 						<div class="SearchOption">
-							<input type="checkbox" name="ventesEnCours" id="ventesEnCours">
+							<input type="checkbox" name="ventesEnCours" id="ventesEnCours" <c:if test="${param.ventesEnCours eq 'on'}">checked</c:if>>
 							<label for="achats">mes ventes en cours</label>
 						</div>
 						
 						<div class="SearchOption">
-							<input type="checkbox" name="ventesNonDebutees" id="ventesNonDebutees">
+							<input type="checkbox" name="ventesNonDebutees" id="ventesNonDebutees" <c:if test="${param.ventesNonDebutees eq 'on'}">checked</c:if>>
 							<label for="achats">ventes non débutées</label>
 						</div>
 						
 						<div class="SearchOption">							
-							<input type="checkbox" name="ventesTerminees" id="ventesTerminees">
+							<input type="checkbox" name="ventesTerminees" id="ventesTerminees" <c:if test="${param.ventesTerminees eq 'on'}">checked</c:if>>
 							<label for="achats">ventes terminées</label>
 						</div>
 				</div>
-			</form>
+			</div>
     	</c:when>
 	</c:choose>
-
+	
+	</form>
 
 
     <section class="Articles-Section">
@@ -165,33 +166,42 @@
 			        </div>
 		</c:forEach>
 	</section>
-<script>
+<script type="text/javascript">
 
-/*let radioAchat = document.getElementById("achatsRadio");
+let radioAchat = document.getElementById("achatsRadio");
 let radioMesVentes = document.getElementById("mesVentesRadio");
 
 let achatNodes = Array.from(document.getElementById("achatsOption").getElementsByTagName('INPUT'));
 let ventesNodes = Array.from(document.getElementById("ventesOption").getElementsByTagName('INPUT'));
 
-radioAchat.onclick = function(){
-    ventesNodes = Array.from(document.getElementById("ventesOption").getElementsByTagName('INPUT'));
+radioAchat.onclick = () => {
 	radioAchat.checked = true;
 	radioMesVentes.checked = false;
-	ventesNodes.forEach(n =>  {
-		n.checked = false;
-		n.readOnly = true;
+	
+	ventesNodes.forEach((n,i) =>  {
+		if(i>0){
+			n.checked = false;
+			n.disabled = true;
+		}
 	});
+	achatNodes.forEach(a => a.disabled = false);
 }
-radioMesVentes.onclick = function(){
-	 achatNodes = Array.from(document.getElementById("achatsOption").getElementsByTagName('INPUT'));
+
+radioMesVentes.onclick = () => {
 	radioMesVentes.checked = true;
 	radioAchat.checked = false;
-	achatsNodes.forEach(n =>  {
-		n.checked = false;
-		n.readOnly = true;
+	
+	achatNodes.forEach((n,i) =>  {
+		if(i>0){
+			n.disabled = true;
+			n.checked = false;
+		}
 	});
+	ventesNodes.forEach(a => a.disabled = false);
+	
+	
 }
-*/
+
 </script>
 </body>
 </html>
