@@ -40,7 +40,7 @@ public class DeconnectionServlet extends HttpServlet {
 	// Redirection vers la page Accueil
 	request.getRequestDispatcher("./IndexServlet").forward(request, response);
 
-	// Vérifier qu'il n'est plus présent après invalidation
+	// Vï¿½rifier qu'il n'est plus prï¿½sent aprï¿½s invalidation
 	System.out.println("AFTER");
 	if (sessionAfter.getAttribute("utilisateurEnSession") != null) {
 	    Utilisateur u = (Utilisateur) sessionAfter.getAttribute("utilisateurEnSession");

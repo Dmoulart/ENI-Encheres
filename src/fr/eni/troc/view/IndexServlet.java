@@ -54,7 +54,18 @@ public class IndexServlet extends HttpServlet {
 		: request.getParameter("selectCategorie");
 
 	String motsRecherches = request.getParameter("searchContent");
-
+	
+	if(!"on".equals(request.getParameter("achats"))/*Coche par défaut le paramètre de recherche achat:							 visible lorsque l'utilisateur est connecté*/
+	 &&!"on".equals(request.getParameter("mesVentes")
+	 )){
+	   	request.setAttribute("defaultSearchParam", "on");
+	}
+	else
+	{
+	    request.setAttribute("defaultSearchParam", null);
+	}
+	
+	
 	// Charge les categories
 	try {
 	    categories = CategorieManager.getCategorieManager().selectAll();
@@ -64,7 +75,7 @@ public class IndexServlet extends HttpServlet {
 
 	// Filtre les articles
 	try {
-
+	    
 	    articles = ArticleManager.getArticleManager().selectAll();
 	    if (categorieSelectionnee != null && !categorieSelectionnee.equals("Toutes")) {
 		articles = articles.stream()
@@ -89,6 +100,7 @@ public class IndexServlet extends HttpServlet {
 
 		if ("on".equals(request.getParameter("mesEncheres"))) {
 		    articles = articles.stream()
+			    .filter(a -> !a.getEncheres().isEmpty())
 			    .filter(a -> a.getEncheres().get(0).getEmetteur().getId() == utilisateur.getId())
 			    .collect(Collectors.toList());
 		}

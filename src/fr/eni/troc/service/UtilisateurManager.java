@@ -58,8 +58,7 @@ public class UtilisateurManager {
 	    // pas besoin de vérifier si l'utilisateur est null car si tel est le cas une
 	    // exception est levée dans la dal
 	    Utilisateur u = utilisateurDal.find(pseudo.trim(), motDePasse);
-
-	    return u;
+		return u;
 	} catch (DALException de) {
 	    BusinessException be = new BusinessException();
 	    de.printStackTrace();
@@ -76,8 +75,7 @@ public class UtilisateurManager {
 	    // pas besoin de vérifier si l'utilisateur est null car si tel est le cas une
 	    // exception est levée dans la dal
 	    Utilisateur u = utilisateurDal.selectByEmail(email, motDePasse);
-
-	    return u;
+		return u;
 	} catch (DALException de) {
 	    BusinessException be = new BusinessException();
 	    de.printStackTrace();
@@ -87,7 +85,7 @@ public class UtilisateurManager {
 	}
 
     }
-
+    
     /**
      * Permet de creer un nouveau mot de passe utilisateur
      * 

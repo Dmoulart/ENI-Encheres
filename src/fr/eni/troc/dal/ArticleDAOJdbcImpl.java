@@ -15,6 +15,7 @@ import fr.eni.troc.bo.Utilisateur;
 import fr.eni.troc.exception.BusinessException;
 import fr.eni.troc.exception.DALException;
 import fr.eni.troc.exception.Errors;
+import fr.eni.troc.service.RetraitManager;
 
 
 public class ArticleDAOJdbcImpl implements ArticleDal {
@@ -41,22 +42,32 @@ public class ArticleDAOJdbcImpl implements ArticleDal {
 												+ "FROM ARTICLES WHERE TRIM(LOWER(nom) = ?";
 	// INSERT ARTICLES
 	@Override
-	public void insert(final Article article) throws DALException {
+	public long insert(final Article article) throws DALException {
 		try(Connection cnx = ConnectionProvider.getConnection()) {
-			PreparedStatement pstmt = cnx.prepareStatement(INSERT);
+			PreparedStatement pstmt = cnx.prepareStatement(INSERT,PreparedStatement.RETURN_GENERATED_KEYS);
 			pstmt.setString(1, article.getNom());
 			pstmt.setString(2,article.getDescription());
 			pstmt.setDate(3, Date.valueOf(article.getDebutEncheres()));
 			pstmt.setDate(4, Date.valueOf(article.getFinEncheres()));
 			pstmt.setInt(5, article.getPrixInitial());
-			pstmt.setNull(6, java.sql.Types.INTEGER);
+			pstmt.setInt(6,article.getPrixInitial());
 			pstmt.setInt(7, article.getCategorie().getId());
 			pstmt.setInt(8, article.getVendeur().getId());
 			pstmt.executeUpdate();
+			
+			ResultSet generatedKey = pstmt.getGeneratedKeys(); 
+			
+			if ( generatedKey != null && generatedKey.next()) {
+			    return generatedKey.getLong(1); 
+			}
+			else {
+			    throw new DALException();
+			}
 		} catch (Exception e) {
 			DALException de = new DALException(Errors.INSERT,this.getClass().getSimpleName(),e);
 			throw de;
 		}
+		
 	}
 	
 	//DELETE ARTICLES
@@ -99,13 +110,13 @@ public class ArticleDAOJdbcImpl implements ArticleDal {
 		try(Connection cnx = ConnectionProvider.getConnection()) {
 			Statement stmt = cnx.createStatement();
 			ResultSet rs = stmt.executeQuery(SELECT_ALL);
-			
+
 			while(rs.next()) {
 				Article article = itemBuilder(rs);
 				articles.add(article);
 			}
 		} catch (Exception e) {
-			DALException de = new DALException(Errors.UPDATE,this.getClass().getSimpleName(),e);
+			DALException de = new DALException(Errors.SELECT_ALL,this.getClass().getSimpleName(),e);
 			throw de;
 		}
 		
@@ -185,7 +196,7 @@ public class ArticleDAOJdbcImpl implements ArticleDal {
 	 * @throws SQLException
 	 * @throws BusinessException
 	 */
-	private Article baseBuilder(ResultSet rs) throws SQLException{
+	private Article baseBuilder(ResultSet rs) throws SQLException, DALException{
 		Article article = new Article();
 		article.setId(rs.getInt("id"));
 		article.setNom(rs.getString("nom"));
@@ -194,6 +205,11 @@ public class ArticleDAOJdbcImpl implements ArticleDal {
 		article.setFinEcheres(rs.getDate("date_fin_encheres").toLocalDate());
 		article.setPrixInitial(rs.getInt("prix_initial"));
 		article.setPrixVente(rs.getInt("prix_vente"));
+		try {
+		    article.setRetrait(RetraitManager.getRetraitManager().selectByIdArticle(article.getId()));
+		} catch (BusinessException e) {
+		    throw new DALException(e.getMessage(),this.getClass().getSimpleName(),e);
+		}
 		return article;
 	}
 	/**
