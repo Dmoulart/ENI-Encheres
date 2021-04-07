@@ -55,32 +55,33 @@
    			 <div class="Page-TitleContainer"><h2>Bonjour ${utilisateurEnSession.prenom} ${utilisateurEnSession.nom}</h2></div>
     	</c:when>
 	</c:choose>
-	<div class="SearchContainer">
-	    <form class="SearchContainer" method="POST" action="./IndexServlet">
-	        <div class ="Search_paramsContainer">
-	            <div class="Search_filter" id="filters">Filtres : </div>
-	            <div class="Search_barContainer">
-	                <input type="text" class="Search_bar"name="searchContent" value="${motsRecherches}">
-	                <div class="Search_categoryContainer">
-	                    <label>Catégorie</label>
-		                    <select class="Search_select-category" name="selectCategorie">
-		                    	<option id="Toutes" <c:if test="${empty categorieSelectionnee}">selected</c:if>>Toutes</option>
-		                    		<c:forEach var="categorie" items="${categories}">
-											<option 
-												id="${categorie.libelle}" 
-												<c:if test="${categorieSelectionnee eq categorie.libelle}">
-												selected</c:if>>
-												 ${categorie.libelle}
-											 </option>
-									</c:forEach>
-		                    </select>
-	                    </div>
-	                </div>
-	            </div>
-	        <div class="Search_buttonContainer">
-	            <button type="submit" class="Search_button">Rechercher</button>
-	        </div>
-	    
+
+	    <form class="SearchBlocContainer" method="POST" action="./IndexServlet">
+	    	<div class="SearchContainer">
+		        <div class ="Search_paramsContainer">
+		            <div class="Search_filter" id="filters">Filtres : </div>
+		            <div class="Search_barContainer">
+		                <input type="text" class="Search_bar"name="searchContent" value="${motsRecherches}">
+		                <div class="Search_categoryContainer">
+		                    <label>Catégorie</label>
+			                    <select class="Search_select-category" name="selectCategorie">
+			                    	<option id="Toutes" <c:if test="${empty categorieSelectionnee}">selected</c:if>>Toutes</option>
+			                    		<c:forEach var="categorie" items="${categories}">
+												<option 
+													id="${categorie.libelle}" 
+													<c:if test="${categorieSelectionnee eq categorie.libelle}">
+													selected</c:if>>
+													 ${categorie.libelle}
+												 </option>
+										</c:forEach>
+			                    </select>
+		                    </div>
+		                </div>
+		            </div>
+		        <div class="Search_buttonContainer">
+		            <button type="submit" class="Search_button">Rechercher</button>
+		        </div>
+	    	</div>
 	    
 	    <!-- OPTIONS EN MODE CONNECTE -->
 		<c:choose>
@@ -135,7 +136,7 @@
 		</c:choose>
 		
 		</form>
-	</div>
+
 	
     <section class="Articles-Section">
 		<c:forEach var="article" items="${articles}">

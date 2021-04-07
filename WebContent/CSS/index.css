@@ -15,9 +15,14 @@ html{
     align-items: center;
     width:90vw;
     height:10vh;
-    margin : 2em;
+    margin : 0.5em;
 }
 /*-----SEARCH SECTION-----*/
+.SearchBlocContainer{
+	display:flex;
+	flex-flow:column nowrap;
+	
+}
 .SearchContainer{
     display:flex;
     flex-flow: row nowrap;
@@ -70,13 +75,15 @@ html{
 .Search_button{
     min-width: calc(var(--searchBloc-width)/2);
     height: 10vh;
+    font-size:1.25rem;
+    color:white;
+    background-color: var(--button-color);
+    color: var(--font-color);
 }
 /*---SEARCH OPTIONS(CONNECTED)-------------------*/
 .SearchOptionsContainer{
-	/*display:flex;*/
-	width: 60vw;
-	height:25vh;
-	margin-block-start: 3rem;
+	display:flex;
+	margin-block-start: 1rem;
 	margin-inline-start: 4vw;
 }
 .OptionContainer{
@@ -110,6 +117,10 @@ html{
     max-width: 45%;
     border: 1px solid;
     margin-block-end: 2rem;
+    background-color: var(--secondary-color);
+    border-radius: 15px;
+    border-color: var(--background-color-darker);
+    box-shadow: 5px 5px 5px 5px var(--background-color-darker);
 }
 .Article_image{
     min-width: 12.5vw;
@@ -132,6 +143,7 @@ html{
     }
     .SearchContainer{
         flex-flow: column nowrap;
+        margin-block-start:4rem;
     }
     .Search_categoryContainer{
         order:-1;
@@ -151,6 +163,8 @@ html{
         max-width: 85%;
     }
     
+
+}
  /*----ERROR SECTION---------------------------*/
     
     .Alert-error {
@@ -160,5 +174,4 @@ html{
     color: rgb(216, 0, 12);
     background-color: rgb(255, 186, 186);
     height: 2em;
-}
 }
