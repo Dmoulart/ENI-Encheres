@@ -60,7 +60,7 @@
 					
 					Ma proposition : <input type="number" id="montantEnchere" name="montantEnchere"
 						value="${article.prixVente +1 }" min="${article.prixVente +1}"
-						max="${utilisateurEnSession.credit}" required> <input
+						max="${2147483647}" required> <input
 						type="hidden" name="articleId" id="articleId" value="${article.id}">
 					<button type="submit" name="encherir">Enchérir</button>
 				</div>

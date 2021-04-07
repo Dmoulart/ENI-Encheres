@@ -94,7 +94,7 @@ public class ArticleManager {
     }
 
     private boolean validateMisePrix(int prixInitial, BusinessException be) {
-	if (isNull("Prix initial", prixInitial, be))
+	if (isTooLow("Prix initial", prixInitial, be))
 	    return false;
 	return true;
     }
@@ -104,7 +104,7 @@ public class ArticleManager {
     }
 
     private boolean validateDescription(String description, BusinessException be) {
-	if (isNull("Description", description, be))
+	if (isNullOrEmpty("Description", description, be))
 	    return false;
 	if (isTooLarge("Description", description, 300, be))
 	    return false;
@@ -112,29 +112,22 @@ public class ArticleManager {
     }
 
     private boolean validateNom(String nom, BusinessException be) {
-	if (isNull("Nom", nom, be))
+	if (isNullOrEmpty("Nom", nom, be))
 	    return false;
 	if (isTooLarge("Nom", nom, 30, be))
 	    return false;
 	return true;
     }
     
-    private boolean isNull(String champs, String data, BusinessException be) {
-	if (data == null) {
+    private boolean isNullOrEmpty(String champs, String data, BusinessException be) {
+	if (data == null || data.isEmpty()) {
 	    be.addError(Errors.EMPTY_FIELD(champs));
 	    return true;
 	}
 	return false;
     }
 
-    private boolean isTooLarge(String champs, String data, int limite, BusinessException be) {
-	if (data.length() > limite) {
-	    be.addError(Errors.TOO_LARGE_VALUE(champs, limite));
-	    return true;
-	}
-	return false;
-    }
-    
+
     private boolean isNull(String champs, LocalDate data, BusinessException be) {
 	if (data == null) {
 	    be.addError(Errors.EMPTY_FIELD(champs));
@@ -143,13 +136,22 @@ public class ArticleManager {
 	return false;
     }
     
-    private boolean isNull(String champs, int data, BusinessException be) {
+    private boolean isTooLow(String champs, int data, BusinessException be) {
 	if (data < 1) {
 	    be.addError(Errors.EMPTY_FIELD(champs));
 	    return true;
 	}
 	return false;
-
+    }
+    
+    private boolean isTooLarge(String champs, String data, int limite, BusinessException be) {
+	if (data.length() > limite) {
+	    be.addError(Errors.TOO_LARGE_VALUE(champs, limite));
+	    return true;
+	}
+	return false;
+    }
+    
     public Article selectById(int id) throws BusinessException {
 	Article article;
 	try {

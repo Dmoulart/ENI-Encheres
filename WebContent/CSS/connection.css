@@ -54,7 +54,11 @@ input{
     width: 100%;
 }
 .Subscribe{
-    margin-block-start: 7vh;
+	width:100%;
+	height: 100%;
+}
+.SubscribeContainer{
+	margin-block-start: 7vh;
     height:33%;
 }
 .ConnexionOptions option{
