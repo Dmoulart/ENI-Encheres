@@ -45,7 +45,7 @@
 		<div class="ProfilFormContainer">
 			<form class="ProfilForm" action="./ProfilServlet" method="post">
 				<div class="ProfilFields">
-					<div class="Page-TitleContainer"><h2>Bonjour ${utilisateurEnSession.prenom} ${utilisateur.nom}</h2></div>
+					
 					<label for="pseudoUtilisateur">Pseudo : ${utilisateurEnSession.pseudo}</label>
 					<label for="nomUtilisateur">Nom : ${utilisateurEnSession.nom}</label>
 					<label for="prenomUtilisateur">Prénom : ${utilisateurEnSession.prenom}</label>
