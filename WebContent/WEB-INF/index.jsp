@@ -47,88 +47,88 @@
    			 <div class="Page-TitleContainer"><h2>Bonjour ${utilisateurEnSession.prenom} ${utilisateurEnSession.nom}</h2></div>
     	</c:when>
 	</c:choose>
-	
-    <form class="SearchContainer" method="POST" action="./IndexServlet">
-        <div class ="Search_paramsContainer">
-            <div class="Search_filter" id="filters">Filtres : </div>
-            <div class="Search_barContainer">
-                <input type="text" class="Search_bar"name="searchContent" value="${motsRecherches}">
-                <div class="Search_categoryContainer">
-                    <label>Catégorie</label>
-	                    <select class="Search_select-category" name="selectCategorie">
-	                    	<option id="Toutes" <c:if test="${empty categorieSelectionnee}">selected</c:if>>Toutes</option>
-	                    		<c:forEach var="categorie" items="${categories}">
-										<option 
-											id="${categorie.libelle}" 
-											<c:if test="${categorieSelectionnee eq categorie.libelle}">
-											selected</c:if>>
-											 ${categorie.libelle}
-										 </option>
-								</c:forEach>
-	                    </select>
-                    </div>
-                </div>
-            </div>
-        <div class="Search_buttonContainer">
-            <button type="submit" class="Search_button">Rechercher</button>
-        </div>
-    
-    
-    <!-- OPTIONS EN MODE CONNECTE -->
-	<c:choose>
-    	<c:when test="${utilisateurEnSession!=null}">
-   			<div class="SearchOptionsContainer">
-   			
-				<div class="OptionContainer" id="achatsOption">
-					<div class="SearchOptionType">
-						<input type="radio" name="achats" id="achatsRadio" <c:if test="${param.achats eq 'on'}">checked</c:if>>
-						<label for="achats">Achats</label>
-					</div>
-						<div class="SearchOption" >
-							<input type="checkbox" name="enchereOuvertes" id="enchereOuvertes" <c:if test="${param.enchereOuvertes eq 'on'}">checked</c:if>>
-							<label for="achats">enchères ouvertes</label>
+	<div class="SearchContainer">
+	    <form class="SearchContainer" method="POST" action="./IndexServlet">
+	        <div class ="Search_paramsContainer">
+	            <div class="Search_filter" id="filters">Filtres : </div>
+	            <div class="Search_barContainer">
+	                <input type="text" class="Search_bar"name="searchContent" value="${motsRecherches}">
+	                <div class="Search_categoryContainer">
+	                    <label>Catégorie</label>
+		                    <select class="Search_select-category" name="selectCategorie">
+		                    	<option id="Toutes" <c:if test="${empty categorieSelectionnee}">selected</c:if>>Toutes</option>
+		                    		<c:forEach var="categorie" items="${categories}">
+											<option 
+												id="${categorie.libelle}" 
+												<c:if test="${categorieSelectionnee eq categorie.libelle}">
+												selected</c:if>>
+												 ${categorie.libelle}
+											 </option>
+									</c:forEach>
+		                    </select>
+	                    </div>
+	                </div>
+	            </div>
+	        <div class="Search_buttonContainer">
+	            <button type="submit" class="Search_button">Rechercher</button>
+	        </div>
+	    
+	    
+	    <!-- OPTIONS EN MODE CONNECTE -->
+		<c:choose>
+	    	<c:when test="${utilisateurEnSession!=null}">
+	   			<div class="SearchOptionsContainer">
+	   			
+					<div class="OptionContainer" id="achatsOption">
+						<div class="SearchOptionType">
+							<input type="radio" name="achats" id="achatsRadio" <c:if test="${param.achats eq 'on'}">checked</c:if>>
+							<label for="achats">Achats</label>
 						</div>
-						
-						<div class="SearchOption">
-							<input type="checkbox" name="mesEncheres" id="mesEncheres" <c:if test="${param.mesEncheres eq 'on'}">checked</c:if>>
-							<label for="achats">mes enchères</label>							
-						</div>
-						
-						<div class="SearchOption">
-							<input type="checkbox" name="mesEncheresRemportees" id="mesEncheresRemportees" <c:if test="${param.mesEncheresRemportees eq 'on'}">checked</c:if>>
-							<label for="achats">mes enchères remportées</label>							
-						</div>
-				</div>
-				
-				<div class="OptionContainer"  id="ventesOption">
-				
-					<div class="SearchOptionType">
-						<input type="radio" name="mesVentes" id="mesVentesRadio" <c:if test="${param.mesVentes eq 'on'}">checked</c:if>>
-						<label for="achats">Mes ventes</label>
+							<div class="SearchOption" >
+								<input type="checkbox" name="enchereOuvertes" id="enchereOuvertes" <c:if test="${param.enchereOuvertes eq 'on'}">checked</c:if>>
+								<label for="achats">enchères ouvertes</label>
+							</div>
+							
+							<div class="SearchOption">
+								<input type="checkbox" name="mesEncheres" id="mesEncheres" <c:if test="${param.mesEncheres eq 'on'}">checked</c:if>>
+								<label for="achats">mes enchères</label>							
+							</div>
+							
+							<div class="SearchOption">
+								<input type="checkbox" name="mesEncheresRemportees" id="mesEncheresRemportees" <c:if test="${param.mesEncheresRemportees eq 'on'}">checked</c:if>>
+								<label for="achats">mes enchères remportées</label>							
+							</div>
 					</div>
 					
-						<div class="SearchOption">
-							<input type="checkbox" name="ventesEnCours" id="ventesEnCours" <c:if test="${param.ventesEnCours eq 'on'}">checked</c:if>>
-							<label for="achats">mes ventes en cours</label>
+					<div class="OptionContainer"  id="ventesOption">
+					
+						<div class="SearchOptionType">
+							<input type="radio" name="mesVentes" id="mesVentesRadio" <c:if test="${param.mesVentes eq 'on'}">checked</c:if>>
+							<label for="achats">Mes ventes</label>
 						</div>
 						
-						<div class="SearchOption">
-							<input type="checkbox" name="ventesNonDebutees" id="ventesNonDebutees" <c:if test="${param.ventesNonDebutees eq 'on'}">checked</c:if>>
-							<label for="achats">ventes non débutées</label>
-						</div>
-						
-						<div class="SearchOption">							
-							<input type="checkbox" name="ventesTerminees" id="ventesTerminees" <c:if test="${param.ventesTerminees eq 'on'}">checked</c:if>>
-							<label for="achats">ventes terminées</label>
-						</div>
+							<div class="SearchOption">
+								<input type="checkbox" name="ventesEnCours" id="ventesEnCours" <c:if test="${param.ventesEnCours eq 'on'}">checked</c:if>>
+								<label for="achats">mes ventes en cours</label>
+							</div>
+							
+							<div class="SearchOption">
+								<input type="checkbox" name="ventesNonDebutees" id="ventesNonDebutees" <c:if test="${param.ventesNonDebutees eq 'on'}">checked</c:if>>
+								<label for="achats">ventes non débutées</label>
+							</div>
+							
+							<div class="SearchOption">							
+								<input type="checkbox" name="ventesTerminees" id="ventesTerminees" <c:if test="${param.ventesTerminees eq 'on'}">checked</c:if>>
+								<label for="achats">ventes terminées</label>
+							</div>
+					</div>
 				</div>
-			</div>
-    	</c:when>
-	</c:choose>
+	    	</c:when>
+		</c:choose>
+		
+		</form>
+	</div>
 	
-	</form>
-
-
     <section class="Articles-Section">
 		<c:forEach var="article" items="${articles}">
 				<c:url value="/ArticleServlet" var="url">
