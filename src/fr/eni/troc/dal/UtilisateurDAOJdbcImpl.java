@@ -27,8 +27,10 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDal {
 
     public static final String DELETE = "DELETE FROM utilisateurs WHERE id= ?";
 
-    public static final String UPDATE = "UPDATE utilisateurs SET pseudo=?, nom=?, prenom=?, email=?, telephone=?, rue=?, code_postal=?, ville=?, mot_de_passe=?, credit=? WHERE id=?";
-
+    public static final String UPDATE = "UPDATE utilisateurs SET pseudo=?, nom=?, prenom=?, email=?, telephone=?, rue=?, code_postal=?, ville=?, credit=? WHERE id=?";
+    
+    public static final String UPDATE_MDP = "UPDATE utilisateurs SET pseudo=?, nom=?, prenom=?, email=?, telephone=?, rue=?, code_postal=?, ville=?, mot_de_passe=?, credit=? WHERE id=?";
+    
     public static final String GET_DUPLICATES_PSEUDO = "SELECT pseudo, COUNT(*) c FROM utilisateurs WHERE pseudo=? GROUP BY pseudo HAVING c >= 1;";
 
     public static final String GET_DUPLICATES_EMAIL = "SELECT email, COUNT(*) c FROM utilisateurs WHERE email=? GROUP BY email HAVING c >= 1;";
@@ -184,6 +186,32 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDal {
 
 	try (Connection cnx = ConnectionProvider.getConnection()) {
 	    PreparedStatement update = cnx.prepareStatement(UPDATE);
+
+	    update.setString(1, utilisateur.getPseudo());
+	    update.setString(2, utilisateur.getNom());
+	    update.setString(3, utilisateur.getPrenom());
+	    update.setString(4, utilisateur.getEmail());
+	    update.setString(5, utilisateur.getTelephone());
+	    update.setString(6, utilisateur.getRue());
+	    update.setString(7, utilisateur.getCodePostal());
+	    update.setString(8, utilisateur.getVille());
+	    update.setInt(9, utilisateur.getCredit());
+	    update.setInt(10, utilisateur.getId());
+	    
+	    update.executeUpdate();
+
+	} catch (SQLException e) {
+	    DALException de = new DALException(Errors.UPDATE, this.getClass().getSimpleName(), e);
+	    throw de;
+	}
+
+    }
+    
+    @Override
+    public void updateMdp(Utilisateur utilisateur) throws DALException {
+
+	try (Connection cnx = ConnectionProvider.getConnection()) {
+	    PreparedStatement update = cnx.prepareStatement(UPDATE_MDP);
 
 	    update.setString(1, utilisateur.getPseudo());
 	    update.setString(2, utilisateur.getNom());

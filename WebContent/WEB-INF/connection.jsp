@@ -41,19 +41,19 @@
                     <label for="nomUtilisateur">Identifiant</label>
                     <input type="text" placeholder="Votre login ou adresse mail.." id="identifiantUtilisateur" required name="identifiantUtilisateur">
                     <label for="motDePasse">Mot de passe</label>
-                    <input type="text" placeholder="Votre mot de passe..." id="motDePasse" required name= "motDePasse">
+                    <input type="password" placeholder="Votre mot de passe..." id="motDePasse" required name= "motDePasse">
                 </div>
                 <div class="ConnexionValidation">
                     <div class="ConnexionButtonContainer">
                         <button class="ConnexionButton">Connexion</button>
                     </div>
-                    <div class="ConnexionOptions">
+                    <!-- <div class="ConnexionOptions">
                         <div class="CheckRememberConnexion">
                             <input type="checkbox" class="option" id="rememberPassword">
                             <label for="rememberPassword">Se souvenir de moi</label>
                         </div>
                         <a class="option" href="./MotDePasseOublieServlet">Mot de passe oublié</a>
-                    </div>
+                    </div> -->
                 </div>
             </form>
             <form action="./InscriptionServlet" class="SubscribeContainer">

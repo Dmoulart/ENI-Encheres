@@ -24,6 +24,8 @@ public interface UtilisateurDal {
     public Utilisateur selectByIdAsVendeur(int id) throws DALException;
 
     public Utilisateur selectByIdAsEmetteur(int id) throws DALException;
+
+    public void updateMdp(Utilisateur utilisateur) throws DALException;
     
     public List<Utilisateur> selectAll() throws DALException;
 
