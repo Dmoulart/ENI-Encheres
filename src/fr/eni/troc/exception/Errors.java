@@ -77,4 +77,12 @@ public class Errors {
 
     public static final String AMOUNT_TOO_LOW = "Le montant de l'enchère est inférieur au prix de l'article.";
 
+    public static final String UNCOHERENT_DATES = "Les dates ne sont pas valides";
+
+    public static final String UNCOHERENT_BEGIN_DATE = "La date de début d'enchère n'est pas valide";
+
+    public static final String BEGIN_DATE_AFTER_END_DATE = "La date de début d'enchère est plus éloignée que la date de fin d'enchères.";
+
+    public static final String UNCOHERENT_END_DATE = "La date de de fin d'enchère n'est pas valide";;
+
 }

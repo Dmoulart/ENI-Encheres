@@ -51,21 +51,21 @@ public class ArticleManager {
     }
 
     
-    public void creer(Article article) throws BusinessException {
+    public long creer(Article article) throws BusinessException { //Retourne la clé de l'article générée(long)
 	BusinessException be = new BusinessException();
 	validateNom(article.getNom(), be);
 	validateDescription(article.getDescription(), be);
 	validateCategorie(article.getCategorie(), be);
 	validateMisePrix(article.getPrixInitial(), be);
 	validateDebutEnchere(article.getDebutEncheres(), be);
-	validateFinEnchere(article.getFinEncheres(), be);
+	validateFinEnchere(article.getFinEncheres(),article.getDebutEncheres(), be);
 	validateRue(article.getVendeur().getRue(), be);
 	validateCP(article.getVendeur().getCodePostal(), be);
 	validateVille(article.getVendeur().getVille(), be);
 	
 	if(be.getErrors().isEmpty()) {
 	    try {
-		DALFactory.getArticleDal().insert(article);
+		return DALFactory.getArticleDal().insert(article);
 	    } catch (DALException de) {
 		de.printStackTrace();
 		be = new BusinessException();
@@ -103,15 +103,22 @@ public class ArticleManager {
 	return true;
     }
 
-    private boolean validateFinEnchere(LocalDate finEncheres, BusinessException be) {
+    private boolean validateFinEnchere(LocalDate finEncheres, LocalDate debutEncheres, BusinessException be) {
 	if (isNull("Date debut Enchere", finEncheres, be))
 	    return false;
+	if(finEncheres.isBefore(LocalDate.now()))
+	    be.addError(Errors.UNCOHERENT_END_DATE);
+	if(debutEncheres.isAfter(finEncheres))
+	    be.addError(Errors.BEGIN_DATE_AFTER_END_DATE);
 	return true;
     }
 
     private boolean validateDebutEnchere(LocalDate debutEncheres, BusinessException be) {
 	if (isNull("Date debut Enchere", debutEncheres, be))
 	    return false;
+	if(debutEncheres.isBefore(LocalDate.now()))
+	    be.addError(Errors.UNCOHERENT_BEGIN_DATE);
+	
 	return true;
     }
 

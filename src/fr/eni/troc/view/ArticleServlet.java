@@ -35,6 +35,15 @@ public class ArticleServlet extends HttpServlet {
 	try {
 	    article = ArticleManager.getArticleManager()
 		    .selectById(Integer.parseInt(request.getParameter("articleId")));
+	    
+	    if(article.getDebutEncheres().isAfter(LocalDate.now()) ||
+		    article.getFinEncheres().isBefore(LocalDate.now())) {
+		request.setAttribute("peutEncherir", "false");
+	    }
+	    else {
+		request.setAttribute("peutEncherir", "true");
+	    }
+	    
 	} catch (BusinessException e) {
 	    e.printStackTrace();
 	}
@@ -63,6 +72,8 @@ public class ArticleServlet extends HttpServlet {
 
 	    a = ArticleManager.getArticleManager().selectById(articleId); // On récupère l'article
 	    a.setPrixVente(montant);
+	    
+	    
 	    
 	    e.setArticle(a); // On assigne l'article à l'enchère
 	    e.setEmetteur(u); // On assigne l'utilisateur en tant qu'emetteur de l'enchère
@@ -99,7 +110,7 @@ public class ArticleServlet extends HttpServlet {
 
 	    EnchereManager.getEnchereManager().insert(e,a, debitEncherisseur ); // On insère l'enchère
 
-	    u.setCredit(u.getCredit() - debitEncherisseur);
+	    u.setCredit(u.getCredit() - debitEncherisseur); // On débite l'utilisateur en session
 	    
 	    UtilisateurManager.getUtilisateurManager().update(u); // On update l'utilisateurs(nombre de points)
 	    
@@ -112,8 +123,8 @@ public class ArticleServlet extends HttpServlet {
 	    ArticleManager.getArticleManager().update(e.getArticle()); // On update le prix de vente de l'article
 
 	    request.setAttribute("article", a);
-
-	    request.getRequestDispatcher("/WEB-INF/article.jsp").forward(request, response);
+	    this.doGet(request, response);
+	    //request.getRequestDispatcher("/WEB-INF/article.jsp").forward(request, response);
 
 	} catch (BusinessException be1) {
 	    be1.printStackTrace();
