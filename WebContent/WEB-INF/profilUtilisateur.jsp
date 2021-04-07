@@ -41,12 +41,16 @@
 					<label for="rueUtilisateur">Rue : ${utilisateur.rue}</label>
 					<label for="codePostalUtilisateur">Code Postal : ${utilisateur.codePostal}</label>
 					<label for="villeUtilisateur">Ville : ${utilisateur.ville}</label>
-					<div class="InscriptionValidation">
-						<div class="InscriptionButtonContainer">
-							<button type="submit" id="inscriptionValider" class="InscriptionButton">Supprimer le compte</button>
-							<button type="submit" id="inscriptionValider" class="InscriptionButton">Désactiver le compte</button>
-						</div>
-					</div>
+				<div class="ProfilButtonContainer">
+					<form class="ProfilButtonForm" action="./AdminServletDesac" method="get">
+						<button type="submit" id="DesactivationProfildmin" class="DesactiverProfilButton">Désactiver le compte</button>
+					</form>
+				</div>
+				<div class="ProfilButtonContainer">
+					<form class="ProfilButtonForm" action="./AdminServletSuppr" method="get">
+						<button type="submit" id="suppresionProfilAdmin" class="SupprimerProfilButton">Supprimer le compte</button>
+					</form>
+				</div>
 		        </c:when>
 		        <c:otherwise>  
 					<label for="pseudoUtilisateur">Pseudo : ${utilisateur.pseudo}</label>

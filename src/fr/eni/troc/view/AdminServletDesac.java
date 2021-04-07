@@ -18,27 +18,24 @@ import fr.eni.troc.service.UtilisateurManager;
 /**
  * Servlet implementation class AdminServlet
  */
-@WebServlet("/AdminServlet")
-public class AdminServlet extends HttpServlet {
+@WebServlet("/AdminServletDesac")
+public class AdminServletDesac extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    request.setCharacterEncoding("UTF-8");
-	    HttpSession session = request.getSession();
-	    Utilisateur utilisateur = (Utilisateur) session.getAttribute("utilisateurEnSession");
-	    List<Utilisateur> utilisateurs = new ArrayList<>();
-	    try {
-		utilisateurs = UtilisateurManager.getUtilisateurManager().selectAll();
-	    } catch (BusinessException e) {
+		HttpSession session = request.getSession();
+		Utilisateur utilisateur = (Utilisateur) session.getAttribute("utilisateur");
+		//Appel de la BLL
+		try {
+		    UtilisateurManager.getUtilisateurManager().delete(utilisateur.getId());
+		    System.out.println("Id a désactiver : " + utilisateur.getId());
+		} catch (BusinessException e) {
+		    // TODO Auto-generated catch block
 		    e.printStackTrace();
-	    }
-	    
-	    utilisateurs.forEach(a -> System.out.println(a.toString()));
-	    
-	    request.getRequestDispatcher("/WEB-INF/admin.jsp").forward(request, response);
+		}
 	}
 
 	/**
