@@ -51,8 +51,9 @@ public class ArticleDAOJdbcImpl implements ArticleDal {
 			pstmt.setDate(4, Date.valueOf(article.getFinEncheres()));
 			pstmt.setInt(5, article.getPrixInitial());
 			pstmt.setInt(6,article.getPrixInitial());
-			pstmt.setInt(7, article.getCategorie().getId());
-			pstmt.setInt(8, article.getVendeur().getId());
+			pstmt.setInt(7, article.getVendeur().getId());
+			pstmt.setInt(8, article.getCategorie().getId());
+			
 			pstmt.executeUpdate();
 			
 			ResultSet generatedKey = pstmt.getGeneratedKeys(); 
