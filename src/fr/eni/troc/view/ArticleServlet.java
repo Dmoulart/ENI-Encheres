@@ -2,6 +2,7 @@ package fr.eni.troc.view;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -48,40 +49,66 @@ public class ArticleServlet extends HttpServlet {
 
 	int montant = Integer.parseInt(request.getParameter("montantEnchere"));
 	int articleId = Integer.parseInt(request.getParameter("articleId"));
-	int prixVentePrecedent = 0;
-
+	
+	boolean encherisseurPrecedentEstUtilisateurEnSession = false;
+	
 	Utilisateur u = (Utilisateur) session.getAttribute("utilisateurEnSession");
 	Enchere e = new Enchere();
 	Article a = null;
-
+	
+	int debitEncherisseur;
+	
+	
 	try {
 
 	    a = ArticleManager.getArticleManager().selectById(articleId); // On récupère l'article
-	    prixVentePrecedent = a.getPrixVente();
 	    a.setPrixVente(montant);
-
+	    
 	    e.setArticle(a); // On assigne l'article à l'enchère
 	    e.setEmetteur(u); // On assigne l'utilisateur en tant qu'emetteur de l'enchère
 	    e.setDate(LocalDate.now());
 	    e.setMontant(montant);
 
-	    List<Enchere> encheresUtilisateur = EnchereManager.getEnchereManager().selectByUtilisateur(u);
+	   
+	    List<Enchere> encheresArticle = a.getEncheres();  // ON cherche l'enchèrisseur précédent pour lui réassigner ses crédits
 
-	    List<Enchere> encheresUtilisateurSurMemeArticle = encheresUtilisateur.stream()
-		    .filter(enchere -> enchere.getArticle().getId() == articleId)
-		    .sorted(Comparator.comparingInt(Enchere::getMontant)).collect(Collectors.toList());
+	    Enchere encherePrecedente = null;
+	    Utilisateur encherisseurPrecedant = null;
+	    
+	    if (encheresArticle.size() > 1) {
+		
+		encherePrecedente = encheresArticle.get(0);//Derniere enchere ajoutée 
+		encherisseurPrecedant = encherePrecedente.getEmetteur();
 
-	    if (encheresUtilisateurSurMemeArticle.size() >= 1) {
-
-		int dernierMontantSurMemeArticle = encheresUtilisateurSurMemeArticle
-			.get(encheresUtilisateurSurMemeArticle.size() - 1).getMontant();
-
-		u.setCredit((u.getCredit() - montant) + dernierMontantSurMemeArticle);
-	    } else {
-		u.setCredit(u.getCredit() - montant);
+		if (encherisseurPrecedant.getId() == u.getId()) {
+		    
+		    encherisseurPrecedentEstUtilisateurEnSession = true;
+		    debitEncherisseur = montant -  encherePrecedente.getMontant();
+		} 
+		else {
+		    encherisseurPrecedant.setCredit(encherisseurPrecedant.getCredit() + encherePrecedente.getMontant());
+		    debitEncherisseur = montant;
+		}
 	    }
-	    EnchereManager.getEnchereManager().insert(e, prixVentePrecedent); // On insère l'enchère
+	    else
+	    {
+		debitEncherisseur = montant;
+	    }
+	    
+	    //a.getEncheres().add(e);
+
+	    EnchereManager.getEnchereManager().insert(e,a, debitEncherisseur ); // On insère l'enchère
+
+	    u.setCredit(u.getCredit() - debitEncherisseur);
+	    
 	    UtilisateurManager.getUtilisateurManager().update(u); // On update l'utilisateurs(nombre de points)
+	    
+	    if(encherisseurPrecedant != null && !encherisseurPrecedentEstUtilisateurEnSession) {
+		UtilisateurManager.getUtilisateurManager().update(encherisseurPrecedant);// On update l'encherisseur
+		     // précédent pour qu'il récupère
+		     // ses points
+	    }
+	    
 	    ArticleManager.getArticleManager().update(e.getArticle()); // On update le prix de vente de l'article
 
 	    request.setAttribute("article", a);
@@ -91,7 +118,13 @@ public class ArticleServlet extends HttpServlet {
 	} catch (BusinessException be1) {
 	    be1.printStackTrace();
 	    request.setAttribute("errors", be1.getErrors());
-	    request.setAttribute("article", a);
+	    
+	    try {
+		request.setAttribute("article", ArticleManager.getArticleManager().selectById(articleId));
+	    } catch (BusinessException e1) {
+		request.getRequestDispatcher("./IndexServlet").forward(request, response);//Erreur
+	    }
+	    
 	    request.getRequestDispatcher("/WEB-INF/article.jsp").forward(request, response);
 	}
 

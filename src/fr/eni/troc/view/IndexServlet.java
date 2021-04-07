@@ -35,10 +35,10 @@ public class IndexServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
 	request.setCharacterEncoding("UTF-8");
-	
+
 	HttpSession session = request.getSession();
-	
-	Utilisateur utilisateur = (Utilisateur)session.getAttribute("utilisateurEnSession");
+
+	Utilisateur utilisateur = (Utilisateur) session.getAttribute("utilisateurEnSession");
 	/*
 	 * System.out.println("---------PARAMETER MAP--------------"); Map<String,
 	 * String[]> parameters = request.getParameterMap();
@@ -83,50 +83,41 @@ public class IndexServlet extends HttpServlet {
 	    if ("on".equals(request.getParameter("achats"))) {
 
 		if ("on".equals(request.getParameter("encheresOuvertes"))) {
-		    articles = articles.stream()
-			    .filter(a -> a.getDebutEncheres()
-				    .compareTo(LocalDate.now()) <= 0
-				    && a.getFinEncheres().compareTo(LocalDate.now()) >= 0)
-			    .collect(Collectors.toList());
+		    articles = articles.stream().filter(a -> a.getDebutEncheres().compareTo(LocalDate.now()) <= 0
+			    && a.getFinEncheres().compareTo(LocalDate.now()) >= 0).collect(Collectors.toList());
 		}
 
 		if ("on".equals(request.getParameter("mesEncheres"))) {
 		    articles = articles.stream()
-			    .filter(a -> a.getVendeur().getId()
-				    == utilisateur.getId())			    
+			    .filter(a -> a.getEncheres().get(0).getEmetteur().getId() == utilisateur.getId())
 			    .collect(Collectors.toList());
 		}
-		//ToDo mes encheresRemportées !
+		// ToDo mes encheresRemportées !
 	    }
-	    
-	    
+
 	    if ("on".equals(request.getParameter("mesVentes"))) {
 
 		if ("on".equals(request.getParameter("ventesEnCours"))) {
 		    articles = articles.stream()
-			    .filter(a -> a.getDebutEncheres()
-				    .compareTo(LocalDate.now()) <= 0
+			    .filter(a -> a.getVendeur().getId() == utilisateur.getId()
+				    && a.getDebutEncheres().compareTo(LocalDate.now()) <= 0
 				    && a.getFinEncheres().compareTo(LocalDate.now()) >= 0)
-			    .filter(a -> a.getVendeur().getId() == utilisateur.getId())
-			    .collect(Collectors.toList());
+
+			    .filter(a -> a.getVendeur().getId() == utilisateur.getId()).collect(Collectors.toList());
 		}
 
 		if ("on".equals(request.getParameter("ventesNonDebutees"))) {
-		    articles = articles.stream()
-			    .filter(a -> a.getDebutEncheres()
-				    .compareTo(LocalDate.now()) > 0)		    
+		    articles = articles.stream().filter(a -> a.getDebutEncheres().compareTo(LocalDate.now()) > 0)
 			    .collect(Collectors.toList());
 		}
-		
+
 		if ("on".equals(request.getParameter("ventesTerminees"))) {
-		    articles = articles.stream()
-			    .filter(a -> a.getFinEncheres()
-				    .compareTo(LocalDate.now()) < 0)		    
+		    articles = articles.stream().filter(a -> a.getFinEncheres().compareTo(LocalDate.now()) < 0)
 			    .collect(Collectors.toList());
 		}
 
 	    }
-	    
+
 	} catch (BusinessException e) {
 	    e.printStackTrace();
 	}

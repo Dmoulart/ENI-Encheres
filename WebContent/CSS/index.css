@@ -23,6 +23,12 @@ html{
     min-height: var(--searchBloc-height);
     min-width: var(--searchBloc-width);
 }
+
+.SearchContainerForm{
+	display:flex;
+} 
+
+
 .Search_filter{
     margin-block-end: 0.5vh;
 }
@@ -92,7 +98,7 @@ html{
 .Articles-Section{
     display:flex;
     flex-flow: row wrap;
-    justify-content: space-between;
+    justify-content: space-around;
     margin-inline: var(--main-inline-margin);
     margin-block-start:10vh;
 }
