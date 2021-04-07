@@ -15,6 +15,7 @@ html{
     align-items: center;
     width:90vw;
     height:10vh;
+    margin : 2em;
 }
 /*-----SEARCH SECTION-----*/
 .SearchContainer{

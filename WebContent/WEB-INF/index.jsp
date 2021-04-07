@@ -23,7 +23,15 @@
             <div class="Logo"><a class="link" href="./IndexServlet">ENI-Enchères</a></div>
           <ul class="Menu">
      		<c:choose>
-		    	<c:when test="${utilisateurEnSession!=null}">  
+				
+     			<c:when test="${utilisateurEnSession!=null && utilisateurEnSession.administrateur!=false}">  
+		            	<li class="Menu_item"><a class="link" href="./EnchereServlet">Enchères</a></li>
+		                <li class="Menu_item"><a class="link" href="./VenteServlet">Vendre un article</a></li>
+		                <li class="Menu_item"><a class="link" href="./ProfilServlet">Mon Profil</a></li>
+		                <li class="Menu_item"><a href="./DeconnectionServlet" class="link">Se deconnecter</a></li>
+		        </c:when>
+		        <c:when test="${utilisateurEnSession!=null && utilisateurEnSession.administrateur!=true}">  
+     					<li class="Menu_item"><a class="link" href="./AdminServlet">Administration</a></li>
 		            	<li class="Menu_item"><a class="link" href="./EnchereServlet">Enchères</a></li>
 		                <li class="Menu_item"><a class="link" href="./VenteServlet">Vendre un article</a></li>
 		                <li class="Menu_item"><a class="link" href="./ProfilServlet">Mon Profil</a></li>

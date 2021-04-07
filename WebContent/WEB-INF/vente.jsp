@@ -23,38 +23,36 @@
 <link rel="stylesheet" href="CSS/vente.css">
 <link rel="stylesheet" href="CSS/inscription.css">
 </head>
-<body class="Page">
-	<div class="NavbarContainer">
-		<nav class="Navbar">
-			<div class="Logo">
-				<a class="link" href="./IndexServlet">ENI-Enchères</a>
-			</div>
-		</nav>
-	</div>
-
-	<div class="Page-TitleContainer">
-		<h1>Mise en vente sur ENI-Enchères</h1>
-	</div>
-
+<body class ="Page">
+    <div class="NavbarContainer">
+        <nav class="Navbar">
+            <div class="Logo"><a class="link" href="./IndexServlet">ENI-Enchères</a></div>
+        </nav>
+    </div>
+    <div class="VenteIntroPage">
+		<div class="VenteIntroFormContainer">
+			<div class="Page-TitleContainer"><h1>Mise en vente sur ENI-Enchères</h1></div>
+		</div>
+	</div>	
 	<div class="InscriptionPage">
 		<div class="InscriptionFormContainer">
 			<form class="InscriptionForm" action="./VenteServlet" method="post">
-
 				<div class="InscriptionFields">
-					<label for="nomArticle">Article :</label> <input type="text"
-						placeholder="Nom de l'Article..." id="nomArticle"
-						name="nomArticle" required> <label
-						for="descriptionArticle">Description :</label> <input type="text"
-						placeholder="Description de l'Article..." id="descriptionArticle"
-						name="descriptionArticle" required> <label for="categorie">Categorie
-						:</label> <select name="categorie" id="categorie" required>
-						<option value="">--Catégorie correspondant à l'article--</option>
-						<option value=1>Informatique</option>
-						<option value=2>Ammeublement</option>
-						<option value=3>Vêtement</option>
-						<option value=4>Sport & Loisir</option>
-					</select>
-
+					<label for="nomArticle">Article :</label>
+						<input type="text" placeholder="Nom de l'Article..." id="nomArticle" name="nomArticle" required>					
+					<label for="descriptionArticle">Description :</label>
+						<input type="text" placeholder="Description de l'Article..." id="descriptionArticle" name="descriptionArticle" required>	
+              
+              		<label for="categorie">Categorie :</label>
+              		<div class="dropdownVente">
+						<select name="categorie" id="categorie" required>
+						    <option value="">--Veuillez séléctionner une catégorie correspondant à l'article--</option>
+						    <option value=1>Informatique</option>
+						    <option value=2>Ammeublement</option>
+						    <option value=3>Vêtement</option>
+						    <option value=4>Sport & Loisir</option>
+						</select>
+					</div>
 					<div class="form-group">
 						<label for="exampleInputFile">Photo de l'article :</label>
 						<p>
@@ -78,47 +76,28 @@
 					</div>
 
 					<label for="nomArticle">Mise à prix</label>
-					<div class="form-group row">
-						<div class="col-10">
-							<input class="form-control" type="number" value="42"
-								id="prixEnchere" name="prixEnchere" required>
+						<div class="form-group row">
+							<div class="col-10">
+								<input class="form-control" type="number" value="42" id="prixEnchere" name="prixEnchere" required>
+							</div>
 						</div>
-					</div>
-
-					<label for="dateDebutArticle">Début de l'enchère</label> <input
-						type="date" id="debutEnchere" name="debutEnchere"
-						value="${LocalDate.now() } }" min="2021-04-01" max="2999-12-31"
-						required> <label for="dateFinArticle">Fin de
-						l'enchère</label> <input type="date" id="finEnchere" name="finEnchere"
-						value="${LocalDate.now() }" min="2021-04-01" max="2999-12-31"
-						required>
-
-					<div class="Page-TitleContainer">
-						<h2>Adresse de retrait</h2>
-					</div>
-					<label for="nomArticle">Rue</label> <input type="text"
-						value="${utilisateurEnSession.rue}" id="rueRetrait"
-						name="rueRetrait" required> <label
-						for="descriptionArticle">Code Postal</label> <input type="text"
-						value="${utilisateurEnSession.codePostal}" id="CodePostalRetrait"
-						name="CodePostalRetrait" required> <label
-						for="descriptionArticle">Ville</label> <input type="text"
-						value="${utilisateurEnSession.ville}" id="villeRetrait"
-						name="villeRetrait" required>
-				</div>
-
-				<c:if test="${!empty errors}">
-					<c:forEach var="error" items="${errors}">
-						<div class="Alert-error">${error}</div>
-					</c:forEach>
-				</c:if>
-
-				<div class="InscriptionValidation">
-					<div class="InscriptionButtonContainer">
-						<p>Validation des informations pour la mise en vente :</p>
-						<button type="submit" id="venteValider" class="venteValider">Valider</button>
-					</div>
-				</div>
+						
+					<label for="dateDebutArticle">Début de l'enchère</label>
+						<input type="date" id="debutEnchere" name="debutEnchere" value="${java.time.LocalDate.now()}" min="${java.time.LocalDate.now()}" max="2999-12-31" required>
+					<label for="dateFinArticle">Fin de l'enchère</label>	
+						<input type="date" id="finEnchere" name="finEnchere" value="${java.time.LocalDate.now()+1}" min="${java.time.LocalDate.now()+1}" max="2999-12-31" required>
+				
+				<div class="Page-TitleContainer"><h2>Adresse de retrait</h2></div>
+					<label for="nomArticle">Rue</label>
+						<input type="text" value="${utilisateurEnSession.rue}" id="rueRetrait" name="rueRetrait" required>					
+					<label for="descriptionArticle">Code Postal</label>
+						<input type="text" value="${utilisateurEnSession.codePostal}" id="CodePostalRetrait" name="CodePostalRetrait" required>
+					<label for="descriptionArticle">Ville</label>
+						<input type="text" value="${utilisateurEnSession.ville}" id="villeRetrait" name="villeRetrait" required>		
+                </div>
+                <div class="VenteButtonContainer">
+					<button type="submit" id="venteValider" class="VenteValider">Mise en vente</button>
+				</div>			
 			</form>
 		</div>
 	</div>

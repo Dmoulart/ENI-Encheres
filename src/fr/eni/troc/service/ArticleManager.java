@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.List;
 import fr.eni.troc.bo.Article;
 import fr.eni.troc.bo.Categorie;
-import fr.eni.troc.bo.Utilisateur;
 import fr.eni.troc.dal.DALFactory;
 import fr.eni.troc.dal.ArticleDal;
 import fr.eni.troc.exception.BusinessException;
@@ -62,7 +61,7 @@ public class ArticleManager {
 	validateRue(article.getVendeur().getRue(), be);
 	validateCP(article.getVendeur().getCodePostal(), be);
 	validateVille(article.getVendeur().getVille(), be);
-	
+
 	if(be.getErrors().isEmpty()) {
 	    try {
 		return DALFactory.getArticleDal().insert(article);
@@ -102,6 +101,7 @@ public class ArticleManager {
 	    return false;
 	return true;
     }
+
 
     private boolean validateFinEnchere(LocalDate finEncheres, LocalDate debutEncheres, BusinessException be) {
 	if (isNull("Date debut Enchere", finEncheres, be))
