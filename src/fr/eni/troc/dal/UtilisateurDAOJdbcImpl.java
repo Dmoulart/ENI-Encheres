@@ -12,7 +12,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDal {
 
     public static final String SELECT_BY_ID = "SELECT * FROM utilisateurs WHERE id=?";
 
-    public static final String FIND = "SELECT id, pseudo, prenom, nom, email, telephone, rue, code_postal, ville, credit FROM utilisateurs WHERE pseudo=? AND mot_de_passe=? ";
+    public static final String FIND = "SELECT id, pseudo, prenom, nom, email, telephone, rue, code_postal, ville, credit FROM utilisateurs WHERE pseudo=? AND mot_de_passe=?";
 
     public static final String SELECT_BY_EMAIL = "SELECT id, pseudo, prenom, nom, email, telephone, rue, code_postal, ville, credit FROM utilisateurs WHERE email=? AND mot_de_passe=?";
     
@@ -21,7 +21,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDal {
 
     public static final String DELETE = "DELETE FROM utilisateurs WHERE id= ?";
 
-    public static final String UPDATE = "UPDATE utilisateurs SET pseudo=?, nom=?, prenom=?, email=?, telephone=?, rue=?, code_postal=?, ville=?, credit=? WHERE id=?";
+    public static final String UPDATE = "UPDATE utilisateurs SET pseudo=?, nom=?, prenom=?, email=?, telephone=?, rue=?, code_postal=?, ville=?, mot_de_passe=?, credit=? WHERE id=?";
 
     public static final String GET_DUPLICATES_PSEUDO = "SELECT pseudo, COUNT(*) c FROM utilisateurs WHERE pseudo=? GROUP BY pseudo HAVING c >= 1;";
 
@@ -183,8 +183,9 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDal {
 	    update.setString(6, utilisateur.getRue());
 	    update.setString(7, utilisateur.getCodePostal());
 	    update.setString(8, utilisateur.getVille());
-	    update.setInt(9, utilisateur.getCredit());
-	    update.setInt(10, utilisateur.getId());
+	    update.setString(9, utilisateur.getMotDePasse());
+	    update.setInt(10, utilisateur.getCredit());
+	    update.setInt(11, utilisateur.getId());
 	    
 	    update.executeUpdate();
 

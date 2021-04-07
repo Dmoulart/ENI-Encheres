@@ -9,16 +9,6 @@ input{
     flex-flow: column;
 }
 
-.h2{
-	font-size: 0.7em;
-}
-
-.boutonValider{
-	
-	width:100%;
-	height:50%;
-}
-
 .Alert-error {
     display: flex;
     justify-content: center;
@@ -34,43 +24,26 @@ input{
     flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
-    height: calc(100vh - var(--navbar-height));
+    
 }
 .ProfilFormContainer{
     display:flex;
     flex-wrap: wrap-reverse;
     justify-content: space-evenly;
- 
+    width: 100%;
 }
-
 
 .ProfilForm{
     display: flex;
     flex-flow: column nowrap;
     justify-content: space-evenly;
-    
+    height: 100%;
+    width: 65%;
 }
-
-.ProfilButoonFormContainer {
-	
-	display:flex;
-    flex-wrap: wrap-reverse;
-    justify-content: space-evenly;
-    width: 70%;
-    min-height: 15vh;
-	
-}
-
-.ProfilButtonForm {
-	display: flex;
-    flex-flow: column nowrap;
-    justify-content: space-evenly;
-	width: 70%;
-}
-
 .ProfilFields{
     display: flex;
     flex-flow: column nowrap;
+    margin-block: 2.5em;
 }
 .ProfilValidation{
     display:flex;
@@ -83,18 +56,24 @@ input{
     align-items: center;
 }
 .ProfilButtonContainer{
+	justify-content: center;
 	display:flex;
-    width: 50%;
-    min-height: 15vh;
-}
-.ProfilnButton{
     width: 100%;
+    height: 2em;
+    margin-block: 1.5em; 
+}
+.ModifierProfilButton{
+	border-radius: 10px;
+	border-style: none;
+    width: 50%;
 }
 
-.ProfilLabel{
-	width:100%;
-	height:50%; 
+.SupprimerProfilButton{
+	border-radius: 10px;
+	border-style: none;
+    width: 35%;
 }
+
 .Subscribe{
     margin-block-start: 7vh;
     height:33%;
@@ -138,3 +117,10 @@ input{
 	float:right;
 	cursor:pointer;
 }
+
+.ProfilButtonForm{
+	display: flex;
+    justify-content: center;
+    width: 92%;
+}
+

@@ -24,39 +24,28 @@ input{
     flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
-    height: calc(100vh - var(--navbar-height));
+   
 }
 .ProfilFormContainer{
     display:flex;
     flex-wrap: wrap-reverse;
-    justify-content: space-evenly;
-    height: 70%;
-    width: 50%;
-}
-.ProfilFormLargeContainer{
-	display:flex;
-    flex-wrap: wrap-reverse;
-    justify-content: space-evenly;
-    height: 120%;
-    width: 50%;
+    justify-content: center;
+  	margin-block: 1em;
+  	width: 60%;
 }
 
-.ProfilFormSmallContainer{
-	display:flex;
-    flex-wrap: wrap-reverse;
-    justify-content: space-evenly;
-    height: 40%;
-    width: 50%;
-}
 .ProfilForm{
     display: flex;
     flex-flow: column nowrap;
     justify-content: space-evenly;
     height: 67%;
+    width: 65%;
+    margin-block: 1.5em;
 }
 .ProfilFields{
     display: flex;
     flex-flow: column nowrap;
+    margin-block: 2.5em;
 }
 .ProfilValidation{
     display:flex;

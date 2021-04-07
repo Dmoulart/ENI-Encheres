@@ -46,7 +46,7 @@
 		<div class="ProfilFormContainer">
 			<form class="ProfilForm" action="./ModifierProfilServlet" method="post">
 				<div class="ProfilFields">
-					<div class="Page-TitleContainer"><h2>Bonjour ${utilisateurEnSession.pseudo}</h2></div>
+					
 					<label for="pseudoUtilisateur">Pseudo</label>
 						<input type="text" value="${utilisateurEnSession.pseudo}" id="pseudoUtilisateur" name="pseudoUtilisateur">
 					<label for="nomUtilisateur">Nom</label>
@@ -63,33 +63,36 @@
 						<input type="text" value="${utilisateurEnSession.codePostal}" id="codePostalUtilisateur" name="codePostalUtilisateur">
 					<label for="villeUtilisateur">Ville</label>
 						<input type="text" value="${utilisateurEnSession.ville}" id="villeUtilisateur" name="villeUtilisateur">
-					<label for="mdpUtilisateur">Mot de passe</label>
+					<label for="mdpUtilisateur">Nouveau mot de passe</label>
 						<input type="password" value="${utilisateurEnSession.motDePasse}" id="mdpUtilisateur" name="mdpUtilisateur">
-					<label for="mdpUtilisateur">Confirmation</label>
+					<label for="mdpUtilisateur">Confirmation du mot de passe</label>
 						<input type="password" value="${utilisateurEnSession.motDePasse}" id="mdpConfUtilisateur" name="mdpConfUtilisateur">
 				</div>
 		
 		
     
     
-			<div class="ProfilButoonFormContainer">
+			
                <div class="ProfilButtonContainer">
-                   <button type="submit" id="modificationProfilValider" class="modificationProfilValider">Modifier le compte</button>
+                   <button type="submit" id="modificationProfilValider" class="ModifierProfilButton">Modifier le compte</button>
                </div>
-            </div>
+            
              </form> 
+           </div>    
+			
+	</div>
+	
+		 <div class="ProfilButtonContainer">
+            <form class="ProfilButtonForm" action="./SupprimerProfilServlet" method="get">
+       			<button type="submit" id="suppresionProfil" class="SupprimerProfilButton">Supprimer le compte</button>
+			</form>
 		</div>
               
                 
                         
-         <div class="ProfilButtonContainer">
-            <form class="ProfilButtonForm" action="./SupprimerProfilServlet" method="get">
-       			<button type="submit" id="suppresionProfil" class="suppresionProfil">Supprimer le compte</button>
-			</form>
-			
-		</div>
+         
 	
-     </div>   		
+    		
   
 
 </body>
