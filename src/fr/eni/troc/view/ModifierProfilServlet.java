@@ -85,7 +85,7 @@ public class ModifierProfilServlet extends HttpServlet {
 	    UtilisateurManager.getUtilisateurManager().verifUpdateUtilisateur(utilisateurModifie, confiMotDePasse);
 	    utilisateur = utilisateurModifie; 
 	    System.out.println(utilisateur.toString());
-	    UtilisateurManager.getUtilisateurManager().update(utilisateur);
+	    UtilisateurManager.getUtilisateurManager().updateMdp(utilisateur);
 	    System.out.println(utilisateur.toString());
 	    session.setAttribute("utilisateurEnSession", UtilisateurManager.getUtilisateurManager().selectById(utilisateur.getId()));
 	    System.out.println("UPDATED");

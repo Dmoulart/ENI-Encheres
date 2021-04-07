@@ -200,6 +200,18 @@ public class UtilisateurManager {
 	    throw be;
 	}
     }
+    
+    public void updateMdp(Utilisateur utilisateur) throws BusinessException {
+   	// Appelle de la couche DAL - pas de vérifications particulieres
+   	try {
+   	    DALFactory.getUtilisateurDal().updateMdp(utilisateur);
+   	} catch (DALException de) {
+   	    de.printStackTrace();
+   	    BusinessException be = new BusinessException();
+   	    be.addError(de.getMessage());
+   	    throw be;
+   	}
+       }
 
     private boolean validatePseudo(String pseudo, BusinessException be) {
 	if (isNullOrEmpty("Pseudonyme", pseudo, be))
