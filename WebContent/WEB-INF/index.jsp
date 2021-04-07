@@ -89,7 +89,7 @@
 	   			
 					<div class="OptionContainer" id="achatsOption">
 						<div class="SearchOptionType">
-							<input type="radio" name="achats" id="achatsRadio" <c:if test="${param.achats eq 'on'}">checked</c:if>>
+							<input type="radio" name="achats" id="achatsRadio" <c:if test="${param.achats eq 'on' ||  defaultSearchParam eq 'on'}">checked</c:if>>
 							<label for="achats">Achats</label>
 						</div>
 							<div class="SearchOption" >
@@ -156,7 +156,7 @@
 			              	</c:choose>
 			                <div class="Article_properties prix">Prix : ${article.prixVente}</div>
 			                <div class="Article_properties finEnchere">Fin de l'enchère : ${article.finEncheres.toString()}</div>
-			                <div class="Article_properties retrait">Retrait : ${article.vendeur.rue}</div>
+			                <div class="Article_properties retrait">Retrait : ${article.retrait.rue}</div>
 			                <c:url value="/ProfilUtilisateurServlet" var="urlUt">
 	  							<c:param name="utilisateurId" value="${article.vendeur.id}" />
 							</c:url>
@@ -181,6 +181,24 @@ let radioMesVentes = document.getElementById("mesVentesRadio");
 
 let achatNodes = Array.from(document.getElementById("achatsOption").getElementsByTagName('INPUT'));
 let ventesNodes = Array.from(document.getElementById("ventesOption").getElementsByTagName('INPUT'));
+
+if(radioAchat.checked === true){
+	ventesNodes.forEach((n,i) =>  {
+		if(i>0){
+			n.disabled = true;
+			n.checked = false;
+		}
+	});
+}
+
+if(radioMesVentes.checked === true){
+	achatNodes.forEach((n,i) =>  {
+		if(i>0){
+			n.disabled = true;
+			n.checked = false;
+		}
+	});
+}
 
 radioAchat.onclick = () => {
 	radioAchat.checked = true;

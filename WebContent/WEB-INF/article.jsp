@@ -46,7 +46,9 @@
 			<div class="Article_properties finEnchere">Fin de l'enchère :
 				${article.finEncheres.toString()}</div>
 			<div class="Article_properties retrait">Retrait :
-				${article.vendeur.rue}</div>
+				${article.retrait.rue}
+				${article.retrait.ville}
+				${article.retrait.codePostal}</div>
 			<div class="Article_properties vendeur">Vendeur:
 				${article.vendeur.nom}</div>
 			<form action="./ArticleServlet" method="POST">
@@ -57,12 +59,16 @@
 							<div class="Alert-error">${error}</div>
 						</c:forEach>
 					</c:if>
+				
+					<c:if test="${peutEncherir eq 'true'}">
+						Ma proposition : <input type="number" id="montantEnchere" name="montantEnchere"
+							value="${article.prixVente +1 }" min="${article.prixVente +1}"
+							max="${2147483647}" required> <input
+							type="hidden" name="articleId" id="articleId" value="${article.id}">
+							
+						<button type="submit" name="encherir">Enchérir</button>
+					</c:if>
 					
-					Ma proposition : <input type="number" id="montantEnchere" name="montantEnchere"
-						value="${article.prixVente +1 }" min="${article.prixVente +1}"
-						max="${2147483647}" required> <input
-						type="hidden" name="articleId" id="articleId" value="${article.id}">
-					<button type="submit" name="encherir">Enchérir</button>
 				</div>
 			</form>
 		</div>

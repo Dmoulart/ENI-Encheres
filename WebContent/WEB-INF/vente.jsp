@@ -1,24 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <title>ENI-ENCHERES Mise en vente</title>
+<meta charset="UTF-8">
+<title>ENI-ENCHERES Mise en vente</title>
 </head>
 <body>
 <head>
-    <meta charset="UTF-8">
-    <title>Vente</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="CSS/general.css">
-    <link rel="stylesheet" href="CSS/index.css">
-    <link rel="stylesheet" href="CSS/theme.css">
-    <link rel="stylesheet" href="CSS/vente.css">
-    <link rel="stylesheet" href="CSS/inscription.css">
+<meta charset="UTF-8">
+<title>Vente</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link
+	href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Quicksand:wght@300;400;500;600;700&display=swap"
+	rel="stylesheet">
+<link rel="stylesheet" href="CSS/general.css">
+<link rel="stylesheet" href="CSS/index.css">
+<link rel="stylesheet" href="CSS/theme.css">
+<link rel="stylesheet" href="CSS/vente.css">
+<link rel="stylesheet" href="CSS/inscription.css">
 </head>
 <body class ="Page">
     <div class="NavbarContainer">
@@ -50,15 +53,28 @@
 						    <option value=4>Sport & Loisir</option>
 						</select>
 					</div>
-
 					<div class="form-group">
 						<label for="exampleInputFile">Photo de l'article :</label>
-							<p><input type="file"  accept="image/*" name="image" id="file"  onchange="loadFile(event)" style="display: none;" required></p>
-							<p><label for="file" style="cursor: pointer;">Importer une image</label></p>
-							<p><img id="output" width="300" /></p>
-						<script> var loadFile = function(event) { var image = document.getElementById('output'); image.src = URL.createObjectURL(event.target.files[0]); };</script>	
+						<p>
+							<input type="file" accept="image/*" name="image" id="file"
+								onchange="loadFile(event)" style="display: none;" required>
+						</p>
+						<p>
+							<label for="file" style="cursor: pointer;">Importer une
+								image</label>
+						</p>
+						<p>
+							<img id="output" width="300" />
+						</p>
+						<script>
+							var loadFile = function(event) {
+								var image = document.getElementById('output');
+								image.src = URL
+										.createObjectURL(event.target.files[0]);
+							};
+						</script>
 					</div>
-					
+
 					<label for="nomArticle">Mise à prix</label>
 						<div class="form-group row">
 							<div class="col-10">
@@ -85,6 +101,6 @@
 			</form>
 		</div>
 	</div>
-</body> 
+</body>
 </body>
 </html>

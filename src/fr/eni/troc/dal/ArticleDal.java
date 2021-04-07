@@ -7,7 +7,7 @@ import fr.eni.troc.bo.Utilisateur;
 import fr.eni.troc.exception.DALException;
 
 public interface ArticleDal {
-    public void insert(final Article article) throws DALException;
+    public long insert(final Article article) throws DALException;
 
     public void delete(final int id) throws DALException;
 
