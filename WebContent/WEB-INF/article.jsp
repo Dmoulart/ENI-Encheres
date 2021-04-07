@@ -43,6 +43,8 @@
 				${article.prixInitial}</div>
 				<div class="Article_properties prix">Prix de vente :
 				${article.prixVente}</div>
+			<div class="Article_properties finEnchere">Debut de l'enchère :
+				${article.debutEncheres.toString()}</div>
 			<div class="Article_properties finEnchere">Fin de l'enchère :
 				${article.finEncheres.toString()}</div>
 			<div class="Article_properties retrait">Retrait :
@@ -60,7 +62,7 @@
 						</c:forEach>
 					</c:if>
 				
-					<c:if test="${peutEncherir eq 'true'}">
+					<c:if test="${peutEncherir eq 'true' && article.vendeur.id != utilisateurEnSession.id}">
 						Ma proposition : <input type="number" id="montantEnchere" name="montantEnchere"
 							value="${article.prixVente +1 }" min="${article.prixVente +1}"
 							max="${2147483647}" required> <input
