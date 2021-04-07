@@ -7,10 +7,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import javax.servlet.http.HttpSession;
 import fr.eni.troc.bo.Article;
+import fr.eni.troc.bo.Utilisateur;
+import fr.eni.troc.dal.DALFactory;
 import fr.eni.troc.exception.BusinessException;
+import fr.eni.troc.exception.DALException;
 import fr.eni.troc.service.ArticleManager;
+
 
 /**
  * Servlet implementation class VenteServlet
@@ -35,7 +39,7 @@ public class VenteServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	String nom = request.getParameter("nomArticle");
 	String description = request.getParameter("descriptionArticle");
-	int categorie = Integer.parseInt(request.getParameter("categorieEnchere"));
+	int categorie = Integer.parseInt(request.getParameter("categorie"));
 	String photo = request.getParameter("photoEnchere");
 	int misePrix = Integer.parseInt(request.getParameter("prixEnchere"));
 	LocalDate debutEnchere = LocalDate.parse(request.getParameter("debutEnchere"));
@@ -43,37 +47,32 @@ public class VenteServlet extends HttpServlet {
 	String rueRetrait = request.getParameter("rueRetrait");
 	String codePostalEnchere = request.getParameter("CodePostalRetrait");
 	String villeEnchere = request.getParameter("villeRetrait");
-
-	System.out.println("Nom : " + nom);
-	System.out.println("Description : " + description);
-	System.out.println("Categorie : " + categorie);
-	System.out.println("Mise à prix : " + misePrix);
-	System.out.println("Début de l'enchère : " + debutEnchere);
-	System.out.println("Fin de l'enchère : " + finEnchere);
-	System.out.println("Rue du retrait : " + rueRetrait);
-	System.out.println("Code Postal du retrait : " + codePostalEnchere);
-	System.out.println("Ville du Retrait : " + villeEnchere);
 	
-	if(nom != null && description != null && categorie > 0 && photo != null && misePrix > 0 && debutEnchere != null && finEnchere != null && rueRetrait != null && codePostalEnchere != null && villeEnchere != null) { 
-	     try {
-		 Article article = new Article();
-		 article.setNom(nom);
-		 article.setDescription(description);
-		 article.getCategorie().setId(categorie);
-		 article.setPrixInitial(misePrix);
-		 article.setDebutEncheres(debutEnchere);
-		 article.setFinEcheres(finEnchere);
-		 article.getVendeur().setRue(rueRetrait);
-		 article.getVendeur().setCodePostal(codePostalEnchere);
-		 article.getVendeur().setVille(villeEnchere);
-		 
-		 ArticleManager.getArticleManager().creer(article);
-		 response.sendRedirect(request.getContextPath()+ "/IndexSerlvet");
-		 System.out.println("Ajout d'un nouvel Article dans la Base de donnée !");
-	     } catch (BusinessException e) { 
-		request.setAttribute("errors", e.getErrors());
-		request.getRequestDispatcher("/WEB-INF/vente.jsp").forward(request, response);
-	     } 
+	try {
+            Article article = new Article();
+            System.out.println("Nouvel Article");
+            article.setNom(nom);
+            article.setDescription(description);
+            article.setCategorie(DALFactory.getCategorieDal().selectById(categorie));
+            article.setPrixInitial(misePrix);
+            article.setDebutEncheres(debutEnchere);
+            article.setFinEcheres(finEnchere);
+            System.out.println("Fin Enchère");
+            HttpSession session = request.getSession();
+            article.setVendeur((Utilisateur) session.getAttribute("utilisateurEnSession"));
+
+        	    try {	 
+        		 ArticleManager.getArticleManager().creer(article);
+        		 session.setAttribute("article", article);
+        		 request.getRequestDispatcher("./IndexServlet").forward(request, response);
+        		 System.out.println("Ajout d'un nouvel Article dans la Base de donnée !");
+        	     } catch (BusinessException e) { 
+        		request.setAttribute("errors", e.getErrors());
+        		request.getRequestDispatcher("/WEB-INF/vente.jsp").forward(request, response);
+        	     }
+	} catch (DALException e) {
+		System.out.println("LUL");
+		e.printStackTrace();
 	}
     }
 }

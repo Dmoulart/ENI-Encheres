@@ -13,7 +13,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDal {
     public static final String SELECT_BY_ID = "SELECT * FROM utilisateurs WHERE id=?";
 
     public static final String FIND = "SELECT id, pseudo, prenom, nom, email, telephone, rue, code_postal, ville, credit FROM utilisateurs WHERE pseudo=? AND mot_de_passe=? ";
-
+  
     public static final String SELECT_BY_EMAIL = "SELECT id, pseudo, prenom, nom, email, telephone, rue, code_postal, ville, credit FROM utilisateurs WHERE email=? AND mot_de_passe=?";
     
     public static final String INSERT = "INSERT INTO utilisateurs (id, pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe,credit,administrateur)\r\n"
@@ -356,4 +356,6 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDal {
 	u.setEncheres(null);
 	return u;
     }
+    
+
 }

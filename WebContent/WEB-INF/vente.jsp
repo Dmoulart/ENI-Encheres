@@ -42,10 +42,10 @@
                		<label for="categorie">Categorie :</label>
 					<select name="categorie" id="categorie" required>
 					    <option value="">--Catégorie correspondant à l'article--</option>
-					    <option value="informatique">Informatique</option>
-					    <option value="ammeublement">Ammeublement</option>
-					    <option value="vetement">Vêtement</option>
-					    <option value="sport&loisir">Sport & Loisir</option>
+					    <option value=1>Informatique</option>
+					    <option value=2>Ammeublement</option>
+					    <option value=3>Vêtement</option>
+					    <option value=4>Sport & Loisir</option>
 					</select>
 
 					<div class="form-group">

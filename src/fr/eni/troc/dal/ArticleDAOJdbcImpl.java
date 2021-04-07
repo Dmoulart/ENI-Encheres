@@ -8,6 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import fr.eni.troc.bo.Article;
 import fr.eni.troc.bo.Utilisateur;
 import fr.eni.troc.exception.BusinessException;
@@ -41,15 +43,15 @@ public class ArticleDAOJdbcImpl implements ArticleDal {
 	@Override
 	public void insert(final Article article) throws DALException {
 		try(Connection cnx = ConnectionProvider.getConnection()) {
-			PreparedStatement pstmt = cnx.prepareStatement(INSERT, PreparedStatement.RETURN_GENERATED_KEYS);
+			PreparedStatement pstmt = cnx.prepareStatement(INSERT);
 			pstmt.setString(1, article.getNom());
 			pstmt.setString(2,article.getDescription());
 			pstmt.setDate(3, Date.valueOf(article.getDebutEncheres()));
 			pstmt.setDate(4, Date.valueOf(article.getFinEncheres()));
 			pstmt.setInt(5, article.getPrixInitial());
 			pstmt.setNull(6, java.sql.Types.INTEGER);
-			pstmt.setInt(7, article.getVendeur().getId());
-			pstmt.setInt(8, article.getCategorie().getId());
+			pstmt.setInt(7, article.getCategorie().getId());
+			pstmt.setInt(8, article.getVendeur().getId());
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			DALException de = new DALException(Errors.INSERT,this.getClass().getSimpleName(),e);

@@ -59,7 +59,9 @@ public class ArticleManager {
 	validateMisePrix(article.getPrixInitial(), be);
 	validateDebutEnchere(article.getDebutEncheres(), be);
 	validateFinEnchere(article.getFinEncheres(), be);
-	validateUtilisateur(article.getVendeur(), be);
+	validateRue(article.getVendeur().getRue(), be);
+	validateCP(article.getVendeur().getCodePostal(), be);
+	validateVille(article.getVendeur().getVille(), be);
 	
 	if(be.getErrors().isEmpty()) {
 	    try {
@@ -77,7 +79,27 @@ public class ArticleManager {
 	
     }
 
-    private boolean validateUtilisateur(Utilisateur vendeur, BusinessException be) {
+    private boolean validateVille(String ville, BusinessException be) {
+	if (isNullOrEmpty("Ville", ville, be))
+	    return false;
+	if (isTooLarge("Ville", ville, 50, be))
+	    return false;
+	return true;
+    }
+    
+    private boolean validateCP(String codePostal, BusinessException be) {
+	if (isNullOrEmpty("Code Postal", codePostal, be))
+	    return false;
+	if (isTooLarge("Code Postal", codePostal, 10, be))
+	    return false;
+	return true;
+    }
+    
+    private boolean validateRue(String rue, BusinessException be) {
+	if (isNullOrEmpty("Rue", rue, be))
+	    return false;
+	if (isTooLarge("Rue", rue, 30, be))
+	    return false;
 	return true;
     }
 
