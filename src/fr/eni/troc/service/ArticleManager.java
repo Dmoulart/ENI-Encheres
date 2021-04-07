@@ -19,7 +19,7 @@ import fr.eni.troc.exception.Errors;
  */
 public class ArticleManager {
 
-    // Attribut pour repr�senter la couche DAL
+    // Attribut pour représenter la couche DAL
     private ArticleDal articleDal;
 
     // Pattern Singleton

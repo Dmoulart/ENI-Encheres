@@ -78,7 +78,7 @@ public class ModifierProfilServlet extends HttpServlet {
 		utilisateurModifie.setMotDePasse(newmotDePasse);
 		utilisateurModifie.setCredit(utilisateur.getCredit());
 	    
-	    //System.out.println("Id utilisateur : " + utilisateurModifie.getId());
+	    System.out.println("Id utilisateur : " + utilisateurModifie.getId());
 
 	    // Appel à la BLL
 	    
