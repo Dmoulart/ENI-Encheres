@@ -4,6 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import fr.eni.troc.bo.Article;
 import fr.eni.troc.bo.Utilisateur;
 import fr.eni.troc.exception.DALException;
 import fr.eni.troc.exception.Errors;
@@ -29,6 +34,8 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDal {
     public static final String GET_DUPLICATES_PSEUDO = "SELECT pseudo, COUNT(*) c FROM utilisateurs WHERE pseudo=? GROUP BY pseudo HAVING c >= 1;";
 
     public static final String GET_DUPLICATES_EMAIL = "SELECT email, COUNT(*) c FROM utilisateurs WHERE email=? GROUP BY email HAVING c >= 1;";
+    
+    public static final String SELECT_ALL ="SELECT  id, pseudo, prenom, nom, email, telephone, rue, code_postal, ville, credit, administrateur FROM utilisateurs FROM Utilisateurs";
     // public static final String UPDATE_MDP = "UPDATE utilisateur SET
     // mot_de_passe=? WHERE id=?";
 
@@ -388,6 +395,21 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDal {
 	u.setEncheres(null);
 	return u;
     }
-    
 
+    @Override
+    public List<Utilisateur> selectAll() throws DALException {
+	List<Utilisateur> utilisateurs = new ArrayList<>();
+	try(Connection cnx = ConnectionProvider.getConnection()) {
+		Statement stmt = cnx.createStatement();
+		ResultSet rs = stmt.executeQuery(SELECT_ALL);
+		while(rs.next()) {
+			Utilisateur utilisateur = itemBuilder(rs);
+			utilisateurs.add(utilisateur);
+		}
+	} catch (Exception e) {
+		DALException de = new DALException(Errors.SELECT_ALL,this.getClass().getSimpleName(),e);
+		throw de;
+	}
+	return null;
+    }
 }

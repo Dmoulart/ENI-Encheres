@@ -30,6 +30,7 @@
     </div>
     
 	<div class="Page-TitleContainer"><h1>Administration de ENI-Enchères</h1></div>
+	<div class="Page-TitleContainer"><h2>Bonjour ${utilisateurEnSession.prenom} ${utilisateurEnSession.nom}</h2></div>
 	
 	 <c:if test="${!empty errors}">
       	<c:forEach var="error" items="${errors}">
@@ -40,9 +41,15 @@
 	
 	<div class="ProfilPage">
 		<div class="ProfilFormContainer">
-			<form class="ProfilForm" action="./ProfilServlet" method="post">
+			<form class="ProfilForm" action="./AdminServlet" method="post">
 				<div class="ProfilFields">
-					<div class="Page-TitleContainer"><h2>Bonjour ${utilisateurEnSession.prenom} ${utilisateur.nom}</h2></div>
+					<section class="Articles-Section">
+						<c:forEach var="utilisateur" items="${utilisateurs}">
+							<c:url value="/ProfilServlet" var="url">
+								<c:param name="utilisateurId" value="${utilisateur.id}"></c:param>
+							</c:url>
+						</c:forEach>		
+					</section>	
 				</div>
 			</form>
 		</div>

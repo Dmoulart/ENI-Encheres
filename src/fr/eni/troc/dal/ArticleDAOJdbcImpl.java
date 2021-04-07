@@ -7,9 +7,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.servlet.http.HttpSession;
-
 import fr.eni.troc.bo.Article;
 import fr.eni.troc.bo.Utilisateur;
 import fr.eni.troc.exception.BusinessException;

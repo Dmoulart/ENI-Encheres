@@ -1,5 +1,7 @@
 package fr.eni.troc.dal;
 
+import java.util.List;
+
 import fr.eni.troc.bo.Utilisateur;
 import fr.eni.troc.exception.DALException;
 
@@ -24,6 +26,9 @@ public interface UtilisateurDal {
     public Utilisateur selectByIdAsEmetteur(int id) throws DALException;
 
     public void updateMdp(Utilisateur utilisateur) throws DALException;
+    
+    public List<Utilisateur> selectAll() throws DALException;
+
     
     
 
