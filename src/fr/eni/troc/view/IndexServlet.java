@@ -107,7 +107,13 @@ public class IndexServlet extends HttpServlet {
 			    .filter(a -> a.getEncheres().get(0).getEmetteur().getId() == utilisateur.getId())
 			    .collect(Collectors.toList());
 		}
-		// ToDo mes encheresRemportées !
+		if ("on".equals(request.getParameter("mesEncheresRemportees"))) {
+		    articles = articles.stream()
+			    .filter(a -> a.getFinEncheres().compareTo(LocalDate.now()) <= 0)
+			    .filter(a -> a.getEncheres().size() > 1)
+			    .filter(a -> a.getEncheres().get(a.getEncheres().size()-1).getEmetteur().getId() == utilisateur.getId())
+			    .collect(Collectors.toList());
+		}
 	    }
 
 	    if ("on".equals(request.getParameter("mesVentes"))) {
