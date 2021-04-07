@@ -77,6 +77,7 @@ public class IndexServlet extends HttpServlet {
 	try {
 	    
 	    articles = ArticleManager.getArticleManager().selectAll();
+	    
 	    if (categorieSelectionnee != null && !categorieSelectionnee.equals("Toutes")) {
 		articles = articles.stream()
 			.filter(a -> a.getCategorie().getLibelle().toLowerCase().replaceAll("\\s", "")
@@ -93,9 +94,11 @@ public class IndexServlet extends HttpServlet {
 
 	    if ("on".equals(request.getParameter("achats"))) {
 
-		if ("on".equals(request.getParameter("encheresOuvertes"))) {
-		    articles = articles.stream().filter(a -> a.getDebutEncheres().compareTo(LocalDate.now()) <= 0
-			    && a.getFinEncheres().compareTo(LocalDate.now()) >= 0).collect(Collectors.toList());
+		if ("on".equals(request.getParameter("enchereOuvertes"))) {
+		    articles = articles.stream().filter(a ->( a.getDebutEncheres().isBefore(LocalDate.now())
+			    || a.getDebutEncheres().isEqual(LocalDate.now()) )
+			    && a.getFinEncheres().isAfter(LocalDate.now())).collect(Collectors.toList());
+		    
 		}
 
 		if ("on".equals(request.getParameter("mesEncheres"))) {
@@ -115,7 +118,7 @@ public class IndexServlet extends HttpServlet {
 				    && a.getDebutEncheres().compareTo(LocalDate.now()) <= 0
 				    && a.getFinEncheres().compareTo(LocalDate.now()) >= 0)
 
-			    .filter(a -> a.getVendeur().getId() == utilisateur.getId()).collect(Collectors.toList());
+			   .collect(Collectors.toList());
 		}
 
 		if ("on".equals(request.getParameter("ventesNonDebutees"))) {
@@ -134,7 +137,7 @@ public class IndexServlet extends HttpServlet {
 	    e.printStackTrace();
 	}
 
-	articles.forEach(a -> System.out.println(a.toString()));
+	
 
 	request.setAttribute("categorieSelectionnee", categorieSelectionnee);
 	request.setAttribute("motsRecherches", motsRecherches);
