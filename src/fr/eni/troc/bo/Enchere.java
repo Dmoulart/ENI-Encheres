@@ -7,7 +7,7 @@ public class Enchere {
     private LocalDate date;
     private int montant;
     private Utilisateur emetteur;
-    private Article article;
+    private Article article; // A SUPPRIMER
 
     // CONSTRUCTEURS ENCHERES
 

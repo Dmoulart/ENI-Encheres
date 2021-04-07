@@ -9,11 +9,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import fr.eni.troc.bo.Article;
+import fr.eni.troc.bo.Retrait;
 import fr.eni.troc.bo.Utilisateur;
 import fr.eni.troc.dal.DALFactory;
 import fr.eni.troc.exception.BusinessException;
 import fr.eni.troc.exception.DALException;
 import fr.eni.troc.service.ArticleManager;
+import fr.eni.troc.service.RetraitManager;
 
 
 /**
@@ -45,24 +47,38 @@ public class VenteServlet extends HttpServlet {
 	LocalDate debutEnchere = LocalDate.parse(request.getParameter("debutEnchere"));
 	LocalDate finEnchere = LocalDate.parse(request.getParameter("finEnchere"));
 	String rueRetrait = request.getParameter("rueRetrait");
-	String codePostalEnchere = request.getParameter("CodePostalRetrait");
-	String villeEnchere = request.getParameter("villeRetrait");
+	String codePostalRetrait = request.getParameter("CodePostalRetrait");
+	String villeRetrait = request.getParameter("villeRetrait");
 	
 	try {
-            Article article = new Article();
+	    Retrait retrait = new Retrait();
+	    Article article = new Article();
             System.out.println("Nouvel Article");
             article.setNom(nom);
             article.setDescription(description);
             article.setCategorie(DALFactory.getCategorieDal().selectById(categorie));
             article.setPrixInitial(misePrix);
+            article.setPrixVente(misePrix);//Le prix de vente est identique au prix initial lorsque l'article est crée - Dorian
             article.setDebutEncheres(debutEnchere);
             article.setFinEcheres(finEnchere);
             System.out.println("Fin Enchère");
             HttpSession session = request.getSession();
             article.setVendeur((Utilisateur) session.getAttribute("utilisateurEnSession"));
-
+            
+            
+            retrait.setRue(rueRetrait);
+            retrait.setVille(villeRetrait);
+            retrait.setCodePostal(codePostalRetrait);
+            
         	    try {	 
-        		 ArticleManager.getArticleManager().creer(article);
+        		
+        		 int articleId = (int)ArticleManager.getArticleManager().creer(article);
+        		
+        		 article.setId(articleId);
+        		 retrait.setArticle(article);
+        		 
+        		 RetraitManager.getRetraitManager().insert(retrait);
+        		 
         		 session.setAttribute("article", article);
         		 request.getRequestDispatcher("./IndexServlet").forward(request, response);
         		 System.out.println("Ajout d'un nouvel Article dans la Base de donnée !");

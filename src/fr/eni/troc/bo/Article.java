@@ -15,6 +15,7 @@ public class Article {
     private int prixVente;
     private boolean estVendu;
     private Categorie categorie;
+    private Retrait retrait;
 
     // CONSTRUCTEURS ARTICLES
 
@@ -23,7 +24,7 @@ public class Article {
 
     public Article(int id, String nom, Utilisateur vendeur, String description, List<Enchere> encheres,
 	    LocalDate debutEncheres, LocalDate finEncheres, int prixInitial, int prixVente, boolean estVendu,
-	    Categorie categorie) {
+	    Categorie categorie, Retrait retrait) {
 	this.id = id;
 	this.nom = nom;
 	this.vendeur = vendeur;
@@ -35,6 +36,7 @@ public class Article {
 	this.prixVente = prixVente;
 	this.estVendu = estVendu;
 	this.categorie = categorie;
+	this.retrait = retrait;
     }
 
     // GETTERS AND SETTERS ARTICLES
@@ -126,7 +128,14 @@ public class Article {
     public void setCategorie(Categorie categorie) {
 	this.categorie = categorie;
     }
-
+    
+    public Retrait getRetrait() {
+	return retrait;
+    }
+    
+    public void setRetrait(Retrait retrait) {
+   	this.retrait = retrait;
+    }
     // TO STRING ARTICLES
     @Override
     public String toString() {
