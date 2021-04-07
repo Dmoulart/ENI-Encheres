@@ -34,9 +34,14 @@ public class EnchereManager {
     public void insert(Enchere e, Article a, int debitEncherisseur) throws BusinessException {
 	
 	int prixVentePrecedent;
-	
+	System.out.println("article : " + a.toString());
+	System.out.println("----------------------------------------------------");
+	List<Enchere> encheresArticle = a.getEncheres();
+	for (int i = 0; i < a.getEncheres().size(); i++) {
+	    System.out.println("enchere numero " +i+" : " +a.getEncheres().get(i).toString());
+	}
 	if(a.getEncheres().size() > 1) {
-	    prixVentePrecedent = a.getEncheres().get(1).getMontant();    
+	    prixVentePrecedent = encheresArticle.get(encheresArticle.size()-2).getMontant();    
 	}
 	else {
 	    prixVentePrecedent = a.getPrixInitial(); // ou prixInitial

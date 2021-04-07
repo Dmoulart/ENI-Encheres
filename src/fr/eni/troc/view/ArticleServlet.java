@@ -88,7 +88,7 @@ public class ArticleServlet extends HttpServlet {
 	    
 	    if (encheresArticle.size() > 1) {
 		
-		encherePrecedente = encheresArticle.get(0);//Derniere enchere ajoutée 
+		encherePrecedente = encheresArticle.get(encheresArticle.size()-1);//Derniere enchere ajoutée 
 		encherisseurPrecedant = encherePrecedente.getEmetteur();
 
 		if (encherisseurPrecedant.getId() == u.getId()) {
