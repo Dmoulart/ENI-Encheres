@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -30,7 +30,9 @@
 	<div class="ProfilPage">
 		<div class="ProfilFormContainer">
 		<div class="Page-TitleContainer"><h2>Profil du vendeur ${utilisateur.prenom} ${utilisateur.nom}</h2></div>
-				<div class="ProfilFields">
+			<div class="ProfilFields">
+			<c:choose>
+				<c:when test="${utilisateurEnSession!=null && utilisateurEnSession.administrateur==true}">  
 					<label for="pseudoUtilisateur">Pseudo : ${utilisateur.pseudo}</label>
 					<label for="nomUtilisateur">Nom : ${utilisateur.nom}</label>
 					<label for="prenomUtilisateur">Prénom : ${utilisateur.prenom}</label>
@@ -39,7 +41,25 @@
 					<label for="rueUtilisateur">Rue : ${utilisateur.rue}</label>
 					<label for="codePostalUtilisateur">Code Postal : ${utilisateur.codePostal}</label>
 					<label for="villeUtilisateur">Ville : ${utilisateur.ville}</label>
-				</div>
+					<div class="InscriptionValidation">
+						<div class="InscriptionButtonContainer">
+							<button type="submit" id="inscriptionValider" class="InscriptionButton">Supprimer le compte</button>
+							<button type="submit" id="inscriptionValider" class="InscriptionButton">Désactiver le compte</button>
+						</div>
+					</div>
+		        </c:when>
+		        <c:otherwise>  
+					<label for="pseudoUtilisateur">Pseudo : ${utilisateur.pseudo}</label>
+					<label for="nomUtilisateur">Nom : ${utilisateur.nom}</label>
+					<label for="prenomUtilisateur">Prénom : ${utilisateur.prenom}</label>
+					<label for="emailUtilisateur">Email : ${utilisateur.email}</label>
+					<label for="telephoneUtilisateur">Téléphone : ${utilisateur.telephone}</label>
+					<label for="rueUtilisateur">Rue : ${utilisateur.rue}</label>
+					<label for="codePostalUtilisateur">Code Postal : ${utilisateur.codePostal}</label>
+					<label for="villeUtilisateur">Ville : ${utilisateur.ville}</label>
+		        </c:otherwise>
+		    </c:choose>
+			</div>
 		</div>
 	</div>
 

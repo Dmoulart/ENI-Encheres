@@ -1,5 +1,7 @@
 package fr.eni.troc.service;
 
+import java.util.List;
+
 import fr.eni.troc.bo.Utilisateur;
 import fr.eni.troc.dal.DALFactory;
 import fr.eni.troc.dal.UtilisateurDal;
@@ -49,6 +51,19 @@ public class UtilisateurManager {
 	    be = new BusinessException();
 	    be.addError(de.getMessage());
 	    be.getErrors().forEach(e -> System.out.println(e));
+	    throw be;
+	}
+    }
+    
+    public List<Utilisateur> selectAll() throws BusinessException {
+	List<Utilisateur> utilisateur;
+	try {
+	    utilisateur = utilisateurDal.selectAll();
+	    return utilisateur;
+	} catch (DALException de) {
+	    de.printStackTrace();
+	    BusinessException be = new BusinessException();
+	    be.addError(de.getMessage());
 	    throw be;
 	}
     }
