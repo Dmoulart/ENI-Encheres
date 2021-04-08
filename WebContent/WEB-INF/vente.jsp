@@ -40,22 +40,27 @@
 			</div>
 		</div>
 
-		<div class="VenteFormContainer">
+		<div class="VenteFormContainer Card">
 
 			<form class="VenteForm" action="./VenteServlet" method="post">
 
 				<div class="VenteFields">
-
+					<c:if test="${!empty errors}">
+						<c:forEach var="error" items="${errors}">
+							<div class="Alert-error">${error}</div>
+						</c:forEach>
+					</c:if>
 					<div class="VenteField">
 						<label for="nomArticle">Article :</label> <input type="text"
 							placeholder="Nom de l'Article..." id="nomArticle"
-							name="nomArticle" required>
+							name="nomArticle" required maxlength="30">
 					</div>
 
 					<div class="VenteField">
 						<label for="descriptionArticle">Description :</label> <input
 							type="text" placeholder="Description de l'Article..."
-							id="descriptionArticle" name="descriptionArticle" required>
+							id="descriptionArticle" name="descriptionArticle" maxlength="300"
+							required>
 					</div>
 
 					<div class=" VenteField ">
@@ -71,27 +76,27 @@
 					<div class=" VenteField ">
 						<label>Image :</label> <img id="output" width="300" />
 						<div class="ButtonContainer " style="width: 55%;">
-						<button type="button" class="UploadImageButton"
-							>
-							<label for="file" style="cursor: pointer;">Uploader</label>
-						</button>
-						<input type="file" accept="image/*" name="image" id="file"
-							onchange="loadFile(event)" style="visibility: hidden;" required>
+							<button type="button" class="UploadImageButton">
+								<label for="file" style="cursor: pointer;">Uploader</label>
+							</button>
+							<input type="file" accept="image/*" name="image" id="file"
+								onchange="loadFile(event)" style="visibility: hidden;" required>
 
-						<script>
-							var loadFile = function(event) {
-								var image = document.getElementById('output');
-								image.src = URL
-										.createObjectURL(event.target.files[0]);
-							};
-						</script>
+							<script>
+								var loadFile = function(event) {
+									var image = document
+											.getElementById('output');
+									image.src = URL
+											.createObjectURL(event.target.files[0]);
+								};
+							</script>
+						</div>
 					</div>
-					</div>
-					
+
 
 					<div class="VenteField">
 						<label for="nomArticle">Mise à prix</label> <input class=""
-							type="number" value="42" id="prixEnchere" name="prixEnchere"
+							type="number" value="30" id="prixEnchere" name="prixEnchere"
 							required>
 					</div>
 
@@ -115,27 +120,24 @@
 					<div class="VenteField">
 						<label for="nomArticle">Rue</label> <input type="text"
 							value="${utilisateurEnSession.rue}" id="rueRetrait"
-							name="rueRetrait" required>
+							name="rueRetrait" maxlength="30" required>
 					</div>
 					<div class="VenteField">
 						<label for="descriptionArticle">Code Postal</label> <input
 							type="text" value="${utilisateurEnSession.codePostal}"
-							id="CodePostalRetrait" name="CodePostalRetrait" required>
+							id="CodePostalRetrait" name="CodePostalRetrait" maxlength="15"
+							required>
 					</div>
 					<div class="VenteField">
 						<label for="descriptionArticle">Ville</label> <input type="text"
-							value="${utilisateurEnSession.ville}" id="villeRetrait"
-							name="villeRetrait" required>
+							value="${utilisateurEnSession.ville}" maxlength="30"
+							id="villeRetrait" name="villeRetrait" required>
 					</div>
 
 				</div>
-				<c:if test="${!empty errors}">
-					<c:forEach var="error" items="${errors}">
-						<div class="Alert-error">${error}</div>
-					</c:forEach>
-				</c:if>
+
 				<div class="ButtonContainer ">
-				
+
 					<button type="submit" id="venteValider" class="VenteValider">Mise
 						en vente</button>
 				</div>

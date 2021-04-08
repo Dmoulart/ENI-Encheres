@@ -44,7 +44,7 @@
 	
 	<div class="ProfilPage">
 		<div class="ProfilFormContainer">
-			<form class="ProfilForm" action="./ModifierProfilServlet" method="post">
+			<form class="ProfilForm Card" action="./ModifierProfilServlet" method="post">
 				<div class="ProfilFields">
 					
 					<label for="pseudoUtilisateur">Pseudo</label>

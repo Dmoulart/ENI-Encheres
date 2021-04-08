@@ -26,6 +26,12 @@ nav{
     margin : 0.5em;
     animation: fadein 2.2s cubic-bezier(0.645, 0.045, 0.355, 1) ;
 }
+.Page-TitleContainer h1 {
+	text-shadow: 2px 2px 2px black;
+}
+.Page-TitleContainer h2 {
+	text-shadow: 2px 2px 2px black;
+}
 /*-----SEARCH SECTION-----*/
 .SearchBlocContainer{
 	display:flex;
@@ -47,6 +53,8 @@ nav{
 
 .Search_filter{
     margin-block-end: 0.5vh;
+    text-shadow: 2px 2px 2px black;
+    
 }
 .Search_paramsContainer{
     display:flex;
@@ -124,7 +132,7 @@ nav{
     display:flex;
     flex-flow: row nowrap;
     height: 12.5rem;
-    max-width: 45%;
+    width: 45%;
     border: 1px solid;
     margin-block-end: 2rem;
     background-color: var(--secondary-color);
@@ -147,6 +155,13 @@ nav{
 .Search_categoryContainer select{
     min-width:12.5vw;
     height: 30%;
+}
+.Article_name {
+	font-weight: 1000;
+	font-size: 1.15rem;
+}
+.Logo a {
+	text-shadow: 2px 2px 2px black;
 }
 @media (max-width: 800px) {
     .Page-TitleContainer{
@@ -171,7 +186,7 @@ nav{
         justify-content: center;
     }
     .ArticleContainer{
-        max-width: 85%;
+        width: 85%;
     }
     
 

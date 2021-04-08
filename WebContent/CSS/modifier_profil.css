@@ -31,6 +31,7 @@ input{
     flex-wrap: wrap-reverse;
     justify-content: space-evenly;
     width: 100%;
+
 }
 
 .ProfilForm{
@@ -38,7 +39,8 @@ input{
     flex-flow: column nowrap;
     justify-content: space-evenly;
     height: 100%;
-    width: 65%;
+    width: 40%;
+        padding-inline:3rem;
 }
 .ProfilFields{
     display: flex;

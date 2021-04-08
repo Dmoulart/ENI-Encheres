@@ -35,7 +35,7 @@
      </c:if> 
      
     <div class="ConnexionPage">
-        <div class="ConnexionFormContainer">
+        <div class="ConnexionFormContainer Card">
             <form class="ConnexionForm" action="./ConnectionServlet" method="post">
                 <div class="ConnexionFields">
                     <label for="nomUtilisateur">Identifiant</label>

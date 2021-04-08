@@ -2,7 +2,9 @@ label {
 	margin-block: 2vh;
 	display: flex;
 }
-
+img{
+	margin-inline: 2.3vw;	
+}
 input {
 	min-height: 2.1rem;
 }
@@ -192,7 +194,17 @@ select{
 		font-size: 0.8rem;
 	}
 }
-
+@media ( max-height : 600px) {
+	.VenteFormContainer {
+		width: 100%;
+	}
+	.VenteField {
+		width: 80%;
+	}
+	label {
+		font-size: 0.8rem;
+	}
+}
 @media ( max-width : 400px) {
 	.VenteOptions {
 		font-size: 0.8rem;

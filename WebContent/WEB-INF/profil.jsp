@@ -42,7 +42,7 @@
 	
 	
 	<div class="ProfilPage">
-		<div class="ProfilFormContainer">
+		<div class="ProfilFormContainer Card">
 			<form class="ProfilForm" action="./ProfilServlet" method="post">
 				<div class="ProfilFields">
 					

@@ -57,7 +57,7 @@ public class InscriptionServlet extends HttpServlet {
 	    utilisateur.setCodePostal(codePostal);
 	    utilisateur.setVille(ville);
 	    utilisateur.setMotDePasse(motDePasse);
-	    
+	    utilisateur.setCredit(100);
 	try {
 	    UtilisateurManager.getUtilisateurManager().creer(utilisateur, confiMotDePasse);
 	    HttpSession session = request.getSession();

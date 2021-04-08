@@ -50,8 +50,9 @@
 				${article.finEncheres.toString()}</div>
 			<div class="Article_properties retrait">Retrait :
 				${article.retrait.rue}
+				${article.retrait.codePostal}
 				${article.retrait.ville}
-				${article.retrait.codePostal}</div>
+				</div>
 			<div class="Article_properties vendeur">Vendeur:
 				${article.vendeur.nom}</div>
 			<form action="./ArticleServlet" method="POST">
@@ -69,7 +70,7 @@
 							max="${2147483647}" required> <input
 							type="hidden" name="articleId" id="articleId" value="${article.id}">
 							
-						<button type="submit" name="encherir">Enchérir</button>
+						<button type="submit" name="encherir" class="EncherirButton">Enchérir</button>
 					</c:if>
 					<c:if test="${peutEncherir eq 'articleVendu' && utilisateurEnSession.id != article.encheres.get(article.encheres.size()-1).emetteur.id}">
 						<div><p>L'article a trouvé un acquéreur, il s'agit de : ${article.encheres.get(article.encheres.size()-1).emetteur.pseudo}</p></div>

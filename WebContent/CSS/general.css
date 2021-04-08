@@ -46,6 +46,9 @@ input{
 	 border-radius:5px;
 	 cursor: pointer;
 }
+input[type=text]  {
+	cursor:text;
+}
 select {
 	border-radius: 10px;
     border-style: none;
@@ -74,6 +77,12 @@ dropdown-item {
 	display: block;
 	border-radius: 10px;
     border-style: none;
+}
+.Card {
+	border: 2px solid var(--secondary-color);
+    border-radius : 10px;
+    background-color: var(--secondary-color);
+    box-shadow: 5px 5px 5px 5px var(--background-color-darker);
 }
 .Alert-error {
     display: flex;
