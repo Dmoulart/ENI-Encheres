@@ -37,6 +37,7 @@ public class ModifierProfilServlet extends HttpServlet {
 	HttpSession session = request.getSession();
 	Utilisateur utilisateur = (Utilisateur) session.getAttribute("utilisateurEnSession");
 	Utilisateur utilisateurModifie = new Utilisateur(); 
+	
 
 	// Récupération de la saisie
 	request.setCharacterEncoding("UTF-8");
@@ -52,15 +53,6 @@ public class ModifierProfilServlet extends HttpServlet {
 	String newmotDePasse = request.getParameter("mdpUtilisateur").trim();
 	String confiMotDePasse = request.getParameter("mdpConfUtilisateur").trim();
 
-	System.out.println("Pseudo : " + newpseudo);
-	System.out.println("Nom : " + newnom);
-	System.out.println("Prenom : " + newprenom);
-	System.out.println("Email : " + newemail);
-	System.out.println("Telephone : " + newtelephone);
-	System.out.println("Rue : " + newrue);
-	System.out.println("Code Postal : " + newcodePostal);
-	System.out.println("Ville : " + newville);
-	System.out.println("Mot de Passe : " + newmotDePasse);
 	
 
 	// Vérification pour savoir qu'elle sont les infos à modifié sur l'utilisateur

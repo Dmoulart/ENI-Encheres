@@ -203,4 +203,18 @@ public class ArticleManager {
 	    throw be;
 	}
     }
+    
+    public void delete(final int id) throws BusinessException{
+	try {
+	    articleDal.delete(id);
+	} catch (DALException de) {
+	    
+	    de.printStackTrace();
+	    BusinessException be = new BusinessException();
+	    be.addError(de.getMessage());
+	    throw be;
+	}
+    }
+    
+    
 }

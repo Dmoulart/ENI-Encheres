@@ -73,6 +73,7 @@
                	</div>
             </form> 
 		</div>    
+
 	</div>
 		<div class="form-popup" id="myForm">
 		  <form  class="ProfilFormPopup" action="./SupprimerProfilServlet" method="get">
@@ -96,5 +97,6 @@
 			  document.getElementById("myForm").style.display = "none";
 			}
 		</script>    
+
 </body>
 </html>
