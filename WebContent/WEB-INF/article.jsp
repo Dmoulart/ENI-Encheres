@@ -70,7 +70,13 @@
 							
 						<button type="submit" name="encherir">Enchérir</button>
 					</c:if>
+					<c:if test="${peutEncherir eq 'articleVendu' && utilisateurEnSession.id != article.encheres.get(article.encheres.size()-1).emetteur.id}">
+						<div><p>L'article a trouvé un acquéreur, il s'agit de : ${article.encheres.get(article.encheres.size()-1).emetteur.pseudo}</p></div>
+					</c:if>
 					
+					<c:if test="${peutEncherir eq 'articleVendu' && utilisateurEnSession.id == article.encheres.get(article.encheres.size()-1).emetteur.id}">
+						<div><p>Bravo vous avez remporté l'article</p></div>
+					</c:if>
 				</div>
 			</form>
 		</div>

@@ -22,11 +22,11 @@ import fr.eni.troc.service.UtilisateurManager;
 public class AdminServletSuppr extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-	/**
+	/*
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Utilisateur utilisateur;
+		/*Utilisateur utilisateur;
 		try {
 		    utilisateur = UtilisateurManager.getUtilisateurManager().selectById(utilisateur.getId());
 			//Appel de la BLL
@@ -41,7 +41,7 @@ public class AdminServletSuppr extends HttpServlet {
 		    // TODO Auto-generated catch block
 		    e1.printStackTrace();
 		}
-
+*/
 	}
 
 	/**

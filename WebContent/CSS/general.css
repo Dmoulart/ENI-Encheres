@@ -41,15 +41,32 @@ a {
 }
 input{
 	text-align: center;
+	 box-shadow: 5px 5px 5px 5px var(--background-color-darker);
+	 border-color: var(--background-color-darker);
+	 border-radius:5px;
+	 cursor: pointer;
+}
+select {
+	border-radius: 10px;
+    border-style: none;
+	box-shadow: 5px 5px 5px 5px var(--background-color-darker);
+	cursor: pointer;
 }
 button {
     border-radius: 10px;
     border-style: none;
+    background-color:  var(--button-color);
+    color: var(--font-color);
+    box-shadow: 5px 5px 5px 5px var(--background-color-darker);
+}
+button:hover{
+    cursor: pointer;
 }
 dropdown-menu {
 	display: block;
 	border-radius: 10px;
     border-style: none;
+    
 }
 dropdown-item {
 	display: block;
@@ -93,6 +110,7 @@ dropdown-item {
 .Menu_item{
     display:flex;
     padding:1rem;
+    text-align:center;
 }
 a:visited {
     color: var(--visited-hyperlink-color);
@@ -104,13 +122,8 @@ a:visited {
     }
     nav {
         align-items: center;
-    }
-    .NavbarContainer, nav {
-        flex-flow: column;
-        width: 60vw;
-    }
-    .Logo {
-        margin-block-end: 1rem;
+        justify-content:center;
+        margin-block-start:2rem;
     }
 }
 @media (max-width: 400px) {
