@@ -42,14 +42,13 @@
 					<label for="codePostalUtilisateur">Code Postal : ${utilisateur.codePostal}</label>
 					<label for="villeUtilisateur">Ville : ${utilisateur.ville}</label>
 				<div class="ProfilButtonContainer">
-					<form class="ProfilButtonForm" action="./AdminServletDesac" method="get">
+					<a href="${pageContext.request.contextPath}/AdminServletSuppr?utilisateurId=${utilisateur.id}">
 						<button type="submit" id="DesactivationProfildmin" class="DesactiverProfilButton">Désactiver le compte</button>
-					</form>
+					</a>	
 				</div>
-				<div class="ProfilButtonContainer">
-					<form class="ProfilButtonForm" action="./AdminServletSuppr" method="get">
+					<a href="${pageContext.request.contextPath}/AdminServletSuppr?utilisateurId=${utilisateur.id}">
 						<button type="submit" id="suppresionProfilAdmin" class="SupprimerProfilButton">Supprimer le compte</button>
-					</form>
+					</a>
 				</div>
 		        </c:when>
 		        <c:otherwise>  
