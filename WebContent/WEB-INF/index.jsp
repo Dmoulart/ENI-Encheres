@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="CSS/index.css">
     <link rel="stylesheet" href="CSS/theme.css">
 </head>
-
+<canvas id="canvas1"></canvas>
 <body class ="Page">
 
     <div class="NavbarContainer">
@@ -228,7 +228,19 @@ radioMesVentes.onclick = () => {
 	
 	
 }
-
 </script>
+<script src="Canima/Support/Canvarea.js "></script>
+<script src="Canima/Geometry/Figure.js "></script>
+<script src="Canima/Geometry/Line.js "></script>
+<script src="Canima/Geometry/Curve.js "></script>
+<script src="Canima/Medium/Filter.js "></script>
+<script src="Canima/Medium/Brushstroke.js "></script>
+<script src="Canima/Color/Gradient.js "></script>
+<script src="Canima/Geometry/Text.js "></script>
+
+<script src="Canima/Architecture/Canima.js "></script>
+
+<script src="JS/brushStrokesDefs.js "></script>
+<script src="JS/canvasDisplay.js "></script>
 </body>
 </html>
