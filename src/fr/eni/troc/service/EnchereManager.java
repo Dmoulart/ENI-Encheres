@@ -77,4 +77,15 @@ public class EnchereManager {
 	}
 	
     }
+    
+    public void delete(final int id) throws DALException, BusinessException{
+	try {
+	enchereDal.delete(id);
+	} catch (DALException e1) {
+	    
+	BusinessException be = new BusinessException(e1.getMessage());
+	be.addError(e1.getMessage());
+	throw be;
+    }
+    }
 }
