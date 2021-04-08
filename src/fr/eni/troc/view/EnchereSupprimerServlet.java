@@ -31,9 +31,29 @@ public class EnchereSupprimerServlet extends HttpServlet {
 
     @Override
         protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	String articleId = request.getParameter("articleId");
-    	System.out.println(articleId);
     	
+	Article article = null;
+	System.out.println(request.getParameter("articleId"));
+	int articleId = Integer.parseInt(request.getParameter("articleId"));
+    	
+    	
+    	//Appel a la BLL
+    	try {
+    	    article = ArticleManager.getArticleManager().selectById(Integer.parseInt(request.getParameter("articleId")));
+    	    if(article.getDebutEncheres().isAfter(LocalDate.now()) ||
+    		article.getFinEncheres().isBefore(LocalDate.now())) {
+		request.setAttribute("peutEncherir", "false");
+	    }
+	    else {
+		request.setAttribute("peutEncherir", "true");
+	    }
+	    ArticleManager.getArticleManager().delete(articleId);
+	} catch (BusinessException e) {
+	    e.printStackTrace();
+	    request.setAttribute("errors", e.getErrors());
+	    request.getRequestDispatcher("/WEB-INF/vente.jsp").forward(request, response);
+	}
+    	request.getRequestDispatcher("./IndexServlet").forward(request, response);
         }
     
 

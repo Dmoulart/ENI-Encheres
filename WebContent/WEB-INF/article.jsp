@@ -14,6 +14,7 @@
 	rel="stylesheet">
 <link rel="stylesheet" href="CSS/general.css">
 <link rel="stylesheet" href="CSS/article.css">
+<link rel="stylesheet" href="CSS/SupprimerEnchere.css">
 <link rel="stylesheet" href="CSS/theme.css">
 </head>
 
@@ -77,10 +78,20 @@
 					<c:if test="${peutEncherir eq 'articleVendu' && utilisateurEnSession.id == article.encheres.get(article.encheres.size()-1).emetteur.id}">
 						<div><p>Bravo vous avez remporté l'article</p></div>
 					</c:if>
+					
 				</div>
 			</form>
+			
+				<c:if test="${utilisateurEnSession!=null && article.vendeur.id == utilisateurEnSession.id && peutEncherir eq 'false'}">
+					<div class="SupprimerVenteButtonContainer">
+                    	<a href="${pageContext.request.contextPath}/EnchereSupprimerServlet?articleId=${article.id}">
+							<button type="submit" id="DesactivationEnchere" class="SupprimerVenteButton">Annuler la vente</button>
+                    	</a>
+                	</div>
+				</c:if>
 		</div>
 	</div>
+	
 	<footer></footer>
 </body>
 </html>

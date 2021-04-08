@@ -68,11 +68,7 @@
 					<label for="mdpUtilisateur">Confirmation du mot de passe</label>
 						<input type="password" value="${utilisateurEnSession.motDePasse}" id="mdpConfUtilisateur" name="mdpConfUtilisateur">
 				</div>
-		
-		
-    
-    
-			
+
                <div class="ProfilButtonContainer">
                    <button type="submit" id="modificationProfilValider" class="ModifierProfilButton">Modifier le compte</button>
                </div>
@@ -88,12 +84,6 @@
 			</form>
 		</div>
               
-                
-                        
-         
-	
-    		
-  
-
+ 
 </body>
 </html>
