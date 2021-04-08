@@ -41,11 +41,6 @@
 					<label for="rueUtilisateur">Rue : ${utilisateur.rue}</label>
 					<label for="codePostalUtilisateur">Code Postal : ${utilisateur.codePostal}</label>
 					<label for="villeUtilisateur">Ville : ${utilisateur.ville}</label>
-				<div class="ProfilButtonContainer">
-					<a href="${pageContext.request.contextPath}/AdminServletSuppr?utilisateurId=${utilisateur.id}">
-						<button type="submit" id="DesactivationProfildmin" class="DesactiverProfilButton">Désactiver le compte</button>
-					</a>	
-				</div>
 					<a href="${pageContext.request.contextPath}/AdminServletSuppr?utilisateurId=${utilisateur.id}">
 						<button type="submit" id="suppresionProfilAdmin" class="SupprimerProfilButton">Supprimer le compte</button>
 					</a>
