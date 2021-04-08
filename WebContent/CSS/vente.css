@@ -1,103 +1,200 @@
-label{
-    margin-block: 2vh;
+label {
+	margin-block: 2vh;
+	display: flex;
 }
-input{
-    min-height: 2.1rem;
+
+input {
+	min-height: 2.1rem;
 }
-.Page{
-    display:flex;
-    flex-flow: column;
+
+select{
+    min-width:12.5vw;
+    min-height: 30%;
 }
-.VentePage{
-    display:flex;
-    flex-flow: column nowrap;
-    justify-content: center;
-    align-items: center;
-    height: calc(100vh - var(--navbar-height));
+
+.Page {
+	display: flex;
+	flex-flow: column;
 }
-.VenteFormContainer{
-    display:flex;
-    flex-wrap: wrap-reverse;
-    justify-content: space-evenly;
-    height: 70%;
-    width: 50%;
+
+.VentePage {
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: center;
+	align-items: center;
 }
-.VenteForm{
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: space-evenly;
-    height: 67%;
+
+.VenteIntroPage {
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: center;
+	align-items: center;
+	margin-block-start: 2em;
 }
-.VenteFields{
-    display: flex;
-    flex-flow: column nowrap;
+
+.VenteFormContainer {
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: center;
+	align-items: center; height : 90%;
+	width: 50%;
+	height: 90%;
 }
-.VenteValidation{
-    display:flex;
-    margin-block-start: 2vh;
+
+.VenteForm {
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: center;
+	align-items: center;
+	min-width: 100%;
 }
-.VenteOptions{
-    display:flex;
-    flex-flow: column nowrap;
-    width: 50%;
-    align-items: center;
+
+.VenteForm div {
+	margin-block: 1rem;
 }
-.VenteButtonContainer{
-	display:flex;
-    width: 100%;
-    height: 3em;
-    margin : 1em;
-    justify-content : center;
+
+.VenteFields {
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: center;
+	align-items: center;
+	min-width: 100%;
 }
-.VenteButton{
-    width: 100%;
-    
+
+.VenteField {
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: flex-start;
+	align-items: center;
+	width: 70%;
 }
-.VenteValider{
-    width: 50%;
-    height: 3em;
-    margin : 1em;
-    justify-content : center;
+
+.VenteField label {
+	/*margin-inline-end: 2rem;*/
+	width: 20%;
 }
-.Subscribe{
-    margin-block-start: 7vh;
-    height:33%;
+
+.VenteField input {
+	width: 80%;
 }
-.VenteOptions option{
-    margin-inline-start: 2vw;
+
+.UploadField {
+	align-items: center;
 }
+
+.UploadImage {
+	display: flex;
+	align-items: center;
+	width: 100%;
+}
+
+.UploadImageButton {
+	min-width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+.UploadImageButton label {
+	display: flex;
+	justify-content: center;
+	width:100%;
+}
+
+.RetraitFieldSet {
+	display: flex;
+	flex-flow: column;
+	width: 100%;
+}
+
+.VenteValidation {
+	display: flex;
+	margin-block-start: 2vh;
+}
+
+.VenteOptions {
+	display: flex;
+	flex-flow: column nowrap;
+	width: 50%;
+	align-items: center;
+}
+
+.VenteButtonContainer {
+	display: flex;
+	width: 100%;
+	height: 3em;
+	margin: 1em;
+	justify-content: center;
+}
+
+.VenteButton {
+	width: 100%;
+}
+
+.VenteValider {
+	width: 70%;
+	height: 3em;
+	justify-content: center;
+}
+
+.Subscribe {
+	margin-block-start: 7vh;
+	height: 33%;
+}
+
+.VenteOptions option {
+	margin-inline-start: 2vw;
+}
+
 .form-control {
-	display:flex;
-    width: 100%;
+	display: flex;
+	width: 100%;
 }
+
 .dropdownVente {
-  display: flex;
-  height:100%;
-  flex-flow: column nowrap;
-  width: 100%;
+	display: flex;
+	height: 100%;
+	flex-flow: column nowrap;
+	width: 50%;
 }
-.VenteIntroPage{
-    display:flex;
-    flex-flow: column nowrap;
-    justify-content: center;
-    align-items: center;
-    height: calc(25vh - var(--navbar-height));
-    margin : 2em;
+
+.ButtonContainer {
+	display: flex;
+	justify-content: center;
+	width: 100%;
 }
-.VenteIntroFormContainer{
-    display:flex;
-    flex-wrap: wrap-reverse;
-    justify-content: space-evenly;
-    height: 10%;
-    width: 100%;
+
+.MiseEnVenteButton {
+	width: 100%;
 }
-@media (max-width: 670px){
-    .VenteFormContainer{
-        width: 80%;
-    }
+
+.VenteIntroFormContainer {
+	display: flex;
+	flex-wrap: wrap-reverse;
+	justify-content: space-evenly;
+	height: 10%;
+	width: 100%;
 }
-@media (max-width: 400px){
-    .VenteOptions{
-        font-size: 0.8rem;
-    }
+
+.VenteValiderContainer {
+	width: 50%;
+	justify-content: flex-start;
+	margin-inline-start: calc(20% + 2rem);
+}
+
+@media ( max-width : 800px) {
+	.VenteFormContainer {
+		width: 100%;
+	}
+	.VenteField {
+		width: 80%;
+	}
+	label {
+		font-size: 0.8rem;
+	}
+}
+
+@media ( max-width : 400px) {
+	.VenteOptions {
+		font-size: 0.8rem;
+	}
 }

@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="CSS/index.css">
     <link rel="stylesheet" href="CSS/theme.css">
     <link rel="stylesheet" href="CSS/modifier_profil.css">
-   
+       
 </head>
 
 <body class ="Page">
@@ -68,22 +68,35 @@
 					<label for="mdpUtilisateur">Confirmation du mot de passe</label>
 						<input type="password" value="${utilisateurEnSession.motDePasse}" id="mdpConfUtilisateur" name="mdpConfUtilisateur">
 				</div>
+              	<div class="ProfilButtonContainer">
+                   	<button type="submit" id="modificationProfilValider" class="ModifierProfilButton">Modifier le compte</button>
+               	</div>
+            </form> 
+		</div>    
 
-               <div class="ProfilButtonContainer">
-                   <button type="submit" id="modificationProfilValider" class="ModifierProfilButton">Modifier le compte</button>
-               </div>
-            
-             </form> 
-           </div>    
-			
 	</div>
-	
-		 <div class="ProfilButtonContainer">
-            <form class="ProfilButtonForm" action="./SupprimerProfilServlet" method="get">
-       			<button type="submit" id="suppresionProfil" class="SupprimerProfilButton">Supprimer le compte</button>
+		<div class="form-popup" id="myForm">
+		  <form  class="ProfilFormPopup" action="./SupprimerProfilServlet" method="get">
+		    <h3>Confirmer la suppression du compte : </h3>
+			<button type="submit" class="PopupProfilButton">Supprimer</button>
+		    <button type="button" class="PopupProfilButton" onclick="closeForm()">Annuler</button>
+		  </form>
+		</div>
+	<div class="ProfilButtonContainer">	
+		<button class="open-button" onclick="openForm()">Supprimer le compte</button>
+	</div>
+		<div class="form-popup" id="myForm">
+			<form action="/action_page.php" class="form-container">
 			</form>
 		</div>
-              
- 
+        <script>
+			function openForm() {
+			  document.getElementById("myForm").style.display = "block";
+			}	
+			function closeForm() {
+			  document.getElementById("myForm").style.display = "none";
+			}
+		</script>    
+
 </body>
 </html>

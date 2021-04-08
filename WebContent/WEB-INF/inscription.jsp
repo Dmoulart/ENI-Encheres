@@ -64,9 +64,9 @@
 					<label for="villeUtilisateur">Ville</label>
 						<input type="text" placeholder="Votre ville..." id="villeUtilisateur" name="villeUtilisateur" maxlength="50" required>
 					<label for="mdpUtilisateur">Mot de passe</label>
-						<input type="text" placeholder="Votre mot de passe..." id="mdpUtilisateur" name="mdpUtilisateur" maxlength="30" required>
+						<input type="password" placeholder="Votre mot de passe..." id="mdpUtilisateur" name="mdpUtilisateur" maxlength="30" required>
 					<label for="mdpUtilisateur">Confirmation</label>
-						<input type="text" placeholder="La confirmation de votre mot de passe..." name="mdpConfUtilisateur" maxlength="30"required>
+						<input type="password" placeholder="La confirmation de votre mot de passe..." name="mdpConfUtilisateur" maxlength="30"required>
 				</div>
 				<div class="InscriptionValidation">
 					<div class="InscriptionButtonContainer">

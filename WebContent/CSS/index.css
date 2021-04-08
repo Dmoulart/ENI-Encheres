@@ -2,6 +2,14 @@ html{
 	--searchBloc-width:60vw;
     --searchBloc-height: 15vh;
     --main-inline-margin: calc(var(--searchBloc-width)*0.08);
+
+}
+canvas {
+	position: absolute;
+	z-index:-3000;
+}
+nav{
+	 animation: cubic-bezier(0.645, 0.045, 0.355, 1) 2.5s fadein;
 }
 .Page{
     display:flex;
@@ -16,11 +24,13 @@ html{
     width:90vw;
     height:10vh;
     margin : 0.5em;
+    animation: fadein 2.2s cubic-bezier(0.645, 0.045, 0.355, 1) ;
 }
 /*-----SEARCH SECTION-----*/
 .SearchBlocContainer{
 	display:flex;
 	flex-flow:column nowrap;
+	animation: cubic-bezier(0.645, 0.045, 0.355, 1) 2s fadein;
 	
 }
 .SearchContainer{
@@ -121,6 +131,7 @@ html{
     border-radius: 15px;
     border-color: var(--background-color-darker);
     box-shadow: 5px 5px 5px 5px var(--background-color-darker);
+    animation: cubic-bezier(0.645, 0.045, 0.355, 1) 2s fadein;
 }
 .Article_image{
     min-width: 12.5vw;

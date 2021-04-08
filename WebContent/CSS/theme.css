@@ -23,6 +23,7 @@ html{
     --hyperlink-color: white;
     --visited-hyperlink-color:white;
     --button-color:#7989a7;
+    --button-color-hover: #5b6c8b;
     background-color: var(--background-color);
     color: var(--font-color);
     font-family: "Comfortaa", cursive;

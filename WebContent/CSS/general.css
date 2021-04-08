@@ -58,9 +58,11 @@ button {
     background-color:  var(--button-color);
     color: var(--font-color);
     box-shadow: 5px 5px 5px 5px var(--background-color-darker);
+    transition: 0.3s;
 }
 button:hover{
     cursor: pointer;
+    background-color: var(--button-color-hover);
 }
 dropdown-menu {
 	display: block;
@@ -139,7 +141,6 @@ a:visited {
         opacity: 1;
     }
 }
-
 /* POPUP DE SUPPRESSION */
 .open-button {
   border-style: none;

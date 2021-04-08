@@ -25,37 +25,22 @@ public class AdminServletSuppr extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-	//int utilisateurId = Integer.parseInt(request.getParameter("utilisateurId"));
-	String utilisateurId = request.getParameter("utilisateurId");
-	System.out.println(utilisateurId);
-	/*
-	    UtilisateurManager.getUtilisateurManager().selectById(utilisateurId);
-
-		/*Utilisateur utilisateur;
-		try {
-		    utilisateur = UtilisateurManager.getUtilisateurManager().selectById(id);
-			//Appel de la BLL
-			try {
-			    UtilisateurManager.getUtilisateurManager().delete(utilisateur.getId());
-			    System.out.println("Id a supprimer : " + utilisateur.getId());
-			} catch (BusinessException e) {
-			    // TODO Auto-generated catch block
-			    e.printStackTrace();
-			}
-		} catch (BusinessException e1) {
-		    // TODO Auto-generated catch block
-		    e1.printStackTrace();
-		}
-
-	 */
+	    System.out.println(request.getParameter("utilisateurId"));
+	    int utilisateurId = Integer.parseInt(request.getParameter("utilisateurId"));
+	//String utilisateurId = request.getParameter("utilisateurId");
+        	try {
+        	    UtilisateurManager.getUtilisateurManager().delete(utilisateurId);
+        	    System.out.println("Id a supprimer : " + utilisateurId);
+        	} catch (BusinessException e) {
+        	    e.printStackTrace();
+        	}
+	request.getRequestDispatcher("WEB-INF/index.jsp").forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 	}
 
 }

@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="CSS/index.css">
     <link rel="stylesheet" href="CSS/theme.css">
 </head>
-
+<canvas id="canvas1"></canvas>
 <body class ="Page">
 
     <div class="NavbarContainer">
@@ -25,14 +25,12 @@
      		<c:choose>
 				
      			<c:when test="${utilisateurEnSession!=null && utilisateurEnSession.administrateur==false}">  
-		            	<li class="Menu_item"><a class="link" href="./EnchereServlet">Enchères</a></li>
 		                <li class="Menu_item"><a class="link" href="./VenteServlet">Vendre un article</a></li>
 		                <li class="Menu_item"><a class="link" href="./ProfilServlet">Mon Profil</a></li>
 		                <li class="Menu_item"><a href="./DeconnectionServlet" class="link">Se deconnecter</a></li>
 		        </c:when>
 		        <c:when test="${utilisateurEnSession!=null && utilisateurEnSession.administrateur==true}">  
-     					<li class="Menu_item"><a class="link" href="./AdminServlet">Administration</a></li>
-		            	<li class="Menu_item"><a class="link" href="./EnchereServlet">Enchères</a></li>
+     					<p><h6>Administration </h6><p>
 		                <li class="Menu_item"><a class="link" href="./VenteServlet">Vendre un article</a></li>
 		                <li class="Menu_item"><a class="link" href="./ProfilServlet">Mon Profil</a></li>
 		                <li class="Menu_item"><a href="./DeconnectionServlet" class="link">Se deconnecter</a></li>
@@ -144,7 +142,7 @@
 	  				<c:param name="articleId" value="${article.id}" />
 				</c:url>
 					<div class="ArticleContainer">
-			           <img src="" class="Article_image">
+			           <img src="./image/I-am-Jewellery.jpg" width="30" class="Article_image">
 			            <div class="Article_informationsContainer">
 			              <c:choose> 
 				              	<c:when test="${utilisateurEnSession!=null}"> 
@@ -228,7 +226,19 @@ radioMesVentes.onclick = () => {
 	
 	
 }
-
 </script>
+<script src="Canima/Support/Canvarea.js "></script>
+<script src="Canima/Geometry/Figure.js "></script>
+<script src="Canima/Geometry/Line.js "></script>
+<script src="Canima/Geometry/Curve.js "></script>
+<script src="Canima/Medium/Filter.js "></script>
+<script src="Canima/Medium/Brushstroke.js "></script>
+<script src="Canima/Color/Gradient.js "></script>
+<script src="Canima/Geometry/Text.js "></script>
+
+<script src="Canima/Architecture/Canima.js "></script>
+
+<script src="JS/brushStrokesDefs.js "></script>
+<script src="JS/canvasDisplay.js "></script>
 </body>
 </html>
