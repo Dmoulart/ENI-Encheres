@@ -43,6 +43,9 @@ public class ArticleServlet extends HttpServlet {
 	    else {
 		request.setAttribute("peutEncherir", "true");
 	    }
+	    if(article.getFinEncheres().compareTo(LocalDate.now()) <= 0){
+		request.setAttribute("peutEncherir", "articleVendu");
+	    }
 	    
 	} catch (BusinessException e) {
 	    e.printStackTrace();

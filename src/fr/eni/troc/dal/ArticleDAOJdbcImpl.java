@@ -43,7 +43,7 @@ public class ArticleDAOJdbcImpl implements ArticleDal {
 		try(Connection cnx = ConnectionProvider.getConnection()) {
 			PreparedStatement pstmt = cnx.prepareStatement(INSERT,PreparedStatement.RETURN_GENERATED_KEYS);
 			pstmt.setString(1, article.getNom());
-			pstmt.setString(2,article.getDescription());
+			pstmt.setString(2, article.getDescription());
 			pstmt.setDate(3, Date.valueOf(article.getDebutEncheres()));
 			pstmt.setDate(4, Date.valueOf(article.getFinEncheres()));
 			pstmt.setInt(5, article.getPrixInitial());

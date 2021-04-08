@@ -21,15 +21,18 @@ import fr.eni.troc.service.UtilisateurManager;
 public class AdminServletSuppr extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-	/**
+	/*
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 	//int utilisateurId = Integer.parseInt(request.getParameter("utilisateurId"));
 	String utilisateurId = request.getParameter("utilisateurId");
 	System.out.println(utilisateurId);
 	/*
 	    UtilisateurManager.getUtilisateurManager().selectById(utilisateurId);
+
+		/*Utilisateur utilisateur;
 		try {
 		    utilisateur = UtilisateurManager.getUtilisateurManager().selectById(id);
 			//Appel de la BLL
@@ -44,6 +47,7 @@ public class AdminServletSuppr extends HttpServlet {
 		    // TODO Auto-generated catch block
 		    e1.printStackTrace();
 		}
+
 	 */
 	}
 
