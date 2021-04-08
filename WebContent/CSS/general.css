@@ -27,6 +27,7 @@ body{
     animation: cubic-bezier(0.645, 0.045, 0.355, 1) 0.6s fadein;
 }
 nav{
+
     display:flex;
     flex-flow: row wrap;
     justify-content: space-between;
@@ -38,7 +39,9 @@ li{
 }
 a {
     color: var(--hyperlink-color);
+    text-decoration:none;
 }
+
 input{
 	text-align: center;
 	 box-shadow: 5px 5px 5px 5px var(--background-color-darker);
@@ -48,12 +51,19 @@ input{
 }
 input[type=text]  {
 	cursor:text;
+	 background: rgb(235,235,235);
+background: linear-gradient(94deg, rgba(235,235,235,1) 0%, rgba(255,255,255,1) 35%, rgba(218,218,218,1) 100%); 
+}
+input[type=text]:hover  {
+	cursor:text;	
 }
 select {
 	border-radius: 10px;
     border-style: none;
 	box-shadow: 5px 5px 5px 5px var(--background-color-darker);
 	cursor: pointer;
+	 background: rgb(235,235,235);
+background: linear-gradient(94deg, rgba(235,235,235,1) 0%, rgba(255,255,255,1) 35%, rgba(218,218,218,1) 100%); 
 }
 button {
     border-radius: 10px;
@@ -91,6 +101,7 @@ dropdown-item {
     color: rgb(216, 0, 12);
     background-color: rgb(255, 186, 186);
     height: 2em;
+    margin-block:1rem;
 }
 .dropdown {
   position: relative;
@@ -123,8 +134,13 @@ dropdown-item {
     padding:1rem;
     text-align:center;
 }
+
 a:visited {
     color: var(--visited-hyperlink-color);
+}
+a:hover {
+    border-bottom: 1px solid;
+    margin-bottom: -1px;
 }
 @media (max-width: 800px) {
     html {

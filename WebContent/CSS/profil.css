@@ -39,14 +39,30 @@ input{
     flex-flow: column nowrap;
     justify-content: space-evenly;
     height: 67%;
-    width: 65%;
+
     margin-block: 1.5em;
 }
 .ProfilFields{
     display: flex;
     flex-flow: column nowrap;
     margin-block: 2.5em;
+    align-items: center;
+    justify-content: center;
 }
+.ProfilField{
+	display:flex;
+	justify-content: space-between;
+	margin-block:1rem;
+	width:100%;
+}
+.TypeInfo{
+	width:50%;
+	font-weight:1000;
+}
+.PorfilInfo{
+	width:50%;
+}
+
 .ProfilValidation{
     display:flex;
     margin-block-start: 2vh;

@@ -32,7 +32,7 @@
         </nav>
     </div>
     
-	<div class="Page-TitleContainer"><h1>Votre profil sur ENI-Enchères</h1></div>
+	<div class="Page-TitleContainer"><h1>Mon profil</h1></div>
 	
 	 <c:if test="${!empty errors}">
       	<c:forEach var="error" items="${errors}">
@@ -45,16 +45,33 @@
 		<div class="ProfilFormContainer Card">
 			<form class="ProfilForm" action="./ProfilServlet" method="post">
 				<div class="ProfilFields">
-					
-					<label for="pseudoUtilisateur">Pseudo : ${utilisateurEnSession.pseudo}</label>
-					<label for="nomUtilisateur">Nom : ${utilisateurEnSession.nom}</label>
-					<label for="prenomUtilisateur">Prénom : ${utilisateurEnSession.prenom}</label>
-					<label for="emailUtilisateur">Email : ${utilisateurEnSession.email}</label>
-					<label for="telephoneUtilisateur">Téléphone : ${utilisateurEnSession.telephone}</label>
-					<label for="rueUtilisateur">Rue : ${utilisateurEnSession.rue}</label>
-					<label for="codePostalUtilisateur">Code Postal : ${utilisateurEnSession.codePostal}</label>
-					<label for="villeUtilisateur">Ville : ${utilisateurEnSession.ville}</label>
-					<label for="creditUtilisateur">Crédit : ${utilisateurEnSession.credit}</label>
+					<div class="ProfilField">
+						<span class="TypeInfo"> Pseudo  </span>  <span class="PorfilInfo">${utilisateurEnSession.pseudo}</span>
+					</div> 
+					<div class="ProfilField">
+						<span class="TypeInfo">Nom  </span>  <span class="PorfilInfo"> ${utilisateurEnSession.nom}</span>
+					</div> 
+					<div class="ProfilField">
+						<span class="TypeInfo">Prénom  </span> <span class="PorfilInfo">${utilisateurEnSession.prenom}</span>
+					</div> 
+					<div class="ProfilField">
+						<span class="TypeInfo">Email  </span> <span class="PorfilInfo">${utilisateurEnSession.email}</span> 
+					</div> 
+					<div class="ProfilField">
+						<span class="TypeInfo">éléphone   </span> <span class="PorfilInfo">${utilisateurEnSession.telephone}</span> 
+					</div> 
+					<div class="ProfilField">
+						<span class="TypeInfo">Rue  </span> <span class="PorfilInfo"> ${utilisateurEnSession.rue}</span> 
+					</div> 
+					<div class="ProfilField">
+						<span class="TypeInfo">Code Postal  </span> <span class="PorfilInfo"> ${utilisateurEnSession.codePostal}</span> 
+					</div> 
+					<div class="ProfilField">
+						<span class="TypeInfo"> Ville  </span> <span class="PorfilInfo"> ${utilisateurEnSession.ville}</span> 
+					</div> 
+					<div class="ProfilField">
+						<span class="TypeInfo"> Crédit  </span>  <span class="PorfilInfo">${utilisateurEnSession.credit}</span> 
+					</div>
 				</div>
 			</form>
 		</div>

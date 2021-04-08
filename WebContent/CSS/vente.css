@@ -18,7 +18,9 @@ select{
 	display: flex;
 	flex-flow: column;
 }
-
+.Page-TitleContainer{
+	margin-block-end: 3rem;
+}
 .VentePage {
 	display: flex;
 	flex-flow: column nowrap;
@@ -39,7 +41,7 @@ select{
 	flex-flow: column nowrap;
 	justify-content: center;
 	align-items: center; height : 90%;
-	width: 50%;
+	width: 40%;
 	height: 90%;
 }
 
@@ -48,7 +50,7 @@ select{
 	flex-flow: column nowrap;
 	justify-content: center;
 	align-items: center;
-	min-width: 100%;
+	width: 100%;
 }
 
 .VenteForm div {
@@ -60,24 +62,24 @@ select{
 	flex-flow: column nowrap;
 	justify-content: center;
 	align-items: center;
-	min-width: 100%;
+	width: 100%;
 }
 
 .VenteField {
 	display: flex;
 	flex-flow: row nowrap;
-	justify-content: flex-start;
+	justify-content: space-between;
 	align-items: center;
-	width: 70%;
+	width: 80%;
 }
 
 .VenteField label {
-	/*margin-inline-end: 2rem;*/
-	width: 20%;
+	/*! margin-inline-end: 2rem; */
+	width: 50%;
 }
 
 .VenteField input {
-	width: 80%;
+	width: 50%;
 }
 
 .UploadField {

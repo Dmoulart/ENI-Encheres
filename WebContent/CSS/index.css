@@ -129,6 +129,7 @@ nav{
     margin-block-start:10vh;
 }
 .ArticleContainer{
+	transition: 0.5s;
     display:flex;
     flex-flow: row nowrap;
     height: 12.5rem;
@@ -140,6 +141,10 @@ nav{
     border-color: var(--background-color-darker);
     box-shadow: 5px 5px 5px 5px var(--background-color-darker);
     animation: cubic-bezier(0.645, 0.045, 0.355, 1) 2s fadein;
+}
+.ArticleContainer:hover{
+	transition: 0.5s;
+	background-color: var(--secondary-color-active);
 }
 .Article_image{
     min-width: 12.5vw;
@@ -171,6 +176,10 @@ nav{
         flex-flow: column nowrap;
         margin-block-start:4rem;
     }
+    .Search_bar{
+
+    min-height: 2rem;
+}
     .Search_categoryContainer{
         order:-1;
     }

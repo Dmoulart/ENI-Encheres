@@ -115,7 +115,7 @@
 					</div>
 
 
-					<h2>Adresse de retrait</h2>
+					<h2 style="margin-block:1rem;">Adresse de retrait</h2>
 
 					<div class="VenteField">
 						<label for="nomArticle">Rue</label> <input type="text"

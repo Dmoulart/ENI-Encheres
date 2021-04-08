@@ -34,7 +34,7 @@
         </nav>
     </div>
     
-	<div class="Page-TitleContainer"><h1>Modification de votre profil sur ENI-Enchères</h1></div>
+	<div class="Page-TitleContainer"><h1>Modifier mon profil</h1></div>
 	
 	 <c:if test="${!empty errors}">
       	<c:forEach var="error" items="${errors}">

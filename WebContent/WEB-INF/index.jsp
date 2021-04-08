@@ -50,7 +50,7 @@
     
     <c:choose>
     	<c:when test="${utilisateurEnSession!=null}">
-   			 <div class="Page-TitleContainer"><h2>Bonjour ${utilisateurEnSession.prenom} ${utilisateurEnSession.nom}</h2></div>
+   			 <div class="Page-TitleContainer" style="height:auto;"><h2>Bonjour ${utilisateurEnSession.prenom} ${utilisateurEnSession.nom}</h2></div>
     	</c:when>
 	</c:choose>
 
