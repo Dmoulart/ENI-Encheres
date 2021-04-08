@@ -139,3 +139,33 @@ a:visited {
         opacity: 1;
     }
 }
+/* POPUP DE SUPPRESSION */
+.open-button {
+  border-style: none;
+  width:32%;
+}
+
+.form-popup {
+  display: none;
+  bottom: 0;
+  right: 15px;
+  border: 1px solid #f1f1f1;
+  z-index: 9;
+  background-color: grey;
+}
+
+.PopupProfilButton{
+	border-radius: 10px;
+	border-style: none;
+    height: 35%;
+    margin: 1em;
+    width:100%;
+}
+
+.ProfilFormPopup{
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}

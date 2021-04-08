@@ -30,4 +30,5 @@ public class DALFactory {
 	EnchereDal enchereDal = new EnchereDAOJdbcImpl();
 	return new EnchereDAOJdbcImpl();
     }
+
 }
