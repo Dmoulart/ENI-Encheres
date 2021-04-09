@@ -31,6 +31,7 @@ public class ArticleServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
+	HttpSession session = request.getSession();
 	Article article = null;
 	if(request.getParameter("articleId") == null) {
 	    request.getRequestDispatcher("./IndexServlet").forward(request, response);
@@ -46,9 +47,28 @@ public class ArticleServlet extends HttpServlet {
 	    else {
 		request.setAttribute("peutEncherir", "true");
 	    }
+	    
 	    if(article.getFinEncheres().compareTo(LocalDate.now()) <= 0){
 		request.setAttribute("peutEncherir", "articleVendu");
+		
+		if(article.getEncheres().size() == 0 ) {
+		    request.setAttribute("acquereur", "aucun");
+		}
+		else {
+		    
+		    int idAcquereur =  article.getEncheres().get(article.getEncheres().size()-1).getEmetteur().getId();
+		    
+		    if(idAcquereur == ((Utilisateur)session.getAttribute("utilisateurEnSession")).getId()) {
+			    request.setAttribute("acquereur", "utilisateurEnSession");
+		    }
+		    else {
+			request.setAttribute("acquereur", article.getEncheres().get(article.getEncheres().size()-1).getEmetteur().getPseudo());
+		    }
+		}
+		
 	    }
+	    
+	    
 	    
 	} catch (BusinessException e) {
 	    e.printStackTrace();

@@ -139,7 +139,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDal {
     public void insert(Utilisateur utilisateur) throws DALException {
 
 	try (Connection cnx = ConnectionProvider.getConnection()) {
-	    PreparedStatement insert = cnx.prepareStatement(INSERT);
+	    PreparedStatement insert = cnx.prepareStatement(INSERT, PreparedStatement.RETURN_GENERATED_KEYS);
 
 	    insert.setString(1, utilisateur.getPseudo());
 	    insert.setString(2, utilisateur.getNom());
@@ -154,6 +154,15 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDal {
 	    insert.setInt(11, 0);
 
 	    insert.executeUpdate();
+	    
+	    
+	    ResultSet generatedKey = insert.getGeneratedKeys(); 
+	    if ( generatedKey != null && generatedKey.next()) {
+		    utilisateur.setId((int)generatedKey.getLong(1)); 
+		}
+		else {
+		    throw new DALException();
+		}
 
 	} catch (SQLException e) {
 	    DALException de = new DALException(Errors.INSERT, this.getClass().getSimpleName(), e);
