@@ -67,7 +67,7 @@
 					<c:if test="${peutEncherir eq 'true' && article.vendeur.id != utilisateurEnSession.id}">
 						Ma proposition : <input type="number" id="montantEnchere" name="montantEnchere"
 							value="${article.prixVente +1 }" min="${article.prixVente +1}"
-							max="${2147483647}" required> <input
+							max="9999999" required> <input
 							type="hidden" name="articleId" id="articleId" value="${article.id}">
 							
 						<button type="submit" name="encherir" class="EncherirButton">Enchérir</button>

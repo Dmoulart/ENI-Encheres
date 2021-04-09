@@ -39,23 +39,18 @@ public class IndexServlet extends HttpServlet {
 	HttpSession session = request.getSession();
 
 	Utilisateur utilisateur = (Utilisateur) session.getAttribute("utilisateurEnSession");
-	/*
-	 * System.out.println("---------PARAMETER MAP--------------"); Map<String,
-	 * String[]> parameters = request.getParameterMap();
-	 * 
-	 * request.getParameterMap().forEach((k,v) -> { System.out.println(k + " : ");
-	 * Arrays.asList(v).forEach(s -> System.out.println(s)); });
-	 */
 
 	List<Article> articles = new ArrayList<>();
 	List<Categorie> categories = new ArrayList<>();
 
-	String categorieSelectionnee = (request.getParameter("selectCategorie") == null) ? "Toutes"
-		: request.getParameter("selectCategorie");
+	String categorieSelectionnee = (request.getParameter("selectCategorie") == null) ? 
+		"Toutes"
+		:
+		request.getParameter("selectCategorie");
 
 	String motsRecherches = request.getParameter("searchContent");
 	
-	if(!"on".equals(request.getParameter("achats"))/*Coche par défaut le paramètre de recherche achat:							 visible lorsque l'utilisateur est connecté*/
+	if(!"on".equals(request.getParameter("achats")) /*Coche par défaut le paramètre de recherche achat:							 visible lorsque l'utilisateur est connecté*/
 	 &&!"on".equals(request.getParameter("mesVentes")
 	 )){
 	   	request.setAttribute("defaultSearchParam", "on");
@@ -66,15 +61,8 @@ public class IndexServlet extends HttpServlet {
 	}
 	
 	
-	// Charge les categories
 	try {
 	    categories = CategorieManager.getCategorieManager().selectAll();
-	} catch (BusinessException e1) {
-	    e1.printStackTrace();
-	}
-
-	// Filtre les articles
-	try {
 	    
 	    articles = ArticleManager.getArticleManager().selectAll();
 	    
@@ -104,13 +92,14 @@ public class IndexServlet extends HttpServlet {
 		if ("on".equals(request.getParameter("mesEncheres"))) {
 		    articles = articles.stream()
 			    .filter(a -> !a.getEncheres().isEmpty())
-			    .filter(a -> a.getEncheres().get(0).getEmetteur().getId() == utilisateur.getId())
+			    .filter(a -> a.getEncheres().size() > 0)
+			    .filter(a -> a.getEncheres().get(a.getEncheres().size()-1).getEmetteur().getId() == utilisateur.getId())
 			    .collect(Collectors.toList());
 		}
 		if ("on".equals(request.getParameter("mesEncheresRemportees"))) {
 		    articles = articles.stream()
 			    .filter(a -> a.getFinEncheres().compareTo(LocalDate.now()) <= 0)
-			    .filter(a -> a.getEncheres().size() > 1)
+			    .filter(a -> a.getEncheres().size() > 0)
 			    .filter(a -> a.getEncheres().get(a.getEncheres().size()-1).getEmetteur().getId() == utilisateur.getId())
 			    .collect(Collectors.toList());
 		}
@@ -128,12 +117,16 @@ public class IndexServlet extends HttpServlet {
 		}
 
 		if ("on".equals(request.getParameter("ventesNonDebutees"))) {
-		    articles = articles.stream().filter(a -> a.getDebutEncheres().compareTo(LocalDate.now()) > 0)
+		    articles = articles.stream()
+			    .filter(a -> a.getVendeur().getId() == utilisateur.getId())
+			    .filter(a -> a.getDebutEncheres().compareTo(LocalDate.now()) > 0)
 			    .collect(Collectors.toList());
 		}
 
 		if ("on".equals(request.getParameter("ventesTerminees"))) {
-		    articles = articles.stream().filter(a -> a.getFinEncheres().compareTo(LocalDate.now()) < 0)
+		    articles = articles.stream()
+			    .filter(a -> a.getVendeur().getId() == utilisateur.getId())
+			    .filter(a -> a.getFinEncheres().compareTo(LocalDate.now()) < 0)
 			    .collect(Collectors.toList());
 		}
 

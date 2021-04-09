@@ -58,7 +58,7 @@
 						<span class="TypeInfo">Email  </span> <span class="PorfilInfo">${utilisateurEnSession.email}</span> 
 					</div> 
 					<div class="ProfilField">
-						<span class="TypeInfo">éléphone   </span> <span class="PorfilInfo">${utilisateurEnSession.telephone}</span> 
+						<span class="TypeInfo">Téléphone   </span> <span class="PorfilInfo">${utilisateurEnSession.telephone}</span> 
 					</div> 
 					<div class="ProfilField">
 						<span class="TypeInfo">Rue  </span> <span class="PorfilInfo"> ${utilisateurEnSession.rue}</span> 

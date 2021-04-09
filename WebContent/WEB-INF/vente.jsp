@@ -96,7 +96,7 @@
 
 					<div class="VenteField">
 						<label for="nomArticle">Mise à prix</label> <input class=""
-							type="number" value="30" id="prixEnchere" name="prixEnchere"
+							type="number" value="30" id="prixEnchere" name="prixEnchere" max="9999999"
 							required>
 					</div>
 
