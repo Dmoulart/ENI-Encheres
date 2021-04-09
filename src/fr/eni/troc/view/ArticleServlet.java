@@ -32,6 +32,9 @@ public class ArticleServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
 	Article article = null;
+	if(request.getParameter("articleId") == null) {
+	    request.getRequestDispatcher("./IndexServlet").forward(request, response);
+	}
 	try {
 	    article = ArticleManager.getArticleManager()
 		    .selectById(Integer.parseInt(request.getParameter("articleId")));
@@ -124,7 +127,7 @@ public class ArticleServlet extends HttpServlet {
 	    }
 	    
 	    ArticleManager.getArticleManager().update(e.getArticle()); // On update le prix de vente de l'article
-
+	    
 	    request.setAttribute("article", a);
 	    this.doGet(request, response);
 	    //request.getRequestDispatcher("/WEB-INF/article.jsp").forward(request, response);
@@ -138,6 +141,19 @@ public class ArticleServlet extends HttpServlet {
 	    } catch (BusinessException e1) {
 		request.getRequestDispatcher("./IndexServlet").forward(request, response);//Erreur
 	    }
+	    
+	    
+	    if(a.getDebutEncheres().isAfter(LocalDate.now()) ||
+		    a.getFinEncheres().isBefore(LocalDate.now())) {
+		request.setAttribute("peutEncherir", "false");
+	    }
+	    else {
+		request.setAttribute("peutEncherir", "true");
+	    }
+	    if(a.getFinEncheres().compareTo(LocalDate.now()) <= 0){
+		request.setAttribute("peutEncherir", "articleVendu");
+	    }
+	    
 	    
 	    request.getRequestDispatcher("/WEB-INF/article.jsp").forward(request, response);
 	}

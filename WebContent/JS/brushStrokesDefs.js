@@ -18,7 +18,7 @@ function mainBs() {
     let bs = new BrushStroke(curve, windowHeight * 0.04);
     bs.deviation = 25;
     bs.widthDistribution("random", [1, 10]);
-    bs.colorDistribution("gradient", ["#7989a7", "#7989a7"]);
+    bs.colorDistribution("gradient", ["#7989a7", "#c1c9d7"]);
 
     return bs;
 }

@@ -18,8 +18,10 @@ dans les autres feuilles de style, notamment la feuille "g�n�ral".
 html{
 	--background-color-darker: #1d242c;
     --background-color: #20262e;
+    --secondary-color-op: rgba(55,62,75,1);
     --secondary-color: rgba(55,62,75,0.3);
-    --font-color: #eeeeee;
+    --secondary-color-active: rgba(55,62,75,0.7);
+    --font-color: #e9e9e9;
     --hyperlink-color: white;
     --visited-hyperlink-color:white;
     --button-color:#7989a7;

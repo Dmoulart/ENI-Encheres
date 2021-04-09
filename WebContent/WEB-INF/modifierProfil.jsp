@@ -34,7 +34,7 @@
         </nav>
     </div>
     
-	<div class="Page-TitleContainer"><h1>Modification de votre profil sur ENI-Enchères</h1></div>
+	<div class="Page-TitleContainer"><h1>Modifier mon profil</h1></div>
 	
 	 <c:if test="${!empty errors}">
       	<c:forEach var="error" items="${errors}">
@@ -44,7 +44,7 @@
 	
 	<div class="ProfilPage">
 		<div class="ProfilFormContainer">
-			<form class="ProfilForm" action="./ModifierProfilServlet" method="post">
+			<form class="ProfilForm Card" action="./ModifierProfilServlet" method="post">
 				<div class="ProfilFields">
 					
 					<label for="pseudoUtilisateur">Pseudo</label>
