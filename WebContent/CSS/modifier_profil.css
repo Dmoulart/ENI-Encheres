@@ -85,7 +85,12 @@ input{
 .ProfilOptions option{
     margin-inline-start: 2vw;
 }
-@media (max-width: 670px){
+@media (max-width: 800px){
+	.ProfilForm{
+
+    width: 90%;
+
+}
     .ProfilFormContainer{
         width: 100%;
     }
