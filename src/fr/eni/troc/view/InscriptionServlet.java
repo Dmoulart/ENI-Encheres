@@ -61,6 +61,7 @@ public class InscriptionServlet extends HttpServlet {
 	try {
 	    UtilisateurManager.getUtilisateurManager().creer(utilisateur, confiMotDePasse);
 	    HttpSession session = request.getSession();
+	    
 	    session.setAttribute("utilisateurEnSession",utilisateur);
 	    request.getRequestDispatcher("./IndexServlet").forward(request, response);
 	} catch (BusinessException e) {

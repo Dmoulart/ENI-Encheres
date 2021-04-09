@@ -72,12 +72,17 @@
 							
 						<button type="submit" name="encherir" class="EncherirButton">Enchérir</button>
 					</c:if>
-					<c:if test="${peutEncherir eq 'articleVendu' && utilisateurEnSession.id != article.encheres.get(article.encheres.size()-1).emetteur.id}">
-						<div><p>L'article a trouvé un acquéreur, il s'agit de : ${article.encheres.get(article.encheres.size()-1).emetteur.pseudo}</p></div>
+					
+					<c:if test="${peutEncherir eq 'articleVendu' && acquereur eq 'aucun'}">
+						<div><p>L'article n'a pas trouvé d'acquéreur</p></div>
 					</c:if>
 					
-					<c:if test="${peutEncherir eq 'articleVendu' && utilisateurEnSession.id == article.encheres.get(article.encheres.size()-1).emetteur.id}">
+					<c:if test="${peutEncherir eq 'articleVendu' && acquereur eq 'utilisateurEnSession'}">
 						<div><p>Bravo vous avez remporté l'article</p></div>
+					</c:if>
+					
+					<c:if test="${peutEncherir eq 'articleVendu' && acquereur ne 'utilisateurEnSession' && acquereur ne 'aucun'}">
+						<div><p>L'article a trouvé un acquéreur, il s'agit de : ${article.encheres.get(article.encheres.size()-1).emetteur.pseudo}</p></div>
 					</c:if>
 					
 				</div>

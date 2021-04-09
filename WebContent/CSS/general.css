@@ -102,6 +102,7 @@ dropdown-item {
     background-color: rgb(255, 186, 186);
     height: 2em;
     margin-block:1rem;
+    border-radius:15px;
 }
 .dropdown {
   position: relative;
