@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="CSS/index.css">
     <link rel="stylesheet" href="CSS/theme.css">
     <link rel="stylesheet" href="CSS/profil.css">
+    <link rel="stylesheet" href="CSS/admin.css">
 </head>
 
 <body class ="Page">
@@ -28,8 +29,9 @@
         </nav>
     </div>
 	<div class="ProfilPage">
+	<div class="Page-TitleContainer"><h2>Profil du vendeur ${utilisateur.prenom} ${utilisateur.nom}</h2></div>
 		<div class="ProfilFormContainer">
-		<div class="Page-TitleContainer"><h2>Profil du vendeur ${utilisateur.prenom} ${utilisateur.nom}</h2></div>
+		
 			<div class="ProfilFields">
 			<c:choose>
 				<c:when test="${utilisateurEnSession!=null && utilisateurEnSession.administrateur==true}">  
@@ -41,8 +43,8 @@
 					<label for="rueUtilisateur">Rue : ${utilisateur.rue}</label>
 					<label for="codePostalUtilisateur">Code Postal : ${utilisateur.codePostal}</label>
 					<label for="villeUtilisateur">Ville : ${utilisateur.ville}</label>
-					<a href="${pageContext.request.contextPath}/AdminServletSuppr?utilisateurId=${utilisateur.id}">
-						<button type="submit" id="suppresionProfilAdmin" class="SupprimerProfilButton">Supprimer le compte</button>
+					<a href="${pageContext.request.contextPath}/AdminServletSuppr?utilisateurId=${utilisateur.id}" class="lienAdmin">
+						<button type="submit" id="suppresionProfilAdmin" class="SupprimerAdminButton">Supprimer le compte</button>
 					</a>
 				</div>
 		        </c:when>

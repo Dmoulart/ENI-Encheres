@@ -104,13 +104,14 @@ public class IndexServlet extends HttpServlet {
 		if ("on".equals(request.getParameter("mesEncheres"))) {
 		    articles = articles.stream()
 			    .filter(a -> !a.getEncheres().isEmpty())
-			    .filter(a -> a.getEncheres().get(0).getEmetteur().getId() == utilisateur.getId())
+			    .filter(a -> a.getEncheres().size() > 0)
+			    .filter(a -> a.getEncheres().get(a.getEncheres().size()-1).getEmetteur().getId() == utilisateur.getId())
 			    .collect(Collectors.toList());
 		}
 		if ("on".equals(request.getParameter("mesEncheresRemportees"))) {
 		    articles = articles.stream()
 			    .filter(a -> a.getFinEncheres().compareTo(LocalDate.now()) <= 0)
-			    .filter(a -> a.getEncheres().size() > 1)
+			    .filter(a -> a.getEncheres().size() > 0)
 			    .filter(a -> a.getEncheres().get(a.getEncheres().size()-1).getEmetteur().getId() == utilisateur.getId())
 			    .collect(Collectors.toList());
 		}
@@ -128,12 +129,16 @@ public class IndexServlet extends HttpServlet {
 		}
 
 		if ("on".equals(request.getParameter("ventesNonDebutees"))) {
-		    articles = articles.stream().filter(a -> a.getDebutEncheres().compareTo(LocalDate.now()) > 0)
+		    articles = articles.stream()
+			    .filter(a -> a.getVendeur().getId() == utilisateur.getId())
+			    .filter(a -> a.getDebutEncheres().compareTo(LocalDate.now()) > 0)
 			    .collect(Collectors.toList());
 		}
 
 		if ("on".equals(request.getParameter("ventesTerminees"))) {
-		    articles = articles.stream().filter(a -> a.getFinEncheres().compareTo(LocalDate.now()) < 0)
+		    articles = articles.stream()
+			    .filter(a -> a.getVendeur().getId() == utilisateur.getId())
+			    .filter(a -> a.getFinEncheres().compareTo(LocalDate.now()) < 0)
 			    .collect(Collectors.toList());
 		}
 
