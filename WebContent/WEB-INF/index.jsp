@@ -181,6 +181,8 @@ let radioMesVentes = document.getElementById("mesVentesRadio");
 let achatNodes = Array.from(document.getElementById("achatsOption").getElementsByTagName('INPUT'));
 let ventesNodes = Array.from(document.getElementById("ventesOption").getElementsByTagName('INPUT'));
 
+
+/*Check memorized input radios */
 if(radioAchat.checked === true){
 	ventesNodes.forEach((n,i) =>  {
 		if(i>0){
@@ -198,7 +200,7 @@ if(radioMesVentes.checked === true){
 		}
 	});
 }
-
+/*Check groupradio Constraints */
 radioAchat.onclick = () => {
 	radioAchat.checked = true;
 	radioMesVentes.checked = false;
@@ -224,8 +226,26 @@ radioMesVentes.onclick = () => {
 	});
 	ventesNodes.forEach(a => a.disabled = false);
 	
-	
+
 }
+achatNodes.filter((n,i) => i > 0)
+		  .forEach((n,i) => n.onclick = () => {
+			achatNodes.forEach((n,i2) => {
+				if (i2 !== i+1){
+					n.checked = false;
+					achatNodes[0].checked = true;
+				}
+			})
+})
+ventesNodes.filter((n,i) => i > 0)
+		  .forEach((n,i) => n.onclick = () => {
+			  ventesNodes.forEach((n,i2) => {
+				if (i2 !== i+1){
+					n.checked = false;
+					ventesNodes[0].checked = true;
+				}
+			})
+})
 </script>
 <script src="Canima/Support/Canvarea.js "></script>
 <script src="Canima/Geometry/Figure.js "></script>
